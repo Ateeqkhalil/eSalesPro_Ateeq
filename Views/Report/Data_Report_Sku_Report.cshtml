@@ -1,0 +1,19 @@
+﻿@model List<eSalesPro.Models.Product>
+
+@{
+    //decimal total_quantity = 0;
+    //decimal total_price = 0;
+    //decimal price = 0;
+    //decimal quantity = 0;
+}
+
+
+@foreach (var v in Model)
+{
+    <tr class="text-center">
+        <td class="" data-title="User ID">@v.Item_Title</td>
+        <td class="" data-title="User ID">@v.Quantity.Quantity1</td>
+        <td class="" data-title="User ID">@v.Price_Normal</td>
+        <td class="" data-title="User ID"></td>
+    </tr>
+}

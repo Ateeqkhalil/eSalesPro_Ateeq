@@ -1,0 +1,111 @@
+﻿
+
+
+<body id="body-index">
+
+
+    <div id="sticky-footer-wrap" style="min-height:0px;">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="black">
+                <div class="container-fluid">
+                    <div class="col-md-4">
+                        <img src="~/img/logo/esales_top.png" />
+                    </div>
+
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-6 col-xs-12">
+
+                        <form class="form-inline invoice-form" method="post" action="@Url.Action("Login","Home")" style="float:right; margin-right:-25px;margin-bottom:5px">
+                            <div class="form-group mt-20">
+                                <label class="control-label white">Remember me</label>
+                                <input id="remember_me" value="true" checked type="checkbox">
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label white">Username</label>
+                                <div class="clearfix"></div>
+
+                                <input id="username" class="form-control" type="text" name="username" placeholder="Username" required title="admin" style="width:120px; height:30px">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label white">Password</label>
+                                <div class="clearfix"></div>
+
+                                <input id="password" class="form-control" type="password" name="password" placeholder="Password" required title="admin" style="width: 120px; height: 30px">
+
+                                
+                                @*<a href="~/User/Index"><img style="width:75px; height:40px" src="~/img/side_navi_icons/automation.png" /></a>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label white">&nbsp;</label>
+                                <div class="clearfix"></div>
+
+                                @*<input type="submit" value="" style="width: 90px; height: 37px;background: url(../img/images/l.png); background-size:90px 43px;border:none;background-repeat:no-repeat"/>*@
+                                <input type="submit" value="Login" class="btn btn-primary"/>
+                                @*<a href="~/User/Index"><img style="width:75px; height:40px" src="~/img/side_navi_icons/automation.png" /></a>*@
+                            </div>
+                            
+                            <div class="clearfix"></div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                @*<img src="~/img/banner1.png" width="100%" />*@
+                @*<img src="~/img/banner1.png" width="100%" />*@
+                <img src="~/img/banner/banner12.jpg" class="banner-size"/>
+
+            </div>
+
+        </div>
+        <div class="container-fluid main-container">
+            <div class="row">
+                <div class="sidebar col-md-2 col-sm-1 col-xs-2 no-margin">
+
+                </div>
+
+            </div>
+        </div>
+       
+    </div>
+    <!-- Footer -->
+    <footer class="black footer-index">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-sm-8 text-center phone-text-center square-turtle">
+                    <p>2017 &copy; Powered by - <a href="http://SimplySoftwares.co.uk" target="_blank">SimplySoftwares</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Javascript -->
+    <!-- Sparklines -->
+    <script type="text/javascript">
+    var count = 0; // needed for safari
+    window.onload = function () {
+
+        if (typeof history.pushState === "function") {
+            history.pushState("back", null, null);
+            window.onpopstate = function () {
+                //alert();
+                history.pushState('back', null, null);
+                //if(count == 1){window.location.href = '{{ url(route_name() . '/all-hospitals') }}';}
+                //window.location.href = '{{ url(route_name() . '/all-hospitals' ) }}'
+            };
+        }
+    }
+    setTimeout(function(){count = 1;},200);
+    </script>
+
+</body>
+<!-- Mirrored from radmin.squareturtle.com/1.1.0/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Mar 2017 10:09:05 GMT -->

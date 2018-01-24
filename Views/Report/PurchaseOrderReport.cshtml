@@ -1,0 +1,282 @@
+﻿@model List<eSalesPro.Models.Purchase_Order>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+
+
+
+                            <div class="col-md-12">
+
+                                @*@{
+                                    Html.RenderPartial("Loader_Div");
+                                }*@
+                                <div id="loader_div" class="">
+                                    <img src="~/img/loading.gif" class="ajax_loader">
+                                </div>
+
+                                <div class="col-md-3 pl-0">
+                                    <h3 class="bold font-20">Purchase Order Report<small></small></h3>
+                                </div>
+                                <div class="pull-right col-md-9 mt-10 pr-0">
+
+                                    <div class="pull-right">
+                                        <input required type="date" disabled id="to_date" oninput="poByDate();" class="date-width-height" name="to_date">
+                                    </div>
+
+                                    <div class="pull-right">
+                                        <label class="black-color mr-3 mt-5">To :</label>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input required type="date" id="from_date" oninput="showToDate()" class="date-width-height mr-3" name="from_date">
+                                    </div>
+                                    <div class="pull-right">
+                                        <label class="black-color mr-3 mt-5">From :</label>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="text" onkeypress='validate(event)' onkeyup="poByNumber(this.value);" class="width_78_height text-center mr-7" placeholder="Number" name="stock_qty" id="login">
+                                    </div>
+
+                                    @*<div class="pull-right">
+                                            <input placeholder="Serial No" class="width_78_height mr-3"/>
+                                        </div>*@
+
+                                    <div class="pull-right">
+                                        <select name="sale_type" required="" onchange="poByPayStatus(this.value);" class="form-control">
+
+                                            <option>Select Any</option>
+                                            <option value="-1">All Types</option>
+
+                                            @foreach (var obj in ViewBag.payStatus)
+                                            {
+                                                <option value="@obj.Id">@obj.Status_Type</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                    <div class="pull-right">
+                                        <select name="sale_type" onchange="poByPayPriority(this.value);" required="" class="form-control">
+
+                                            <option>Select Any</option>
+                                            <option value="-1">All Types</option>
+
+                                            @foreach (var obj in ViewBag.payPriority)
+                                            {
+                                                <option value="@obj.Id">@obj.Type</option>
+                                            }
+
+                                        </select>
+                                    </div>
+
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 mt-15">
+
+                            <div class="col-md-3 pull-left padding-all-0">
+                                <a href="~/User/Epos" class="btn blue-btn-style btn-primary btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2 pull-right pr-0 mb-20">
+                                <a href="/Purchase/List_Draft" class="btn btn-primary blue-btn-style btn-mini bold pull-right width-195">Draft List</a>
+                            </div>
+
+                            <div class="col-md-4 pull-right">
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+
+                        <div id="date_click_div" class="">
+
+                            <div id="updatedDiv" class="col-md-12">
+
+                                <div class="clearfix"></div>
+
+
+
+
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    <script src="~/scripts/report/purchase_order_report.js"></script>
+
+
+    <script>
+        function show_customer_summary() {
+            $("#customer_summary").removeClass("none");
+            $("#customer_summary").addClass("showDiv");
+            $("#date_click_div").addClass("none");
+        }
+        function showDateDiv() {
+            var to = document.getElementById("to_date").value;
+            $("#date_click_div").removeClass("none");
+            $("#date_click_div").addClass("showDiv");
+            $("#customer_summary").addClass("none");
+        }
+        function showToDate() {
+            var from = document.getElementById("from_date").value;
+
+            if (from == "") {
+            }
+
+            else {
+                document.getElementById("to_date").removeAttribute('disabled');
+            }
+        }
+        function myDate() {
+            var date = new Date(document.getElementById("to_date")).toDateString("yyyy-MM-dd");
+        }
+        document.querySelector('#clickme').onclick = function () {
+            swal({
+                title: "ERROR",
+                text: "Select the Customer",
+                type: "warning",
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Okay',
+            },
+            function () {
+            });
+        };
+
+
+    </script>
+
+    <script>
+
+
+    </script>
+
+    <script>
+
+
+    </script>
+
+
+    <script>
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>

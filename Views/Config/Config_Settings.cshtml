@@ -1,0 +1,887 @@
+﻿@model List<eSalesPro.Models.Config_Settings>
+
+<body id="body-index">
+
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+                <div class="right_side_custom_style">
+
+                    <div class="bggg-img" id="updated_div">
+                        <div class="col-md-12">
+                            @*<h3 id="time_"></h3>*@
+                            <div class="empty-height"></div>
+
+                            <div id="loader_div" class="none">
+                                <img src="~/img/loading.gif" class="ajax_loader">
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="title">
+                                    @*<img src="~/img/images/triangle.png"/>*@
+                                    <span class="ml-15">Invoice Settings</span>
+                                    <a class="pull-right" href="#" data-toggle="modal" data-target="">
+                                        @*<img src="~/img/images/i.png" style="margin: -2px 3px 0px 0;"/>*@
+                                    </a>
+
+
+
+
+                                </div>
+                                <div class="space" style="background:lightgrey!important">
+                                    <div class="row">
+
+                                        <div>
+
+                                            @if (Model.Count != 0)
+                                            {
+                                                foreach (var v in Model)
+                                                {
+
+                                            <form id="demo-form2" action="@Url.Action("Edit_Config", "Config", new { id = @v.Id })" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+                                                <h3 class="col-md-12 pl-34 text-left bold">EPOS Company Details</h3>
+                                                <p>If these fields are left blank, the ones from your admin panel will be used </p>
+
+
+                                                @*<div class="form-group">
+                                                        <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                            <input style="width:100%" placeholder="" name=""/>
+                                                        </div>
+                                                    </div>*@
+
+                                                @*<label class="pull-left pl-34 font-18" for="middle-name">Address</label>*@
+                                                @*<div class="clearfix"></div>*@
+
+                                                @*<textarea class="col-md-12 resize_height" name=""></textarea>*@
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="shop_no" placeholder="Shop No." value="@v.Shop_No" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="street_name" placeholder="Street Name" value="@v.Street_Name" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="city" placeholder="City" value="@v.City" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="postcode" placeholder="PostCode" value="@v.PostCode" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="phone_no" placeholder="Phone No." value="@v.Phone_No" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="office" placeholder="Office" value="@v.Office" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="mobile" placeholder="Mobile" value="@v.Mobile" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="fax" placeholder="Fax" value="@v.Fax" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="website" placeholder="Website" value="@v.Website" />
+                                                </div>
+
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="email" placeholder="Email" value="@v.Email" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" type="password" id="edit_password" name="password" placeholder="Password" value="@v.Password" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" type="password" id="edit_confirm_password" onkeypress="edit_confirm_pass(event)" placeholder="Confirm Password" value="@v.Password" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="host_name" placeholder="Host Name" value="@v.Host_Name" required />
+                                                </div>
+
+
+
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Terms and conditions</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-11 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <textarea class="col-md-12 resize_height" name="terms_condition" id="editor">@v.Terms_Condition</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Terms and conditions for Item Sales</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-11 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <textarea class="col-md-12 resize_height" name="terms_condition_item_sale" id="option_text_1">@v.Terms_Condition_Item_Sale</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Company Number</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="company_number" value="@v.Company_Number" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">VAT Number</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="vat_number" value="@v.Vat_Number" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Card Percentage</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="card_percentage" value="@v.Card_Percentage" />
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">VAT Percentage</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input type="number" min="0" max="25" class="col-md-11 config_input" name="vat_percentage" required onkeypress="validation_numeric(event)" value="@v.Vat_Percentage" /><span class="pull-left red-color pl_5">*</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                                <div>
+                                                    <div class="col-md-3">
+                                                        <label id="hideExcludeVat"><input class="" id="excludeVatEdit" name="excludeVatEdit" type="checkbox" value="@v.Exclude_Vat" />Exclude VAT</label>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <label><input type="checkbox" id="show_details_Edit" name="show_details_Edit" value="@v.Show_Details" />Show Details</label>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label><input type="checkbox" id="sold_history_checkbox_Edit" name="sold_history_checkbox_Edit" value="@v.Sold_History" />Check Sold History</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+
+
+
+                                                @if (@v.Image != null)
+                                                    {
+
+                                                        var base64 = Convert.ToBase64String(@v.Image);
+                                                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+
+                                                        <div class="fileupload fileupload-new" data-provides="fileupload" align="center">
+
+                                                            <div class="fileupload-new thumbnail"><img id="ass" style="width:180px" src="@imgsrc" class="product-img"></div>
+
+                                                            <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@" style="width:180px"></div>
+
+                                                            <div>
+
+                                                                @*<a href="#" class="btn btn_view_payment_status btn-margin-product mr-5" style="box-shadow:none!important;">Remove</a>*@
+                                                                <span class="ml-5 btn btn-file btn-primary btn-margin-product"><span class="fileupload-new">Change</span><span class="fileupload-exists">Change</span><input type="file" value="Change" name="file" id="a_image1" onchange="Checkfilesimage(1);"></span>
+
+                                                                <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        @*<img src="@imgsrc" class="img-circle max_width_50" style="border:2px solid dimgray" />*@
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="fileupload fileupload-new" data-provides="fileupload" align="center">
+
+                                                            <div class="fileupload-new thumbnail"><img src="~/img/images/default-image.jpg" class="product-img" /></div>
+
+                                                            <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@"></div>
+
+                                                            <div>
+
+                                                                <span class="btn btn-file btn-primary btn-margin-product"><span class="fileupload-new">Select Image</span><span class="fileupload-exists">Change</span><input type="file" value="Change" name="file" id="a_image1" onchange="Checkfilesimage(1);"></span>
+
+                                                                <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+                                                            </div>
+
+                                                        </div>
+                                                    }
+
+
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-4 pull-left">
+                                                        @*<a href="#" class="btn btn-success blue-btn-style btn-mini bold width-150">Save</a>*@
+                                                        <input type="submit" value="Save" onclick="return edit_check_password()" class="btn btn-success btn-mini center-block width-150">
+
+                                                    </div>
+
+                                                    <div class="col-md-4 pull-left">
+                                                        <a href="~/Home/Epos" class="btn btn-primary blue-btn-style btn-mini bold width-150">Back</a>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                            </form>
+                                                }
+                                            }
+                                            else
+                                            {
+                                            <form id="demo-form2" action="@Url.Action("Create_Config", "Config")" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+                                                <h3 class="col-md-12 pl-34 text-left bold">EPOS Company Details</h3>
+                                                <p>If these fields are left blank, the ones from your admin panel will be used </p>
+
+
+                                                @*<div class="form-group">
+                                                        <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                            <input style="width:100%" placeholder="" name=""/>
+                                                        </div>
+                                                    </div>*@
+
+                                                @*<label class="pull-left pl-34 font-18" for="middle-name">Address</label>*@
+                                                @*<div class="clearfix"></div>*@
+
+                                                @*<textarea class="col-md-12 resize_height" name=""></textarea>*@
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_shop_no" placeholder="Shop No." required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_street_name" placeholder="Street Name" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_city" placeholder="City" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_postcode" placeholder="PostCode" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_phone_no" placeholder="Phone No." />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_office" placeholder="Office" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_mobile" placeholder="Mobile" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_fax" placeholder="Fax" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_website" placeholder="Website" />
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="c_email" placeholder="Email" value="" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" type="password" id="c_password" name="c_password" placeholder="Password" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" type="password" onkeypress="confirm_pass(event)" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                    <input class="col-md-11 config_input" name="host_name" placeholder="Host Name" required /><span class="pull-left red-color pl_5">*</span>
+                                                </div>
+
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Terms and conditions</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-11 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <textarea class="col-md-12 resize_height" name="c_terms_condition" id="terms_condition_textarea"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Terms and conditions for Item Sales</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-11 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <textarea class="col-md-12 resize_height" name="c_terms_condition_item_sale" id="terms_condition_item_sale_textarea"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Company Number</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="c_company_number" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">VAT Number</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="c_vat_number" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">Card Percentage</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="c_card_percentage" />
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left pl-34 font-18" for="middle-name">VAT Percentage</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12 col-sm-6 col-xs-12 pl-30 pr-30">
+                                                        <input class="col-md-11 config_input" name="c_vat_percentage" required onkeypress="validation_numeric(event)" /><span class="pull-left red-color pl_5">*</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                                                <div>
+                                                    <div class="col-md-3">
+                                                        <label id="hideExcludeVat"><input class="" id="excludeVatCreate" name="excludeVatCreate" type="checkbox" value="" />Exclude VAT</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label><input type="checkbox" id="show_details" name="show_details" />Show Details</label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label><input type="checkbox" id="sold_history_checkbox" name="sold_history_checkbox" value="" />Check Sold History</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+
+
+
+                                                <div class="fileupload fileupload-new static_fileupload" data-provides="fileupload" align="center">
+
+                                                    <div class="fileupload-new thumbnail static_thumbnail"><img src="~/img/images/default-image.jpg" class="product-img" /></div>
+
+                                                    <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@"></div>
+
+                                                    <div>
+
+                                                        <span class="btn btn-file btn-primary btn-margin-product"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="c_file" id="a_image1"></span>
+
+                                                        <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-4 pull-left">
+                                                        @*<a href="#" class="btn btn-success blue-btn-style btn-mini bold width-150">Save</a>*@
+                                                        <input type="submit" value="Save" onclick="return check_password()" class="btn btn-success btn-mini center-block width-150">
+
+                                                    </div>
+
+                                                    <div class="col-md-4 pull-left">
+                                                        <a href="~/Home/Epos" class="btn btn-primary blue-btn-style btn-mini bold width-150">Back</a>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                            </form>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            @*<div id="sticky-footer-push"></div>*@<div id="sticky-footer-push"></div><div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+    
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+
+    <script>
+        $(document).ready(function () {
+
+            var exclude = $("#excludeVatEdit").val();
+            var sold = $("#sold_history_checkbox_Edit").val();
+            var details = $("#show_details_Edit").val();
+            //alert("exculde" + exclude);
+
+            if (exclude == 1) {
+                //alert("exculde" + exclude);
+                document.getElementById("excludeVatEdit").checked = true;
+            }
+            if (sold == 1) {
+                document.getElementById("sold_history_checkbox_Edit").checked = true;
+                //alert("sold" + sold);
+            }
+            if (details == 1) {
+                document.getElementById("show_details_Edit").checked = true;
+                //alert("sold" + sold);
+            }
+
+
+        })
+    </script>
+
+
+
+    <!-------------------EDIT CONFIG JS ---------------------->
+    <script>
+        function edit_confirm_pass(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault(); // Ensure it is only this code that rusn
+                edit_check_password()
+
+            }
+        }
+
+        function edit_check_password() {
+            var pass = $("#edit_password").val();
+            var confirm = $("#edit_confirm_password").val();
+
+            if (pass == confirm) {
+                //alert("MATCHED");
+                return true;
+            }
+            else {
+                $("#edit_password").val("");
+                $("#edit_confirm_password").val("");
+                swal({
+                    title: "PASSWORD NOT MATCHED",
+                    text: "Please Enter the Correct Password",
+                    type: "warning",
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Okay',
+                },
+
+                        function () {
+                        });
+                return false;
+
+            }
+
+        }
+
+    </script>
+    <!-------------------EDIT CONFIG JS ---------------------->
+    <!-------------------EDIT CONFIG JS ---------------------->
+    <script>
+        function confirm_pass(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault(); // Ensure it is only this code that rusn
+                check_password()
+
+            }
+        }
+
+        function check_password() {
+            var pass = $("#c_password").val();
+            var confirm = $("#confirm_password").val();
+
+            if (pass == confirm) {
+                //alert("MATCHED");
+                return true;
+            }
+            else {
+                $("#c_password").val("");
+                $("#confirm_password").val("");
+                swal({
+                    title: "PASSWORD NOT MATCHED",
+                    text: "Please Enter the Correct Password",
+                    type: "warning",
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Okay',
+                },
+
+                        function () {
+                        });
+                return false;
+
+            }
+
+        }
+
+    </script>
+
+    <!-------------------EDIT CONFIG JS ---------------------->
+
+
+
+    <script>
+        initSample();
+        CKEDITOR.replace('option_text_1');
+    </script>
+
+    <!-------------------INVOICE VIEW CHECKBOXES---------------------->
+
+
+    <script>
+
+
+        $('#excludeVatCreate').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#excludeVatCreate').val(1);
+                //alert("CHECKED " + $('#excludeVatCreate').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#excludeVatCreate').val(0);
+                //alert("UN CHECKED " + $('#excludeVatCreate').val());
+            }
+
+        });
+
+        $('#sold_history_checkbox').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#sold_history_checkbox').val(1);
+                //alert("CHECKED " + $('#sold_history_checkbox').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#sold_history_checkbox').val(0);
+                //alert("UN CHECKED " + $('#sold_history_checkbox').val());
+            }
+
+        });
+
+        $('#show_details').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#show_details').val(1);
+                //alert("CHECKED " + $('#sold_history_checkbox').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#show_details').val(0);
+                //alert("UN CHECKED " + $('#sold_history_checkbox').val());
+            }
+
+        });
+
+
+        $('#excludeVatEdit').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#excludeVatEdit').val(1);
+                //alert("CHECKED " + $('#excludeVatCreate').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#excludeVatEdit').val(0);
+                //alert("UN CHECKED " + $('#excludeVatCreate').val());
+            }
+
+        });
+
+        $('#sold_history_checkbox_Edit').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#sold_history_checkbox_Edit').val(1);
+                //alert("CHECKED " + $('#sold_history_checkbox').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#sold_history_checkbox_Edit').val(0);
+                //alert("UN CHECKED " + $('#sold_history_checkbox').val());
+            }
+
+        });
+
+        $('#show_details_Edit').click(function () {
+
+            if ($(this).prop("checked") == true) {
+                $('#show_details_Edit').val(1);
+                //alert("CHECKED " + $('#sold_history_checkbox').val());
+            }
+            else if ($(this).prop("checked") == false) {
+                $('#show_details_Edit').val(0);
+                //alert("UN CHECKED " + $('#sold_history_checkbox').val());
+            }
+
+        });
+
+
+    </script>
+
+
+
+
+    <!-------------------INVOICE VIEW CHECKBOXES---------------------->
+
+
+    <script>
+
+
+        function check_config_count() {
+            //alert("asdda");
+            $.ajax({
+
+                url: '/Config/check_config_counters/',
+                data: {},
+                type: 'Get',
+                cache: false,
+                success: function (data) {
+
+                    //alert("SUCCESS");
+                    //$("#date_click_div").show();
+                    document.getElementById('updated_div').innerHTML = data;
+                    $("#loader_div").hide();
+                    $(".none").removeClass();
+                    ////$("#table_on_dates_filter").hide();
+
+                    //$('#table_on_dates').dataTable();
+
+                    //$("#table_on_dates_length").hide();
+                    //$("#table_on_dates_filter").hide();
+                },
+                error: function (response) {
+                    //alert("ERROR");
+                }
+            })
+        }
+
+
+    </script>
+
+    @*<script>
+            CKEDITOR.replace("terms_condition_textarea");
+            CKEDITOR.replace("terms_condition_item_sale_textarea");
+        </script>*@
+
+
+
+
+
+
+
+
+</body>

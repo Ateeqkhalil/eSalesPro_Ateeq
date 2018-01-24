@@ -1,0 +1,156 @@
+﻿@model  List<eSalesPro.Models.Product>
+<body id="body-index" onload="">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+
+                        <div class="col-md-12" style="overflow-x:scroll;overflow-y:hidden">
+                            <table border="0" class="table table-responsive border_black" id="product_list_tableeee">
+                                <thead>
+                                    <tr class="table-heading-fonts font-15 table-main-headings">
+                                        <th class="text-center">SKU</th>
+                                        <th class="text-center">Description</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">Normal</th>
+                                        <th class="text-center">Trade</th>
+                                        <th class="text-center">Premium</th>
+                                        <th class="text-center">Other</th>
+                                        <th class="text-center">Cost</th>
+                                        <th class="normal_total text-center">Total Normal</th>
+                                        <th class="trade_total text-center">Total Trade</th>
+                                        <th class="premium_total text-center">Total Premium</th>
+                                        <th class="other_total text-center">Total Other</th>
+                                        <th class="cost_total text-center">Total Cost</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bold tbody-font-style font-14 text-center">
+
+                                    @foreach (var v in Model)
+                                    {
+                                        if (@v.Quantity.Quantity1 <= @v.Warn_Level)
+                                        {
+
+                                            <tr style="background-color:red !important;">
+                                                <td data-title="User ID">@v.Custom_Label_</td>
+                                                <td data-title="First Name">@v.Item_Title</td>
+                                                <td>@v.Quantity.Quantity1</td>
+                                                <td data-title="Last Name">@v.Price_Normal</td>
+                                                <td data-title="Email" class="user-emails">@v.Price_Trade</td>
+                                                <td data-title="Date Registered">@v.Price_Premium</td>
+                                                <td class="">@v.Price_Others</td>
+                                                <td class="">@v.Cost_Price</td>
+                                                <td class="normal_total">@v.Normal_VAT</td>
+                                                <td class="trade_total">@v.Trade_VAT</td>
+                                                <td class="premium_total">@v.Premium_VAT</td>
+                                                <td class="other_total">@v.Other_VAT</td>
+                                                <td class="cost_total">@v.Cost_VAT</td>
+                                            </tr>
+                                        }
+
+                                        else
+                                        {
+                                            <tr>
+                                                <td data-title="User ID">@v.Custom_Label_</td>
+                                                <td data-title="First Name">@v.Item_Title</td>
+                                                <td>@v.Quantity.Quantity1</td>
+                                                <td data-title="Last Name">@v.Price_Normal</td>
+                                                <td data-title="Email" class="user-emails">@v.Price_Trade</td>
+                                                <td data-title="Date Registered">@v.Price_Premium</td>
+                                                <td class="">@v.Price_Others</td>
+                                                <td class="">@v.Cost_Price</td>
+                                                <td class="normal_total">@v.Normal_VAT</td>
+                                                <td class="trade_total">@v.Trade_VAT</td>
+                                                <td class="premium_total">@v.Premium_VAT</td>
+                                                <td class="other_total">@v.Other_VAT</td>
+                                                <td class="cost_total">@v.Cost_VAT</td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+
+                            <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="" style="height:138px"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    <script type="text/javascript">
+        var tableToExcel = (function () {
+
+            var uri = 'data:application/vnd.ms-excel;base64,'
+              , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+              , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+              , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+                window.location.href = uri + base64(format(template, ctx));
+
+
+            }
+
+
+
+        }
+        )()
+        
+        $(document).ready(function () {
+            tableToExcel('product_list_tableeee', 'W3C Example Table');
+            
+            setTimeout(function () {
+                window.close()
+            }, 1000);
+            
+            
+
+        })
+
+    </script>
+
+</body>

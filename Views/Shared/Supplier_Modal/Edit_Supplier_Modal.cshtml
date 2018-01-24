@@ -1,0 +1,172 @@
+﻿@*---------------------------------------POP UP for EDIT SUPPLIER------------------------------------------*@
+
+<div class="modal fade" id="EdittttModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" id="updated_div">
+        
+    </div>
+</div>
+
+@*---------------------------------------POP UP END for EDIT SUPPLIER------------------------------------------*@
+
+
+@*----------------------------POP UP for EDIT SUPPLIER POSTCODE CONFIRMATION--------------------------------*@
+
+<div style="z-index:9999" class="modal fade" id="Postcode_Confirmation_Edit" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Confirm</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" onclick="close_modal_confirm_postcode()" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div id="" class="black-color">
+                        <div class="empty-height"></div><div class="empty-height"></div>
+                        <div class="text-center"><p class="color"><b>Please confirm below address <br />If correct, press ok</b></p></div>
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div class="text-center italic">
+                            <label id="street_postcode_edit"></label><br />
+                        </div>
+                        <div class="text-center italic">
+                            <label id="town_postcode_edit"></label><br />
+                        </div>
+                        <div class="text-center italic">
+                            <label id="county_postcode_edit"></label><br />
+                        </div>
+                        <div class="text-center italic">
+                            <label id="country_postcode_edit"></label><br />
+                        </div>
+                        <div class="text-center italic">
+                            <label id="postcode_popup_edit"><span> ?</span></label><br />
+                        </div>
+
+
+
+
+
+                        <div class="empty-height"></div>
+
+
+
+
+
+
+                        <div class="col-md-12">
+
+
+                            <div class="col-md-6">
+                                <input type="button" onclick="Add_Postcode_Edit_Supplier()" value="Add" class="btn btn-success btn-mini center-block width-95">
+                            </div>
+
+
+                            <script>
+
+
+
+                            </script>
+
+
+                            <div class="col-md-6">
+                                <input type="button" value="Cancel" class="btn btn-primary btn-mini center-block width-95" onclick="close_modal_confirm_postcode()">
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="col-md-3"></div>
+
+
+                            <div class="col-md-3"></div>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>
+
+@*----------------------------POP UP for EDIT SUPPLIER POSTCODE CONFIRMATION--------------------------------*@
+
+
+@*----------------------------POP UP for EDIT SUPPLIER POSTCODE HOUSE NUMBER--------------------------------*@
+
+<div style="z-index:99999" class="modal fade" id="Postcode_House_Number_Edit" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Prompt</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" onclick="close_modal_confirm_postcode()" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div id="" class="black-color">
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+                        <div class="text-center italic">
+                            <label id="">Please Enter House Number</label>
+
+                            <input type="text" id="house_number_postcode_edit" />
+
+                        </div>
+
+                        <div class="empty-height"></div>
+
+
+
+
+
+
+
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-3"></div>
+
+                            <div class="col-md-6">
+                                <input type="button" onclick="House_no_Postcode_Edit_Supplier()" value="Add" class="btn btn-success btn-mini center-block width-95">
+                            </div>
+
+
+
+
+                            <div class="col-md-3"></div>
+                            @*<input type="button" value="Cancel" class="btn btn-primary btn-mini center-block width-95" onclick="close_modal()">*@
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>
+
+@*----------------------------POP UP for EDIT SUPPLIER POSTCODE HOUSE NUMBER--------------------------------*@

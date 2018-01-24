@@ -1,0 +1,441 @@
+﻿@model List<eSalesPro.Models.Sale_Invoice>
+
+
+<!doctype html>
+<html>
+<head>
+    <title>invoice sample(1)</title>
+    <style type="text/css">
+        body {
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+        }
+
+        .invoice-container {
+            width: 100%;
+            margin: -20px auto 0;
+            border: 1px solid #fff;
+            position: relative;
+            color: #000000;
+            /*font-size:13px;*/
+        }
+
+        .logo {
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 180px;
+            height: 52px;
+        }
+
+
+        .head {
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .contact-details {
+            line-height: 25px;
+        }
+
+        .pull-right {
+            float: right;
+        }
+
+        .pull-left {
+            float: left;
+        }
+
+        .clearfix {
+            clear: both;
+        }
+
+        .infotablefirst,
+        .infotablesecond,
+        .infotablethird {
+            font-weight: bold;
+        }
+
+        /*.infotablesecond {
+            background-color: #bfbfbf;
+        }*/
+
+        .bgcolor {
+            background-color: #bfbfbf !important;
+        }
+
+        .detail-info,
+        .infotableforth {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .firstrow {
+            text-transform: uppercase;
+            background-color: #bfbfbf !important;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            height: 35px;
+        }
+
+        .tbl-image {
+            margin: 5px 0 1px;
+            width: 30px;
+            height: 22px;
+            border-radius: 25%;
+        }
+
+        .infotablefirst tr td,
+        .infotablesecond tr td,
+        .infotablethird tr td,
+        .infotableforth tr td,
+        .infotablefifth tr td {
+            padding-left: 5px !important;
+        }
+
+        .font_size_unbold {
+            font-size: 11px !important;
+        }
+
+        .font_size_bold {
+            font-size: 11px !important;
+        }
+
+
+        .terms_condition_font {
+            font-size: 9px !important;
+        }
+
+        .terms_condition_padding {
+            padding:0 5px 0 5px !important;
+        }
+        
+
+        .description_tr_font_size {
+            font-size: 10px !important;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    @*@{
+            var doc_type=v.Invoice.Doc_Type_ID;
+        }*@
+
+    <div class="invoice-container">
+        <div class="top-head">
+            @foreach (var config in @ViewBag.config)
+            {
+
+
+                if (ViewBag.invoice.Doc_Type_ID != 3)
+                {
+
+
+
+                    if (config.Image != null && ViewBag.invoice.Doc_Type_ID == 1)
+                    {
+                        {
+                            var base64 = Convert.ToBase64String(@config.Image);
+                            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgsrc" alt="" class="logo" />
+                        }
+                    }
+                    else if (ViewBag.invoice.Doc_Type_ID == 1)
+                    {
+                        <img src="~/img/images/default_image_print.png" alt="" class="logo" />
+                    }
+                    else if (config.Image != null && ViewBag.invoice.Doc_Type_ID == 2 && ViewBag.invoice.Show_Details == 1)
+                    {
+                        {
+                            var base64 = Convert.ToBase64String(@config.Image);
+                            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgsrc" alt="" class="logo" />
+                        }
+                    }
+                    else if (ViewBag.invoice.Doc_Type_ID == 2 && ViewBag.invoice.Show_Details == 1)
+                    {
+                        <img src="~/img/images/default_image_print.png" alt="" class="logo" />
+                    }
+                }
+
+            }
+            <h2 class="head">@ViewBag.invoice.Document_Type.Type.ToUpper()</h2>
+        </div>
+        <div class="head-info">
+            @foreach (var config in @ViewBag.config)
+            {
+                if (@ViewBag.invoice.Doc_Type_ID == 1)
+                {
+                    <p class="contact-details pull-left font-12 bold pt_4">@config.Shop_No  @config.Street_Name<br />@config.City, @config.PostCode<br /><strong>Phone:</strong>@config.Phone_No<br /><strong>Mob:</strong> @config.Mobile</p>
+                }
+                else if (ViewBag.invoice.Doc_Type_ID == 2 && ViewBag.invoice.Show_Details == 1)
+                {
+                    <p class="contact-details pull-left font-12 bold pt_4">@config.Shop_No  @config.Street_Name<br />@config.City, @config.PostCode<br /><strong>Phone:</strong>@config.Phone_No<br /><strong>Mob:</strong> @config.Mobile</p>
+                }
+            }
+            <div class="top-right-info pull-right">
+                <table cellpadding="5" cellspacing="5" border="1" class="infotablefirst pull-right">
+                    <tr>
+                        @if (@ViewBag.invoice.Doc_Type_ID == 1)
+                        {
+                            <td width="140px" class="font_size_bold">Invoice No:</td>
+                            <td width="150px" class="unbold font_size_unbold">@ViewBag.invoice.Invoice_Number</td>
+                        }
+
+                        else if (@ViewBag.invoice.Doc_Type_ID == 2)
+                        {
+                            <td width="140px" class="font_size_bold">Quote No:</td>
+                            <td width="150px" class="unbold font_size_unbold">@ViewBag.invoice.Quote_Number</td>
+                        }
+
+                        else if (@ViewBag.invoice.Doc_Type_ID == 3)
+                        {
+                            <td width="140px" class="font_size_bold">Item Sale No:</td>
+                            <td width="150px" class="unbold font_size_unbold">@ViewBag.invoice.Item_Sale_Number</td>
+                        }
+                    </tr>
+
+                    <tr>
+                        <td class="font_size_bold">Date</td>
+                        <td class="unbold font_size_unbold">@ViewBag.invoice.Created_at.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Account No:</td>
+                        <td class="unbold font_size_unbold">@ViewBag.invoice.Customer.Account_No</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Purchase Order No:</td>
+                        <td class="unbold font_size_unbold">@ViewBag.invoice.Purchase_Order_Number</td>
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div>&nbsp;</div>
+                <table cellpadding="5" cellspacing="0" border="1" class="infotablesecond pull-right">
+                    <tr>
+                        <td class="bgcolor font_size_bold" width="140px">Served By:</td>
+                        <td class="unbold font_size_unbold" width="150px">@ViewBag.invoice.User.display_name</td>
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div>&nbsp;</div>
+                <table cellpadding="5" cellspacing="0" border="1" class="infotablethird pull-right">
+                    <tr>
+                        <td colspan="2" class="bgcolor font_size_bold" width="300px">Customer Details</td>
+                        <td class="bgcolor font_size_bold" width="150px" align="center">Shipping Details</td>
+                    </tr>
+                    <tr style="font-size:11px">
+                        <td colspan="2" height="40px" class="unbold font_size_unbold">@ViewBag.invoice.Customer.Name <br />@ViewBag.invoice.Customer.Company.Company_Name <br /> @ViewBag.invoice.Customer.Billing_Street <br />@ViewBag.invoice.Customer.Billing_County <br />@ViewBag.invoice.Customer.Billing_Postcode </td>
+                        @if (@ViewBag.invoice.Customer.Billing_Postcode == @ViewBag.invoice.Customer.Shipping_Postcode)
+                        {
+                            <td rowspan="3"></td>
+                        }
+                        else
+                        {
+                            <td rowspan="3" valign="top" class="unbold font_size_unbold">@ViewBag.invoice.Customer.Shipping_Street <br />@ViewBag.invoice.Customer.Shipping_County <br />@ViewBag.invoice.Customer.Shipping_Postcode </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="bgcolor font_size_bold">Customer Email</td>
+                        <td class="unbold font_size_unbold">@ViewBag.invoice.Customer.Email</td>
+                    </tr>
+                    <tr>
+                        <td class="bgcolor font_size_bold">Customer Phone</td>
+                        <td class="unbold font_size_unbold">@ViewBag.invoice.Customer.phone</td>
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="detail-info">
+            <table cellpadding="0" cellspacing="0" border="1" class="infotableforth">
+                <tr class="firstrow font-11">
+                    <td width="12%">Image</td>
+                    <td width="15%">Item Code</td>
+                    <td width="27%">Description</td>
+                    <td width="10%">Qty</td>
+
+                    @if (@ViewBag.invoice.Doc_Type_ID == 1)
+                    {
+                        <td width="12%">Price</td>
+                        <td width="12%">Total</td>
+                        <td width="12%">Total+VAT</td>
+                    }
+                    else
+                    {
+                        <td width="12%">Price</td>
+                        <td width="12%">Total</td>
+                    }
+                </tr>
+                @foreach (var a in Model)
+                {
+
+                    <tr align="center" class="description_tr_font_size">
+                        @if (@a.Sale.Product.Image != null)
+                        {
+                            {
+                                var base64 = Convert.ToBase64String(@a.Sale.Product.Image);
+                                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                                <td><img src="@imgsrc" class="tbl-image"></td>
+                            }
+
+
+                        }
+                        else
+                        {
+                            <td><img src="~/img/images/default-image.jpg" class="tbl-image"></td>
+                        }
+                        <td>@a.Sale.Product.Custom_Label_</td>
+                        <td>@a.Sale.Description</td>
+                        <td>@a.Sale.Quantity</td>
+
+                        @if (@ViewBag.invoice.Doc_Type_ID == 1)
+                        {
+                            <td>@a.Sale.Price</td>
+                            <td>@a.Sale.Total</td>
+                            <td>@a.Sale.Total_VAT</td>
+                        }
+                        else
+                        {
+                            <td>@a.Sale.PriceVAT</td>
+                            <td width="12%">@a.Sale.Total_VAT</td>
+                        }
+                    </tr>
+
+                }
+            </table>
+        </div>
+        <div>&nbsp;</div>
+        <div class="prices-info pull-right">
+            <table cellpadding="5" cellspacing="0" border="1" class="infotablefifth bold">
+                @if (@ViewBag.invoice.Doc_Type_ID == 1)
+                {
+                    <tr>
+                        <td class="font_size_bold">Subtotal</td>
+                        <td class="unbold font_size_unbold"><span>£</span>@ViewBag.invoice.Net_Price</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">VAT (20%)</td>
+                        <td class="unbold font_size_unbold"><span>£</span>@ViewBag.invoice.VAT_20</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Total</td>
+                        <td class="unbold font_size_unbold"><span>£</span>@ViewBag.invoice.Gross_Total</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Payment Method</td>
+                        <td class="font_size_unbold">@ViewBag.invoice.Payment_Methods.Type</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Payment Status</td>
+                        <td class="font_size_unbold">@ViewBag.invoice.Payment_Status.Status</td>
+                    </tr>
+                    <tr>
+                        <td class="font_size_bold">Outstanding Balance</td>
+                        <td class="unbold font_size_unbold"><span>£</span>@ViewBag.invoice.Customer.Balance</td>
+                    </tr>
+                }
+                else
+                {
+                    @*<tr>
+                            <td>Subtotal</td>
+                            <td><span>£</span>@v.Invoice.Net_Price</td>
+                        </tr>
+                        <tr>
+                            <td>VAT (20%)</td>
+                            <td><span>£</span>@v.Invoice.VAT_20</td>
+                        </tr>*@
+                    <tr>
+                        <td width="140px" style="padding-right:5px" class="font_size_bold">Total</td>
+                        <td width="150px" class="unbold font_size_unbold"><span>£</span>@ViewBag.invoice.Gross_Total</td>
+                    </tr>
+                    @*<tr>
+                            <td>Payment Method</td>
+                            <td>@v.Invoice.Payment_Methods.Type</td>
+                        </tr>
+                        <tr>
+                            <td>Payment Status</td>
+                            <td>@v.Invoice.Payment_Status.Status</td>
+                        </tr>
+                        <tr>
+                            <td>Outstanding Balance</td>
+                            <td><span>£</span>@v.Invoice.Customer.Balance</td>
+                        </tr>*@
+                }
+            </table>
+
+        </div>
+        <div class="clearfix"></div>
+        <div>&nbsp;</div>
+        @foreach (var config in @ViewBag.config)
+        {
+
+            <div class="divFooter">
+                <table cellpadding="0" cellspacing="0" border="1" width="100%">
+                    <tr class="">
+                        @if (@ViewBag.invoice.Doc_Type_ID != 3)
+                        {
+                            <td class="terms_condition_padding" height="100px" valign="top" style="padding: 0 !important;">
+                                <h3 width="100%" align="center" class="bgcolor font-13" style="padding:10px 0 !important; margin-top:0 !important; margin-bottom:2px !important;"><strong>Term and Conditions</strong></h3>
+                                <div style="padding:0 5px !important;">@Html.Raw(System.Web.HttpUtility.HtmlDecode(config.Terms_Condition))</div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="terms_condition_padding" height="100px" valign="top" style="padding: 0 !important;">
+                                <h3 width="100%" align="center" class="bgcolor font-13" style="padding:10px 0 !important; margin-top:0 !important; margin-bottom:2px !important;"><strong>Term and Conditions</strong></h3>
+                                <div style="padding:0 5px !important;">@Html.Raw(System.Web.HttpUtility.HtmlDecode(config.Terms_Condition_Item_Sale))</div>
+                            </td>
+                        }
+
+                    </tr>
+                </table>
+
+
+
+                <p align="center" style="margin-top:10px;" class="font-12"><strong>THANKS FOR YOUR BUSINESS!</strong></p>
+                <hr style="height: 1px; background-color: #000 !important; margin-top:0px!important" />
+                @if (ViewBag.invoice.Doc_Type_ID != 3)
+                {
+                    if (ViewBag.invoice.Doc_Type_ID == 1)
+                    {
+                        <p align="center" style="font-size: 10px;"><strong>COMPNAY REG NUMBER: @config.Company_Number INCORPORATED IN ENGLAND AND WALES VAT REG NO: @config.Vat_Number</strong></p>
+                    }
+
+                    else if (ViewBag.invoice.Doc_Type_ID == 2 && ViewBag.invoice.Show_Details == 1)
+                    {
+                        <p align="center" style="font-size: 10px;"><strong>COMPNAY REG NUMBER: @config.Company_Number INCORPORATED IN ENGLAND AND WALES VAT REG NO: @config.Vat_Number</strong></p>
+                    }
+
+                }
+            </div>
+
+
+        }
+    </div>
+
+</body>
+</html>
+<script>
+    //var editorText = CKEDITOR.instances.text_area_conditions.getData();
+    //CKEDITOR.replace("text_area_conditions");
+
+    $(document).ready(function () {
+        window.print();
+    })
+
+    CKEDITOR.replace('text_area_conditions');
+
+    timer = setInterval(updateDiv, 100);
+    function updateDiv() {
+        var editorText = CKEDITOR.instances.text_area_conditions.getData();
+        $('#text_area_conditions').html(editorText);
+
+    }
+</script>

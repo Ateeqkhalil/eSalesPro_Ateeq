@@ -1,0 +1,177 @@
+﻿@model List<eSalesPro.Models.Product>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                <div class="col-md-4 pl-0">
+                                    <h3 class="bold">Low Stocks<small></small></h3>
+                                </div>
+                                <div class="col-md-8 mt-10 pr-0">
+                                    <div class="col-md-4 pull-right pr-0">
+                                        <a href="/User/Epos" class="btn btn-primary blue-btn-style pull-right btn-mini text-center width-208 bold">Print</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix empty-height"></div>
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 col-lg-12">
+
+                            <div class="col-md-3 col-lg-3 width-280 pull-left pl-0">
+                                <a href="~/User/Epos" class="btn btn-primary btn-mini blue-btn-style bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-3 col-lg-2 pull-left">
+                                <a href="#" data-toggle="modal" class="btn btn-primary blue-btn-style btn-mini width-200 ml--72 bold">Add to Purchase Order</a>
+
+                            </div>
+                            <div class="col-md-3 col-lg-3"></div>
+                            <div class="col-md-3 col-lg-3"></div>
+
+                            @*------------CUSTOM SEARCH BAR------------
+                                <div class="col-md-4 search-filter-div">
+                                <label class="supplier-create-texts ml-22" for="middle-name">Search Filter</label>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <input type="text" class="ml--95 width-208" name="postcode" id="postcode">
+                                <a href="#"><img class="search-btn-product" src="~/img/images/ssearch.png" /></a>
+                                </div>
+                                </div>
+                            ------------CUSTOM SEARCH BAR------------*@
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+
+
+                        <div class="clearfix"></div>
+
+
+
+                            <div class="col-md-12 mt-30">
+
+                                <table class="table table-responsive border_black" id="example">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Supplier Name</th>
+                                            <th class="text-center">SKU</th>
+                                            <th class="text-center">Description</th>
+                                            <th class="text-center">Cost Price</th>
+                                            <th class="width-61 text-center">Quantity</th>
+                                            <th class="text-center">Warn Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bold tbody-font-style" id="">
+
+                                        @foreach (var v in Model)
+                                        {
+                                            if (v.Quantity.Quantity1 <= v.Warn_Level)
+                                            {
+                                                <tr class="">
+                                                    <td class="text-center">@v.Id</td>
+                                                    <td class="text-center">@v.Supplier.Name</td>
+                                                    <td class="text-center">@v.Custom_Label_</td>
+                                                    <td class="text-center">@v.Item_Title</td>
+                                                    <td class="text-center">@v.Cost_Price</td>
+                                                    <td class="text-center">@v.Quantity.Quantity1</td>
+                                                    <td class="text-center">@v.Warn_Level</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <div class="clearfix"></div>
+
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable();
+        });
+    </script>
+
+
+</body>

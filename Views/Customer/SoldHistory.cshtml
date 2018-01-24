@@ -1,0 +1,123 @@
+﻿@model eSalesPro.Models.Sale
+
+
+
+<div id="soldHistory" class="win text-center" onloadstart="vat()">
+    <h3 class="color"><b>Previous Price Offered</b></h3>
+
+    <div class="empty-height"></div><div class="empty-height"></div>
+
+
+    <form id="" action="" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+
+
+
+        <div class="empty-height"></div>
+
+        @*<div class="col-md-12">
+
+            <div class="form-group">
+                <label class="text-left width-72 font-16" for="middle-name">Invoice No</label>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input class="width-145" type="text" onkeypress="" name="" value="@ViewBag.InvoiceNumber" id="">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="text-left width-72 font-16" for="middle-name">Price</label>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input class="width-145" type="text" name="" value="@Model.Price" id="price">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-left width-72 font-16" for="middle-name">VAT</label>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input class="width-145" type="text" name="" id="VAT">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-left width-72 font-16" for="middle-name">Price + VAT</label>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input class="width-145" type="text" name="" value="@Model.PriceVAT" id="priceVAT">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-left width-72 font-16" for="middle-name">Date</label>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <input class="width-145" type="text" name="" value="@Model.Created_at" id="">
+                </div>
+            </div>
+
+
+
+
+        </div>*@
+
+
+
+
+
+        <div class="col-md-12">
+            <table class="table table-responsive border_black" id="customer_list_table">
+                <thead>
+                    <tr class="table-heading-fonts table-main-headings">
+                        <th class="text-center"></th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">VAT</th>
+                        <th class="text-center">Price+VAT</th>
+                        <th class="text-center">Date</th>
+                    </tr>
+                </thead>
+
+                <tbody class="black-color bold text-center" id="updated_customer_list">
+
+
+                    <tr>
+                        <td data-title="User ID">@ViewBag.InvoiceNumber</td>
+                        <td data-title="User ID">@Model.Price</td>
+                        <td>@Model.Price</td>
+                        <td data-title="Last Name">@Model.PriceVAT</td>
+                        <td data-title="Email" class="user-emails">@Model.Created_at.ToString("dd/mm/yyyy")</td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-3">
+                <input type="submit" onclick="" value="Yes" class="btn btn-success btn-mini center-block width-123" />
+            </div>
+
+            <div class="col-md-3">
+                <a href="~/Customer/New_Invoice" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0">No</a>
+            </div>
+            <div class="col-md-3"></div>
+
+
+
+        </div>
+    </form>
+</div>
+
+<script>
+    function vat() {
+        var a = $("#price").val();
+        var b = $("#priceVAT").val();
+
+        var c = b - a;
+        alert(c);
+        $("#VAT").val(c);
+    }
+</script>

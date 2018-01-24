@@ -1,0 +1,168 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+
+                        <div class="col-md-12">
+
+                            <h3 class="bold font-20">
+                                Warehouse Locations
+                            </h3>
+
+
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+
+
+                        <div class="clearfix"></div>
+
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+
+
+                        <div class="">
+
+                            <div class="col-md-12">
+                                <table border="0" class="table table-responsive border_black" id="table_on_dates">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th>Type</th>
+                                            <th>Customer</th>
+                                            <th>Phone No</th>
+                                            <th>Email</th>
+                                            <th>Credit Limit</th>
+                                            <th>Outstanding Balance</th>
+                                            <th>Status</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color bold">
+
+                                        @*@foreach (var v in Model)
+                                            {*@
+                                        @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+
+                                        <tr>
+                                            <td data-title="User ID">Premium</td>
+                                            <td data-title="User ID">Cctv</td>
+                                            <td data-title="User ID">8687655</td>
+                                            <td data-title="User ID">test@icloud.com</td>
+                                            <td class="text-center" data-title="User ID">£555</td>
+                                            <td class="text-center" data-title="User ID">£12</td>
+                                            <td data-title="User ID"></td>
+                                        </tr>
+
+
+
+
+
+
+                                        @*}*@
+                                    </tbody>
+
+                                </table>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_on_dates').dataTable();
+        });
+    </script>
+
+    <script>
+        function PrintBtn() {
+            $("#crud_btn_hide").addClass("none");
+            $("#side_navi_hide").addClass("none");
+
+            window.print();
+        }
+    </script>
+
+</body>

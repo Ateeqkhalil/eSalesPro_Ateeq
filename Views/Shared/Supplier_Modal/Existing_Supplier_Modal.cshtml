@@ -1,0 +1,219 @@
+﻿@*----------------------------POP UP for EXISTING SUPPLIER--------------------------------*@
+
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="win text-center">
+                        <h3 class="black-color"><b>Find Supplier</b></h3>
+                        @*<img class="pull-right" src="~/img/images/supplier.png" style="margin:-34px 81px 20px 0" />*@
+
+
+                        @*<form id="demo-form2" action="~/Supplier/Create" method="post" data-parsley-validate class="form-horizontal form-label-left mt-30" enctype="multipart/form-data">*@
+
+
+
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <div class="">
+                                    <div class="pull-left">
+                                        <input type="text" name="credit_period" class="width-320">
+                                        <a href="~/Supplier/List" class="btn-primary btn-mini center-block btn-existing-supplier-cancel" style="">Cancel</a>
+                                        <input type="submit" value="Search" class="btn-success btn-mini center-block btn-existing-supplier-search" />
+
+                                    </div>
+                                </div>
+
+                                @*<label style="float: left;margin: 1px -32px 0 25px">Ext</label>*@
+
+                                <div class="clear"></div>
+
+
+
+
+                            </div>
+
+
+
+                            @*<div class="form-group">
+                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                            <input type="text" name="credit_period" style="width:320px">
+                                        </div>
+                                    </div>
+                                <div class="col-md-3 pull-left">
+                                    <input type="submit" value="Add" class="btn-success btn-mini center-block" style="width:110px" />
+                                </div>
+
+                                <div class="col-md-3">
+                                    @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>
+                                    <a href="~/Supplier/Create" class="btn-primary btn-mini center-block" style="width: 110px;margin-top:2px">Cancel</a>
+                                </div>*@
+
+                        </div>
+
+
+
+
+                        @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                                <input type="submit" value="Add Product" class="btn btn-success" />
+                            </div>*@
+
+
+
+
+
+
+
+
+
+                        @*</form>*@
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="Existing_Supplier_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="win text-center">
+                        <h3 class="color"><b>Find Supplier</b></h3>
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                        <div class="col-md-12">
+                            <table border="0" class="table table-responsive border_black" id="kj">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Postcode</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Phone</th>
+                                        @*<th class="text-center">Balance</th>
+                                        <th class="text-center">Credit</th>*@
+                                        <th class="text-center">Available Credit Limit</th>
+                                        <th class="text-center">Credit Limit</th>
+                                        @*<th class="text-center">Balance</th>
+                                            <th class="text-center">Credit</th>
+                                            <th class="text-center">Credit Limit</th>*@
+                                    </tr>
+                                </thead>
+
+                                <tbody class="black-color bold" id="">
+                                    @foreach (var v in ViewBag.Supplier)
+                                    {
+                                        <tr class="disable_purchase_click" onclick="existing_supplier_click(@v.Id)" oncontextmenu="edit_supp(@v.Id,'Purchase')">
+                                            <td id="@String.Concat("suppliers1", v.Id)" data-title="User ID">@v.Name</td>
+                                            <td id="@String.Concat("suppliers2", v.Id)" data-title="Last Name">@v.Street</td>
+                                            <td id="@String.Concat("suppliers3", v.Id)" data-title="Last Name">@v.Post_Code</td>
+                                            <td id="@String.Concat("suppliers4", v.Id)" data-title="First Name">@v.Email</td>
+                                            <td id="@String.Concat("suppliers5", v.Id)" data-title="Email" class="user-emails">@v.Mobile</td>
+                                            @*<td>@v.Balance</td>
+                                            <td>@v.Credit</td>*@
+                                            <td>@v.Credit_Limit</td>
+                                            <td id="" data-title="Email" class="user-emails">@v.Credit_Limit_Old</td>
+
+                                            <input type="text" id="@String.Concat("suppliers6", v.Id)" value="@v.Credit_Limit" hidden />
+
+                                            @*<td id="@String.Concat("supp5", v.Id)" data-title="Email" class="user-emails">@v.</td>*@
+
+
+
+                                            @*<td id="@String.Concat("supp6", v.Id)" data-title="Email" class="user-emails">@v.Balance</td>
+                                                <td id="@String.Concat("supp7", v.Id)" data-title="Email" class="user-emails">@v.Credit</td>
+                                                <td id="@String.Concat("supp8", v.Id)" data-title="Email" class="user-emails">@v.Credit_Limit</td>*@
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        @*<table id="00" class="table table-responsive border_black">*@
+                        @*<table border="0" class="table table-responsive border_black" id="kj">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Postcode</th>
+                                        <th class="text-center">Email</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="black-color bold" id="">
+                                    @foreach (var v in ViewBag.Customer)
+                                {
+                                        <tr onclick="go(@v.Id)">
+                                            <td id="@String.Concat("juni1", v.Id)" data-title="User ID">@v.Name</td>
+                                            <td id="@String.Concat("juni2", v.Id)" data-title="First Name">@v.phone</td>
+                                            <td id="@String.Concat("juni3", v.Id)" data-title="Last Name">@v.Billing_Address</td>
+                                            <td id="@String.Concat("juni4", v.Id)" data-title="Last Name">@v.Billing_Postcode</td>
+                                            <td id="@String.Concat("juni5", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                            <td id="@String.Concat("juni6", v.Id)" class="hidden">@v.Customer_Type_Id</td>
+                                        </tr>
+                                }
+                                </tbody>
+                            </table>*@
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.disable_purchase_click').on("contextmenu", function (e) {
+
+        return false;
+    });
+
+</script>
+
+@*----------------------------POP UP END EXISTING SUPPLIER--------------------------------*@

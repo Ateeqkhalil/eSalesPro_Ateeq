@@ -1,0 +1,298 @@
+﻿@model List<eSalesPro.Models.Purchase_Order>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+
+
+
+                            <div class="col-md-12">
+
+                                @{
+                                    Html.RenderPartial("Loader_Div");
+                                }
+
+                                <div class="col-md-5 pl-0">
+                                    <h3 class="bold font-20">Purchase Order Draft List<small></small></h3>
+                                </div>
+                                <div class="pull-right col-md-9 mt-10 pr-0">
+
+                                   
+
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 mt-15">
+
+                            <div class="col-md-3 pull-left padding-all-0">
+                                <a href="~/Home/Epos" class="btn blue-btn-style btn-primary btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2 pull-right pr-0 mb-20">
+                                @*<a href="#" class="btn btn-primary blue-btn-style btn-mini bold pull-right width-195">Print</a>*@
+                            </div>
+
+                            <div class="col-md-4 pull-right">
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+
+                        <div id="date_click_div" class="">
+
+                            <div id="updatedDiv" class="col-md-12">
+                                <table border="0" class="table table-responsive border_black" id="table_on_dates">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">PO ID</th>
+                                            <th class="text-center">Supplier Name</th>
+                                            <th class="text-center">Ordered + Vat</th>
+                                            <th class="text-center">Received + Vat</th>
+                                            <th class="text-center" style="width: 95px;">Date</th>
+                                            <th class="text-center">Pay Method</th>
+                                            <th class="text-center">Pay Status</th>
+                                            <th class="text-center">PO Status</th>
+                                            <th class="text-center">Actions</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color bold" id="">
+
+
+
+
+
+                                        @foreach (var v in Model)
+                                        {
+
+                                            if (v == null)
+                                            {
+                                                continue;
+                                            }
+
+                                            //onclick="location.href = '@(Url.Action("Edit_Purchase_Order", "Purchase", new { id = v.Id }))'"
+                                            @*<tr onclick="foo(@v.Id)">*@
+
+                                            <tr>
+                                                @*<tr onclick="foo(@v.Id)">*@
+                                                <td class="text-center" style="width:78px" data-title="User ID">@v.Purchase_Number</td>
+                                                <td class="text-center" data-title="User ID">@v.Supplier.Name</td>
+                                                <td class="text-center" data-title="User ID">@v.Total</td>
+                                                <td class="text-center" data-title="User ID">@v.Received_Total</td>
+                                                <td class="text-center" data-title="User ID">@v.Created_at.ToString("MM/dd/yyyy")</td>
+                                                <td class="text-center" data-title="User ID">@v.Payment_Methods.Type</td>
+                                                <td class="text-center" data-title="User ID">@v.Payment_Status.Status</td>
+                                                <td class="text-center" data-title="User ID">@v.Purchase_Order_Status.Status_Type</td>
+
+                                                <td class="text-center width-120" style="vertical-align:middle;">
+                                                    <a class="btn btn-sm btn-info bold" href="~/Purchase/Edit_Purchase_Order/@v.Id">
+                                                        Edit
+                                                    </a>
+
+                                                    <a class="btn btn-sm btn-danger bold" href="">
+                                                        Delete
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+
+
+
+                                        }
+
+
+
+
+                                    </tbody>
+
+                                </table>
+                                <div class="clearfix"></div>
+
+
+
+
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    <script src="~/scripts/report/purchase_order_report.js"></script>
+
+
+    <script>
+        function show_customer_summary() {
+            $("#customer_summary").removeClass("none");
+            $("#customer_summary").addClass("showDiv");
+            $("#date_click_div").addClass("none");
+        }
+        function showDateDiv() {
+            var to = document.getElementById("to_date").value;
+            $("#date_click_div").removeClass("none");
+            $("#date_click_div").addClass("showDiv");
+            $("#customer_summary").addClass("none");
+        }
+        function showToDate() {
+            var from = document.getElementById("from_date").value;
+
+            if (from == "") {
+            }
+
+            else {
+                document.getElementById("to_date").removeAttribute('disabled');
+            }
+        }
+        function myDate() {
+            var date = new Date(document.getElementById("to_date")).toDateString("yyyy-MM-dd");
+        }
+        document.querySelector('#clickme').onclick = function () {
+            swal({
+                title: "ERROR",
+                text: "Select the Customer",
+                type: "warning",
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Okay',
+            },
+            function () {
+            });
+        };
+
+
+    </script>
+
+    <script>
+
+
+    </script>
+
+    <script>
+
+
+    </script>
+
+
+    <script>
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>

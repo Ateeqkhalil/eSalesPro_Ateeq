@@ -1,0 +1,101 @@
+﻿<body id="body-index" onload="startTime()">
+
+    <div id="sticky-footer-wrap">
+
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+
+                <div class="right-side-custom">
+                    <div class="bggg-img">
+
+                        <div class="">
+                            <div class="title">
+                                @*<img src="~/img/images/triangle.png"/>*@
+                                <span class="ml-15">Attendance Logging</span>
+                                <a style="float:right" href="#" data-toggle="modal" data-target=".bs-example-modal-sm"><img src="~/img/images/i.png" style="margin: -2px 3px 0px 0;" /></a>
+                            </div>
+                            <div class="space">
+                                <div class="row">
+                                    <div class="col-md-12 user-index-clock-in">
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-xs-6">
+                                            @*<a class="btn btn-primary btn-lg">Clock In</a>*@
+
+                                            <a href="#"><div class="reveal hd1 text-center">Clock In</div></a>
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-xs-6">
+                                            <a href="#"><div class="reveal hd1">Clock Out</div></a>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <a href="#"><div class="reveal hd1">Start Tea Break</div></a>
+                                        </div>
+                                        <div class="col-md-3 user-lunch-break-margin">
+                                            <a href="#"><div class="reveal hd1">Start Lunch Break</div></a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="#"><div class="reveal hd1">Start Second Tea Break</div></a>
+                                        </div>
+                                        @*<div class="col-md-1"></div>*@
+                                    </div>
+                                    <div class="col-md-12 user-time">
+                                        <span id="time" class="user-time-style"></span>
+                                        <br />
+                                        <span class="user-date-style" id="date"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+@*----------------------------POP UP END SessionManagement--------------------------------*@
+@{
+    Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+}
+@*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    
+
+
+</body>

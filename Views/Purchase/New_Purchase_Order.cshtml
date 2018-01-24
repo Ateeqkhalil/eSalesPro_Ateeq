@@ -1,0 +1,818 @@
+﻿<script type="text/javascript">
+    var vat_percent=@ViewBag.config.Vat_Percentage;
+</script>
+<body id="body-index" onload="SetDatePurchaseOrder()">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div id="edit_invoice">
+                            <form id="demo-form2" action="@Url.Action("Create_Purchase","Purchase")" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+                                <div class="col-md-12">
+                                    <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+
+                                <div id="invoice_id" class="hideDocument">
+
+                                    <div class="">
+
+
+
+                                        <div class="col-md-4 pull-left">
+
+                                            <h3 id="new_invoice_heading" class="bold mt-0">
+                                                New Purchase Order
+                                            </h3>
+
+                                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+
+                                            <div class="col-md-6 pull-left">
+                                                <a href="#" data-toggle="modal" data-target="#CreateModal">
+                                                    <span class=""><img src="~/img/images/new_supplier.png" /></span><br />
+                                                    <span class="bold">New Supplier</span>
+
+                                                </a>
+                                            </div>
+
+                                            <div class="col-md-6 pull-left">
+                                                <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#Existing_Supplier_Modal">
+                                                    <span class=""><img src="~/img/images/existing_supplier.png" /></span><br />
+                                                    <span class="bold">Existing Supplier</span>
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+
+                                        </div>
+
+
+
+
+
+                                        <div class="col-md-2 pull-left pl-0 pr-0">
+                                            <input type="text" name="exist_customer_idd" class="hidden" id="exist_customer_id" />
+
+                                            <input type="text" name="" class="hidden" id="" />
+                                            <input type="text" id="credit_limit_input" name="credit_limit_input" hidden />
+                                            <input type="text" id="supplier_IDD" hidden name="supplier_IDD" />
+                                            <input type="text" id="supplier_code" hidden name="supplier_code" />
+
+                                            <ul class="list-style-type-custom">
+                                                @*<li id="type_customer" class="bold font-18 black-color"></li>*@
+                                                <li id="supplier_names"></li>
+                                                <li id="supplier_addresss"></li>
+                                                <li id="supplier_postcodes"></li>
+                                                <li id="supplier_emails"></li>
+                                                <li id="supplier_phones"></li>
+
+                                                @*<li id="customer_balance" class="hidden"></li>
+                                                    <li id="customer_credit" class="hidden"></li>
+                                                    <li id="customer_credit_limit" class="hidden"></li>*@
+                                            </ul>
+                                        </div>
+
+
+
+                                        <div class="col-md-6 pull-left pl-0 pr-0">
+
+
+                                            <div class="col-md-5">
+                                                @*<label><input type="checkbox" id="sold_history_checkbox" value="" />Check Sold History</label><br />
+                                                    <label id="hideExcludeVat"><input type="checkbox" id="excludeVat" value="" onclick="excludeVatUnchecked();" />Exclude VAT</label>
+                                                    <label hidden id="show_details"><input type="checkbox" id="show_details" value="" />Show Details</label>*@
+
+                                                <div>
+                                                    <h5 class="bold mt-0">Invoice Image</h5>
+                                                    <div class="fileupload fileupload-new" style="max-width:80px" data-provides="fileupload" align="center">
+
+                                                        <div class="fileupload-new thumbnail"><img src="~/img/images/default-image.jpg" class="product-img" /></div>
+
+                                                        <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@" style="max-width:80px;max-height:80px"></div>
+
+                                                        <div>
+
+                                                            <span class="btn btn-file btn-primary btn-margin-product" style="max-height:20px;font-size:11px;padding:3px"><span class="fileupload-new">Select</span><span class="fileupload-exists">Change</span><input type="file" name="file" id="a_image1" onchange="Checkfilesimage(1)"></span>
+
+                                                            <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" style="padding: 1px;font-size:11px" data-dismiss="fileupload">Remove</a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-md-7 pl-0 pr-0">
+
+
+
+
+
+                                                @*<div class="form-group pull-left">
+                                                        <label><input type="checkbox" value="" />Filter Supplier</label>
+                                                    </div>*@
+
+                                                <label class="pull-left"><input type="checkbox" value="" id="filter_supplier_checkbox" />Filter Supplier</label>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group" id="">
+                                                    <label class="pull-left width-134" for="middle-name">Number</label>
+                                                    <div class="pull-left">
+                                                        <input class="width-145 text-center" @*onblur="checkPurchaseNumber()"*@ value="@ViewBag.purchase_number" readonly type="text" name="purchase_number" id="purchase_number" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Date</label>
+                                                    <div class="pull-left">
+                                                        <input class="width-145 text-center height-28" id="purchase_order_date" type="date" name="company_name" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Sales Person</label>
+                                                    <div class="pull-left">
+                                                        <input readonly class="width-145 text-center" type="text" name="sales_person" id="company_name" value="@Session["username"]" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group" id="payment_method_div">
+                                                    <label class="pull-left width-134" for="middle-name">Payment Method</label>
+                                                    <div class="pull-left">
+                                                        <select name="payment_method_id" class="form-control border_black-1px width-145 select-class-color">
+                                                            @foreach (var method in ViewBag.Payment_Method)
+                                                            {
+                                                            <option value="@method.Id">@method.Type</option>
+                                                            }
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Invoice No</label>
+                                                    <div class="pull-left">
+                                                        <input placeholder="Enter Invoice No." class="width-145 text-center" type="text" name="purchase_invoice_no" id="purchase_invoice_no" required>
+                                                    </div>
+                                                </div>
+
+                                                @*<a href="#" data-target="#Sold_History_Modal" data-dismiss="modal" data-toggle="modal">Sold History</a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <hr class="hr_customer" />
+
+
+                                    <div class="col-md-12">
+
+
+                                        <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable">
+                                            <thead>
+                                                <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                                    <th class="text-center">Code</th>
+                                                    <th class="text-center">Supplier</th>
+                                                    <th class="text-center width-53p">Description</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-center received_div" style="display:none">Rec Qty</th>
+                                                    <th width="10%" class="text-center">Price</th>
+                                                    <th class="text-center hidecolumn">Price+VAT</th>
+                                                    <th width="2%" class="text-center">Total</th>
+                                                    <th class="text-center hidecolumn">Total+VAT</th>
+                                                    <th style="display:none" class="text-center">Received Qty</th>
+                                                    <th width="25%" class="text-center">Actions</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody class="black-color">
+
+                                                <tr id="rowId1" class="font-15 id remove_div">
+                                                    <td class="border-right-td"><div class="text-center"><input style="max-width:90px" placeholder="Code" class="yoyo unbold text-center" id="codeforProduct1" name="yoyoyoyoyoyoyoy1" onkeyup="productList(event,this.value);" type="text"></div></td>
+                                                    <td class="border-right-td"><div class="text-center"><input onkeypress="validate(event)" id="supplier_code1" onkeyup="" placeholder="Supplier" class="4 new-invoice-width-boxes unbold width-68 text-center" name="supplier_code1" type="text"></div></td>
+                                                    <td class="border-right-td">
+                                                        <textarea class="2 description-text-area unbold width-100p text-center" name="invoice_description1" id="invoice_description1" required="" placeholder="Description"></textarea>
+                                                    </td>
+                                                    <td class="border-right-td"><div class="text-center"><input onkeypress="validate(event)" id="invoice_quantity1" onkeyup="Total(1);checkQuantityAvailable(this.value,1)" placeholder="0" class="3 unbold width-45 text-center" name="invoice_quantity1" type="text"></div></td>
+                                                    <td class="border-right-td received_div" style="display:none"><div class="text-center"><input onkeypress="validate(event)" id="invoice_receieved_quantity1" onkeyup="TotalReceived1(1);" placeholder="0" class="3 unbold width-65 text-center" name="invoice_receieved_quantity1" type="text"></div></td>
+                                                    <td class="border-right-td"><div class="text-center"><input onkeypress="validate(event)" id="invoice_price1" onkeyup="Total(1);TotalReceived1(1)" placeholder="0.0" class="4 new-invoice-width-boxes unbold width-68 text-center" name="invoice_price1" type="text"></div></td>
+                                                    <td class="border-right-td hidecolumn text-center"><input onkeypress="validate(event)" id="invoice_price_vat1" onkeyup="Total2(1);TotalReceived2(1)" placeholder="0.0" class="5 new-invoice-width-boxes unbold width-78 text-center" name="invoice_price_vat1" type="text"></td>
+                                                    <td class="border-right-td  text-center"><input readonly id="invoice_total1" placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center" name="invoice_total1" type="text"></td>
+                                                    <td class="border-right-td hidecolumn text-center"><input readonly id="invoice_total_vat1" placeholder="0.0" class="7 new-invoice-width-boxes unbold width-78 text-center" name="invoice_total_vat1" type="text"></td>
+
+                                                    <td class="border-right-td  text-center" hidden><input readonly id="received_total1" placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center" name="received_total1" type="text"></td>
+
+                                                    @*<td class="text-center border-right-td width-68"><div id="invoice_total1" class="6 total_invoice_background text-center">£0</div></td>*@
+                                                    @*<td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat1" class="7 total_invoice_background text-center">£0</div></td>*@
+
+                                                    <td class="border-right-td text-center" style="display:none"><input onkeyup="Total(1);" onkeypress="validate(event)" id="invoice_discount1" placeholder="0.0" class="8 unbold width-45 text-center" name="invoice_discount1" type="text"></td>
+
+                                                    <td class="hidden"><input type="text" class="hidden" id="invoice_product_id1" name="invoice_product_id1" /></td>
+                                                    <td class="text-center width-27p" style="vertical-align:middle;">
+                                                        <a href="#" class="showdiv" onclick="addNewRow(); rowcounterPlus();">
+                                                            <img src="/img/images/plus_new_sale.png">
+                                                        </a>
+                                                        <a href="#" class="remove" onclick="">
+                                                            <img src="/img/images/cross_new_sale.png">
+                                                        </a>
+
+                                                        </a>
+                                                        <a href="#" id="@String.Concat("serial_number1")" onclick="serial_number_click(1)">
+                                                            <img src="/img/images/barcode_new_sale.png">
+                                                        </a>
+
+                                                        @*<a href="#">
+                                                                <img src="/img/images/barcode_new_sale.png">
+                                                            </a>
+                                                            <a href="#">
+                                                                <img src="/img/images/findpost.png">
+                                                            </a>*@
+
+                                                    </td>
+
+                                                    <input type="text" id="total_hidden1" name="total_hidden1" hidden />
+                                                    <input type="text" id="total_vat_hidden1" name="total_vat_hidden1" hidden />
+
+                                                    <input hidden type="text" id="@String.Concat("serial_number_value_input_checkbox1")" name="@String.Concat("serial_number_value_input_checkbox1")" value="0" />
+
+
+                                                </tr>
+
+                                            </tbody>
+                                            @for (int i = 1; i <= 1000; i++)
+                                            {
+                                                <tbody class="black-color" id="@String.Concat("newrow",i)"></tbody>
+                                            }
+                                        </table>
+
+
+                                        <div id="addedRows"></div>
+
+                                        <div id="productList"></div>
+                                        <div class="filter_div"></div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                    <div class="">
+
+                                        <div class="col-md-4 unbold">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="supplier_notes" placeholder="Supplier notes..."></textarea>
+                                        </div>
+                                        <div class="col-md-4 pl-0">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="private_notes" placeholder="Private notes..."></textarea>
+                                        </div>
+                                        <div class="col-md-4 pl-0">
+                                            <table id="table_cashh" class="black-color col-md-12 border_black">
+                                                <tr id="" class="">
+                                                    <td class="bold font-18">Order</td>
+                                                    <td id="" class="text-right bold"></td>
+                                                </tr>
+                                                <tr id="sub_total_tr" class="hidecolumn">
+                                                    <td class="">Subtotal</td>
+                                                    <td id="sub_total_td" class="bold text-right">£0</td>
+                                                </tr>
+                                                <tr id="vat_tr" class="hidecolumn">
+                                                    <td class="">VAT</td>
+                                                    <td id="vat_td" class="text-right bold">£0</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                    <td class="">Total</td>
+                                                    <td id="total_td" class="text-right bold">£0</td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr id="" class="received_div" style="display:none">
+                                                    <td class="bold font-18">Received</td>
+                                                    <td id="" class="text-right bold"></td>
+                                                </tr>
+                                                <tr id="received_sub_total_tr" class="received_div" style="display:none">
+                                                    <td class="">Subtotal</td>
+                                                    <td id="received_sub_total_td" class="bold text-right">£0</td>
+                                                </tr>
+                                                <tr id="vat_tr" class="received_div" style="display:none">
+                                                    <td class="">VAT</td>
+                                                    <td id="received_vat_td" class="text-right bold">£0</td>
+                                                </tr>
+
+
+
+                                                <tr class="received_div" style="display:none">
+                                                    <td>Total</td>
+                                                    <td id="received_total_td" class="text-right bold">£0</td>
+                                                </tr>
+                                                <tr class="border_bottom_black_2px received_div" style="display:none">
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+
+                                                <tr id="payment_status_tr">
+                                                    <td class="bold pt_4">Payment Status</td>
+                                                    <td class="text-right pt_4">
+                                                        <select id="payment_status_id" onchange="payment_status()" name="payment_status_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            @*<option>Please Select Any</option>*@
+                                                            @foreach (var status in ViewBag.Payment_Status)
+                                                            {
+                                                            <option value="@status.Id">@status.Status</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="payment_piriority_tr">
+                                                    <td class="bold pt_4">Payment Piriority</td>
+                                                    <td class="text-right pt_4">
+                                                        <select id="payment_piriority_id" onchange="payment_piriority()" name="payment_piriority_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            @foreach (var piriority in ViewBag.Payment_Piriority)
+                                                            {
+                                                            <option value="@piriority.Id">@piriority.Type</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr id="po_status_tr">
+                                                    <td class="bold pt_4" style="padding-bottom:4px">PO Status</td>
+                                                    <td class="text-right pt_4" style="padding-bottom:4px">
+                                                        <select id="po_status" onchange="PO__Status();" name="po_status_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            @foreach (var status in ViewBag.PO_Status)
+                                                            {
+                                                            <option value="@status.Id">@status.Status_Type</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="bold text-center"><a href="#" data-target="#Deposit_Modal" class="hideDiv" id="Deposit_payment_option" data-toggle="modal">Deposit Payment</a></td>
+                                                    <td class=" bold text-center"><a href="#" class="hideDiv" data-target="#Partial_Payment_Modal" id="partial_payment_option" data-toggle="modal">Add Partial Payment</a></td>
+
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px hide_border" style="display:none">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr class="partial_paid" style="display:none">
+                                                    <td class="bold">Partial Payment</td>
+                                                    <td id="partial_paid_td" class="text-right">£0</td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px hide_border" style="display:none">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr class="deposit_paid" style="display:none">
+                                                    <td class="bold">Deposit Payment</td>
+                                                    <td id="deposit_paid_td" class="text-right">£0</td>
+                                                </tr>
+
+                                                <tr class="partial_paid" style="display:none">
+                                                    <td class="bold" id="partial_date"></td>
+                                                    <td id="partial_payment_method" class="text-right"></td>
+                                                </tr>
+
+                                                <tr id="custom_date_show_invoice" style="display:none">
+                                                    <td class="bold width-134">Custom Date</td>
+                                                    <td><input type="date" class="width-180" /></td>
+                                                </tr>
+
+
+
+                                                <tr class="partial_paid deposit_paid" style="display:none">
+                                                    <td class="bold">Amount left to Pay</td>
+                                                    <td id="amount_left_td" class="text-right">£0</td>
+                                                </tr>
+
+
+
+                                            </table>
+
+
+                                            <div class="col-md-12 balance_div none displayDIV">
+
+                                                <span class=" font-18 text-center red bold">Outstanding Balance</span>
+                                                <br />
+                                                <input type="text" readonly class="input_type_custom font-18" name="outstanding_balance" value="" id="outstanding_balance" />
+                                                <br />
+                                                <a href="#" class="btn btn-primary blue-btn-style btn-mini bold" data-target="#Outstanding_modal" data-toggle="modal">Pay Outstanding</a>
+                                                <div class="empty-height"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                        @*<div class="empty-height"></div><div class="empty-height"></div>
+
+                                            <div id="global_discount_div" class="col-md-3 pull-right">
+                                                <a href="" class="btn btn-primary blue-btn-style btn-mini bold" data-toggle="modal" data-target="#Global_Discount_Modal">Add Global Discount</a>
+                                            </div>*@
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-4"></div>
+
+
+                                    <div class="col-md-1 pr-0 text-center">
+                                        <a>
+                                            <span class=""><img src="~/img/images/save.png" /></span><br />
+
+
+                                        </a>
+
+                                        <input type="submit" onclick="return submitResult();" value="Save" />
+
+
+                                    </div>
+
+                                    <div class="col-md-1 pr-0 text-center">
+                                        <a>
+                                            <span class=""><img src="/img/images/draft.png"></span><br>
+
+
+                                        </a>
+
+                                        <input type="submit" name="SubmitionType" onclick="draft_saved()" value="Draft">
+
+
+                                    </div>
+
+                                    <div class="col-md-1 text-center">
+                                        <a href="~/Purchase/New_Purchase_Order">
+                                            <span class=""><img src="~/img/images/exit.png" /></span><br />
+                                            <input type="button" value="Exit" />
+                                            @*<span class="bold ml--7">Exit</span>*@
+
+                                        </a>
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                </div>
+
+                                <input id="counters" value="" name="products_row_counts" type="text" hidden/>
+
+                                <label hidden>Sub</label><input type="text" class="" id="order_sub_total_hidden" placeholder="order Subtotal" name="order_sub_total_hidden" hidden/>
+                                <label hidden>VAT</label><input type="text" class="" id="order_vat_hidden" name="order_vat_hidden" placeholder="order vat" hidden/>
+                                <label hidden>Total</label><input type="text" class="" id="order_total_hidden" name="order_total_hidden" placeholder="order total" hidden/>
+
+
+
+                                <input type="text" class="" id="received_sub_total_hidden" name="received_sub_total_hidden" placeholder="received Subtotal" hidden />
+                                <input type="text" class="" id="received_vat_hidden" name="received_vat_hidden" placeholder="received vat" hidden />
+                                <input type="text" class="" id="received_total_hidden" name="received_total_hidden" placeholder="received total" hidden />
+
+
+                                <label hidden>Amount Paid</label><input type="text" class="" id="amount_paid_hidden" name="amount_paid_hidden" placeholder="Amount Paid" hidden/>
+                                <label hidden>Amount Left</label><input type="text" class="" id="left_amount_hidden" name="left_amount_hidden" placeholder="Left Amount" hidden/>
+                            </form>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @*----------------------------POP UP FOR PARTIAL PAYMENT--------------------------------*@
+
+    <div class="modal fade one" id="Partial_Payment_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="color"><b>Add Partial Payment</b></h3>
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                            <form id="demo-form2" action="" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+
+
+                                <div class="empty-height"></div>
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group pull-left">
+                                        <label class="pull-left text-left width-72 font-16" for="middle-name">Amount</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="width-145" type="text" onkeypress="validate(event)" name="partial_amount" id="partial_amount">
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group pull-left">
+                                            <label class="pull-left text-left width-72 font-16" for="middle-name">Date</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-145" type="date" name="category_title" id="category">
+                                            </div>
+                                        </div>*@
+
+
+                                    <div class="form-group pull-left">
+                                        <label class="pull-left text-left width-72 font-16" for="middle-name">Payment Method</label>
+                                        <select name="payment_method_id" class="form-control border_black-1px width-145 ml-15 select-class-color pull-left">
+                                            @foreach (var method in ViewBag.Payment_Method)
+                                            {
+                                            <option value="@method.Id">@method.Type</option>
+                                            }
+
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-1"></div>
+
+                                    <div class="col-md-5">
+                                        <input type="button" onclick="Partial_Payment()" data-dismiss="modal" value="Add" class="btn btn-success btn-mini center-block width-80" />
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <a href="" data-dismiss="modal" class="btn btn-primary btn-mini width-80 center-block height-40 mt-0">Cancel</a>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+
+
+                                </div>
+
+                            </form>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END PARTIAL PAYMENT--------------------------------*@
+
+
+   
+
+
+    
+
+
+
+
+
+    @*----------------------------POP UP for EXISTING SUPPLIER--------------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Existing_Supplier_Modal");
+    }
+
+    @*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+
+    
+
+    <input type="hidden" value="1" id="rowCounterrr" />
+    <input type="hidden" value="1" id="ApnaApnaRowNumber" />
+
+    
+    @*----------------------------POP UP ADD SUPPLIER--------------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Add_Supplier_Modal");
+    }
+
+
+    @*----------------------------POP UP END ADD SUPPLIER--------------------------------*@
+
+
+
+
+    @*----------------------------POP UP EDIT SUPPLIER--------------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Edit_Supplier_Modal");
+    }
+    
+    @*---------------------------POP UP END EDIT SUPPLIER--------------------------------*@
+
+
+
+    @*----------------------------POP UP SERIAL NUMBER CUSTOMER--------------------------------*@
+
+
+    <div class="modal fade" id="Serial_Number_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right hide_close_btn_on_checked" onclick="close_serial_number_modal()" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div class="win text-center">
+                            <span class="bold black-color">Please Enter Serial Number for Item</span>
+                            @*<label class="bold black-color"><input readonly type="checkbox" id="batch_scan_checkbox" onchange="batch_scan_function(1)" value="" />Batch Scan :</label>*@
+                            <input readonly onkeypress="Serial_Number_Enter_Click(event)" id="serial_number_value" class="txt" type="text" style="width:100%;text-align:center">
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div>
+                                @*<div class="pull-left">
+                                        <a class="btn blue-btn-style btn_logout_session_expire bold width-120">
+                                            Logout
+                                        </a>
+
+
+                                    </div>*@
+                                <label hidden>Quantity Count </label><input hidden type="text" id="quantity_for_loop" />
+                                <label hidden>Row Counter Count </label><input type="text" id="rowCounterSerialNumber" hidden/>
+                                <label hidden>Enter Count </label><input hidden type="text" id="EnterCounterSerialNumber" />
+
+                                <label class="font-13" style="color:green">Check to Enter Serial Number<input type="checkbox" value="0" id="serial_number_checkedbox" name="serial_number_checkedbox" onchange="serial_number_checkbox()" /></label>
+
+                                @*<div class="">
+                                        <a class="btn btn-success blue-btn-style btn-mini bold width-120">
+                                            Ok
+                                        </a>
+                                    </div>*@
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @*----------------------------POP UP END SERIAL NUMBER CUSTOMER--------------------------------*@
+
+
+    <script src="~/scripts/purchase/New_Purchase_Order.js"></script>
+    <script src="~/scripts/Supplier/List.js"></script>
+    <script src="~/Scripts/Common_JS_Functions/Common_JS.js"></script>
+
+    <!--
+    <script>
+        function edit_supp(Id) {
+            //alert("ID +++++" + Id);
+            $.ajax({
+
+                url: '/Supplier/Edit_Supplier_Values/',
+                data: { id: Id },
+                cache: false,
+                type: 'Get',
+                success: function (data) {
+                    //alert(data);
+
+                    document.getElementById('aaa').innerHTML = data;
+
+                    $("#Existing_Supplier_Modal").hide();
+                    $("#JunaidSheikh").addClass("in").show('slow');
+                    //alert("ASSSSASSASAS");
+                },
+                error: function (response) {
+                    alert("ERROR");
+                }
+
+
+            })
+
+        }
+    </script>
+        -->
+</body>

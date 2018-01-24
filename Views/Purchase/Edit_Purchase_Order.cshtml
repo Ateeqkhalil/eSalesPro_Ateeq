@@ -1,0 +1,1212 @@
+﻿@model List<eSalesPro.Models.PO_Sale_Invoice>
+<script type="text/javascript">
+    var vat_percent=@ViewBag.config.Vat_Percentage;
+</script>
+<body id="body-index" @*onload="payment_status()"*@>
+    <div id="sticky-footer-wrap">
+
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div id="edit_invoice">
+                            <form id="demo-form2" action="@Url.Action("Edit_Purchase_Order", "Purchase")" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+                                <div class="col-md-12">
+                                    <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div id="invoice_id" class="hideDocument">
+
+                                    <div class="">
+
+
+
+                                        <div class="col-md-4 pull-left">
+
+                                            <h3 id="new_invoice_heading" class="bold mt-0">
+                                                Edit Purchase Order
+                                            </h3>
+
+                                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+
+                                            <div class="col-md-6 pull-left">
+                                                <a href="#" data-toggle="modal" data-target="#CreateModal">
+                                                    <span class=""><img src="~/img/images/new_supplier.png" /></span><br />
+                                                    <span class="bold">New Supplier</span>
+
+                                                </a>
+                                            </div>
+
+                                            <div class="col-md-6 pull-left">
+                                                <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#Existing_Supplier_Modal">
+                                                    <span class=""><img src="~/img/images/existing_supplier.png" /></span><br />
+                                                    <span class="bold">Existing Supplier</span>
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+
+                                        </div>
+
+
+
+
+
+                                        <div class="col-md-2 pull-left pl-0 pr-0">
+                                            <input type="text" name="exist_customer_idd" class="hidden" id="exist_customer_id" />
+
+                                            <input type="text" name="" class="hidden" id="" />
+                                            <input type="text" id="credit_limit_input" name="credit_limit_input" hidden value="@ViewBag.purchase.Supplier.Credit_Limit"/>
+                                            <input type="text" id="supplier_IDD" hidden name="supplier_IDD" value="@ViewBag.purchase.Supplier.Id" />
+                                            <input type="text" id="supplier_code" hidden name="supplier_code" />
+
+                                            <ul class="list-style-type-custom">
+                                                @*<li id="type_customer" class="bold font-18 black-color"></li>*@
+                                                <li id="supplier_names">@ViewBag.purchase.Supplier.Name</li>
+                                                <li id="supplier_addresss">@ViewBag.purchase.Supplier.Street</li>
+                                                <li id="supplier_postcodes">@ViewBag.purchase.Supplier.Post_Code</li>
+                                                <li id="supplier_emails">@ViewBag.purchase.Supplier.Email</li>
+                                                <li id="supplier_phones">@ViewBag.purchase.Supplier.Phone</li>
+
+                                                @*<li id="customer_balance" class="hidden"></li>
+                                                    <li id="customer_credit" class="hidden"></li>
+                                                    <li id="customer_credit_limit" class="hidden"></li>*@
+                                            </ul>
+                                        </div>
+
+
+
+                                        <div class="col-md-6 pull-left pl-0 pr-0">
+
+
+                                            <div class="col-md-5">
+
+                                                <div>
+                                                    <h5 class="bold mt-0">Invoice Image</h5>
+                                                    <div class="fileupload fileupload-new" style="max-width:80px" data-provides="fileupload" align="center">
+
+                                                        @if (@ViewBag.purchase.Image_Invoice != null)
+                                                        {
+                                                            {
+                                                                var base64 = Convert.ToBase64String(@ViewBag.purchase.Image_Invoice);
+                                                                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                                                                <div class="fileupload-new thumbnail"><img src="@imgsrc" class="product-img" /></div>
+                                                            }
+
+
+
+                                                        }
+
+                                                        else
+                                                        {
+                                                            <div class="fileupload-new thumbnail"><img src="~/img/images/default-image.jpg" class="product-img" /></div>
+                                                        }
+
+                                                        <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@" style="max-width:80px;max-height:80px"></div>
+
+                                                        <div>
+
+                                                            <span class="btn btn-file btn-primary btn-margin-product" style="max-height:20px;font-size:11px;padding:3px"><span class="fileupload-new">Select</span><span class="fileupload-exists">Change</span><input type="file" name="file" id="a_image1" onchange="Checkfilesimage(1)"></span>
+
+                                                            <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" style="padding: 1px;font-size:11px" data-dismiss="fileupload">Remove</a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                            <div class="col-md-7 pl-0 pr-0">
+
+                                                @*<div class="form-group pull-left">
+                    <label><input type="checkbox" value="" />Filter Supplier</label>
+                </div>*@
+
+                                                <label class="pull-left"><input type="checkbox" value="" id="filter_supplier_checkbox" />Filter Supplier</label>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group" id="">
+                                                    <label class="pull-left width-134" for="middle-name">Number</label>
+                                                    <div class="pull-left">
+                                                        <input class="width-145 text-center" onblur="checkPurchaseNumber()" readonly value="@ViewBag.purchase.Purchase_Number" onkeypress="validate(event)" type="text" name="purchase_number" id="purchase_number" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Date</label>
+                                                    <div class="pull-left">
+                                                        <input readonly class="width-145 text-center" id="converting_date" type="text" name="company_name" value="@ViewBag.purchase.Created_at.ToShortDateString()" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Sales Person</label>
+                                                    <div class="pull-left">
+                                                        <input readonly class="width-145 text-center" type="text" name="sales_person" id="company_name" value="@ViewBag.purchase.User.username" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group" id="payment_method_div">
+                                                    <label class="pull-left width-134" for="middle-name">Payment Method</label>
+                                                    <div class="pull-left">
+                                                        <select name="payment_method_id" class="form-control border_black-1px width-145 select-class-color">
+                                                            <option value="@ViewBag.purchase.Payment_Method_Id">@ViewBag.purchase.Payment_Methods.Type</option>
+                                                            @foreach (var method in ViewBag.Payment_Method)
+                                                            {
+                                                                if (@ViewBag.purchase.Payment_Method_Id == method.Id)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                <option value="@method.Id">@method.Type</option>
+                                                            }
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+
+                                                <div class="form-group">
+                                                    <label class="pull-left width-134" for="middle-name">Invoice No</label>
+                                                    <div class="pull-left">
+                                                        <input class="width-145 text-center" type="text" name="purchase_invoice_no" id="purchase_invoice_no" value="@ViewBag.purchase.PO_Invoice_Number" required>
+                                                    </div>
+                                                </div>
+
+                                                @*<a href="#" data-target="#Sold_History_Modal" data-dismiss="modal" data-toggle="modal">Sold History</a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <hr class="hr_customer" />
+
+                                    <div class="col-md-12">
+
+
+                                        <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable">
+                                            <thead>
+                                                <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                                    <th class="text-center">Code</th>
+                                                    <th class="text-center">Supplier</th>
+                                                    <th class="text-center width-53p">Description</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-center received_div" style="display:none">Receieved Qty</th>
+                                                    <th width="10%" class="text-center">Price</th>
+                                                    <th class="text-center hidecolumn">Price+VAT</th>
+                                                    <th width="2%" class="text-center">Total</th>
+                                                    <th class="text-center hidecolumn">Total+VAT</th>
+                                                    <th style="display:none" class="text-center">Received Qty</th>
+                                                    <th width="25%" class="text-center">Actions</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody class="black-color">
+
+                                                @{
+                                                    var counter = 1;
+
+                                                }
+
+                                                @foreach (var obj in Model)
+                                                {
+
+                                                    <tr id="@String.Concat("rowId"+counter)" class="font-15 id remove_div">
+
+                                                        <td class="border-right-td">
+                                                            <div class="text-center">
+                                                                <input value="@obj.Purchase_Order_Product.Code" placeholder="Code" class="yoyo unbold text-center"
+                                                                       onkeyup="productList(event,this.value,@counter);" type="text"  style="max-width:90px"
+                                                                       id="@String.Concat("codeforProduct",counter)" name="@String.Concat("codeforProduct",counter)">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="border-right-td">
+                                                            <div class="text-center">
+                                                                <input value="@obj.Purchase_Order_Product.Supplier_Code" class="4 new-invoice-width-boxes unbold width-68 text-center"
+                                                                       onkeyup="" placeholder="Supplier" onkeypress="validate(event)" type="text" readonly
+                                                                       id="@String.Concat("supplier_code", counter)" name="@String.Concat("supplier_code", counter)">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="border-right-td">
+                                                            <textarea class="2 description-text-area unbold width-100p text-center" readonly required="" placeholder="Description"
+                                                                      id="@String.Concat("invoice_description",counter)" name="@String.Concat("invoice_description",counter)">
+                                                                @obj.Purchase_Order_Product.Description
+                                                            </textarea>
+                                                        </td>
+
+                                                        <td class="border-right-td">
+                                                            <div class="text-center">
+                                                                <input value="@obj.Purchase_Order_Product.Quantity" placeholder="0" readonly class="3 unbold width-45 text-center" type="text"
+                                                                       onkeypress="validate(event)" onkeyup="Total(@counter); checkQuantityAvailable(this.value, @counter)"
+                                                                       id="@String.Concat("invoice_quantity",counter)" name="@String.Concat("invoice_quantity",counter)">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="border-right-td received_div" style="display:none">
+                                                            <div class="text-center">
+                                                                <input value="@obj.Purchase_Order_Product.Quantity_Received" placeholder="0" class="3 unbold width-65 text-center" type="text"
+                                                                       onkeyup="TotalReceived1(@counter);" onkeypress="validate(event)"
+                                                                       id="@String.Concat("invoice_receieved_quantity", counter)" name="@String.Concat("invoice_receieved_quantity", counter)">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="border-right-td">
+                                                            <div class="text-center">
+                                                                <input value="@obj.Purchase_Order_Product.Price" placeholder="0.0" class="4 new-invoice-width-boxes unbold width-68 text-center"
+                                                                       onkeyup="Total(@counter);TotalReceived1(@counter)" onkeypress="validate(event)" 
+                                                                       id="@String.Concat("invoice_price", counter)" name="@String.Concat("invoice_price", counter)" type="text">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="border-right-td hidecolumn text-center">
+                                                            <input value="@obj.Purchase_Order_Product.Price_VAT" placeholder="0.0" class="5 new-invoice-width-boxes unbold width-78 text-center"
+                                                                   onkeyup="Total2(@counter);TotalReceived2(@counter)" onkeypress="validate(event)" type="text" 
+                                                                   id="@String.Concat("invoice_price_vat",counter)" name="@String.Concat("invoice_price_vat",counter)">
+                                                        </td>
+
+                                                        <td class="border-right-td  text-center">
+                                                            <input value="@obj.Purchase_Order_Product.Total" readonly type="text"
+                                                                   placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center"
+                                                                   id="@String.Concat("invoice_total",counter)" name="@String.Concat("invoice_total",counter)">
+                                                        </td>
+
+                                                        <td class="border-right-td hidecolumn text-center">
+                                                            <input value="@obj.Purchase_Order_Product.Total_VAT" readonly type="text"
+                                                                   placeholder="0.0" class="7 new-invoice-width-boxes unbold width-78 text-center"
+                                                                   id="@String.Concat("invoice_total_vat",counter)" name="@String.Concat("invoice_total_vat",counter)">
+                                                        </td>
+                                                        @*id="received_total1"*@
+                                                        <td class="border-right-td  text-center" hidden>
+                                                            <input readonly placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center" type="text"
+                                                                   value="@obj.Purchase_Order_Product.Received_Total"
+                                                                   id="@String.Concat("received_total",counter)" name="@String.Concat("received_total",counter)">
+                                                        </td>
+
+                                                        @*<td class="text-center border-right-td width-68"><div id="invoice_total1" class="6 total_invoice_background text-center">£0</div></td>*@
+                                                        @*<td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat1" class="7 total_invoice_background text-center">£0</div></td>*@
+
+                                                        @*<td class="border-right-td text-center" style="display:none"><input onkeyup="Total(1);" onkeypress="validate(event)" id="invoice_discount1" placeholder="0.0" class="8 unbold width-45 text-center" name="invoice_discount1" type="text"></td>*@
+
+                                                        <td class="hidden">
+                                                            <input type="text" class="hidden" id="invoice_product_id1" name="invoice_product_id1" />
+                                                        </td>
+
+                                                        <td class="text-center width-27p" style="vertical-align:middle;">
+                                                            <a href="#" class="showdiv" @*onclick="addNewRow(); rowcounterPlus();"*@>
+                                                                <img src="/img/images/plus_new_sale.png">
+                                                            </a>
+                                                            <a href="#" class="remove" @*onclick="RemoveAddedRow(@counter)"*@>
+                                                                <img src="/img/images/cross_new_sale.png">
+                                                            </a>
+                                                            <a href="#">
+                                                                <img src="/img/images/barcode_new_sale.png">
+                                                            </a>
+                                                        </td>
+
+                                                        @*<input type="text" id="total_hidden1" name="total_hidden1"/>
+                                                            <input type="text" id="total_vat_hidden1" name="total_vat_hidden1"/>*@
+
+
+
+                                                    </tr>
+                                                    counter = counter + 1;
+                                                }
+                                            </tbody>
+
+                                            <input type="hidden" id="rowNumber" value="@counter" />
+
+                                            @for (int i = 1; i <= 1000; i++)
+                                            {
+
+                                                <tbody class="black-color" id="@String.Concat("newrow",i)"></tbody>
+                                            }
+                                        </table>
+
+
+                                        <div id="addedRows"></div>
+
+                                        <div id="productList"></div>
+                                        <div class="filter_div"></div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                    <div class="">
+
+                                        <div class="col-md-4 unbold">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="supplier_notes" placeholder="Supplier notes...">@ViewBag.purchase.Supplier_Notes</textarea>
+                                        </div>
+                                        <div class="col-md-4 pl-0">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="private_notes" placeholder="Private notes...">@ViewBag.purchase.Private_Notes</textarea>
+                                        </div>
+                                        <div class="col-md-4 pl-0">
+                                            <table id="table_cashh" class="black-color col-md-12 border_black">
+                                                <tr id="" class="">
+                                                    <td class="bold font-18">Order</td>
+                                                    <td id="" class="text-right bold"></td>
+                                                </tr>
+                                                <tr id="sub_total_tr" class="hidecolumn">
+                                                    <td class="">Subtotal</td>
+                                                    <td id="sub_total_td" class="bold text-right">@ViewBag.purchase.Sub_Total</td>
+                                                </tr>
+                                                <tr id="vat_tr" class="hidecolumn">
+                                                    <td class="">VAT</td>
+                                                    <td id="vat_td" class="text-right bold">@ViewBag.purchase.VAT</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                    <td class="">Total</td>
+                                                    <td id="total_td" class="text-right bold">@ViewBag.purchase.Total</td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+                                                <tr id="" class="received_div" style="display:none">
+                                                    <td class="bold font-18">Received</td>
+                                                    <td id="" class="text-right bold"></td>
+                                                </tr>
+                                                <tr id="received_sub_total_tr" class="received_div" style="display:none">
+                                                    <td class="">Subtotal</td>
+                                                    <td id="received_sub_total_td" class="bold text-right">@ViewBag.purchase.Received_Sub_Total</td>
+                                                </tr>
+                                                <tr id="vat_tr" class="received_div" style="display:none">
+                                                    <td class="">VAT</td>
+                                                    <td id="received_vat_td" class="text-right bold">@ViewBag.purchase.Received_Total_VAT</td>
+                                                </tr>
+
+
+
+                                                <tr class="received_div" style="display:none">
+                                                    <td>Total</td>
+                                                    <td id="received_total_td" class="text-right bold">@ViewBag.purchase.Received_Total</td>
+                                                </tr>
+                                                <tr class="border_bottom_black_2px received_div" style="display:none">
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+
+                                                <tr id="payment_status_tr">
+                                                    <td class="bold pt_4">Payment Status</td>
+                                                    <td class="text-right pt_4">
+                                                        <select id="payment_status_id" onchange="payment_status()" name="payment_status_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            @*<option>Please Select Any</option>*@
+                                                            <option value="@ViewBag.purchase.Payment_Status_Id">@ViewBag.purchase.Payment_Status.Status</option>
+                                                            @foreach (var status in ViewBag.Payment_Status)
+                                                            {
+                                                                if (@ViewBag.purchase.Payment_Status_Id == status.Id)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                <option value="@status.Id">@status.Status</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="payment_piriority_tr">
+                                                    <td class="bold pt_4">Payment Piriority</td>
+                                                    <td class="text-right pt_4">
+                                                        <select id="payment_piriority_id" onchange="payment_piriority()" name="payment_piriority_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            <option value="@ViewBag.purchase.Payment_Piriority_Id">@ViewBag.purchase.Payment_Priority.Type</option>
+                                                            @foreach (var piriority in ViewBag.Payment_Piriority)
+                                                            {
+                                                                if (@ViewBag.purchase.Payment_Piriority_Id == piriority.Id)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                <option value="@piriority.Id">@piriority.Type</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr id="po_status_tr">
+                                                    <td class="bold pt_4" style="padding-bottom:4px">PO Status</td>
+                                                    <td class="text-right pt_4" style="padding-bottom:4px">
+                                                        <select id="po_status" onchange="PO__Status();" name="po_status_id" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            <option value="@ViewBag.purchase.PO_Status_Id">@ViewBag.purchase.Purchase_Order_Status.Status_Type</option>
+                                                            @foreach (var status in ViewBag.PO_Status)
+                                                            {
+                                                                if (@ViewBag.purchase.PO_Status_Id == status.Id)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                <option value="@status.Id">@status.Status_Type</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="bold text-center"><a href="#" data-target="#Deposit_Modal" class="hideDiv" id="Deposit_payment_option" data-toggle="modal">Deposit Payment</a></td>
+                                                    <td class=" bold text-center"><a href="#" class="hideDiv" data-target="#Partial_Payment_Modal" id="partial_payment_option" data-toggle="modal">Add Partial Payment</a></td>
+
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px hide_border" style="display:none">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr class="partial_paid" style="display:none">
+                                                    <td class="bold">Partial Payment</td>
+                                                    <td id="partial_paid_td" class="text-right">@ViewBag.purchase.</td>
+                                                </tr>
+
+                                                <tr class="border_bottom_black_2px hide_border" style="display:none">
+                                                    <td style="padding-bottom:4px"></td>
+                                                    <td style="padding-bottom:4px"></td>
+                                                </tr>
+
+                                                <tr class="deposit_paid" style="display:none">
+                                                    <td class="bold">Deposit Payment</td>
+                                                    <td id="deposit_paid_td" class="text-right">£0</td>
+                                                </tr>
+
+                                                <tr class="partial_paid" style="display:none">
+                                                    <td class="bold" id="partial_date"></td>
+                                                    <td id="partial_payment_method" class="text-right"></td>
+                                                </tr>
+
+                                                <tr id="custom_date_show_invoice" style="display:none">
+                                                    <td class="bold width-134">Custom Date</td>
+                                                    <td><input type="date" class="width-180" /></td>
+                                                </tr>
+
+
+                                                @*@if (@ViewBag.purchase.Amount_Left != 0)
+                                                { }*@
+                                                
+                                                <tr class="partial_paid deposit_paid">
+                                                    <td class="bold">Amount left to Pay</td>
+                                                    <td id="amount_left_td" class="text-right">@ViewBag.purchase.Amount_Left</td>
+                                                </tr>
+
+                                                @*<tr class="partial_paid deposit_paid">
+                                                    <td class="bold">Amount left to Pay</td>
+                                                    <td id="amount_left_td" class="text-right">@ViewBag.purchase.Amount_Left</td>
+                                                </tr>*@
+
+
+                                                
+
+
+                                            </table>
+
+
+                                            <div class="col-md-12 balance_div none displayDIV">
+
+                                                <span class=" font-18 text-center red bold">Outstanding Balance</span>
+                                                <br />
+                                                <input type="text" readonly class="input_type_custom font-18" name="outstanding_balance" value="" id="outstanding_balance" />
+                                                <br />
+                                                <a href="#" class="btn btn-primary blue-btn-style btn-mini bold" data-target="#Outstanding_modal" data-toggle="modal">Pay Outstanding</a>
+                                                <div class="empty-height"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                        @*<div class="empty-height"></div><div class="empty-height"></div>
+
+                                            <div id="global_discount_div" class="col-md-3 pull-right">
+                                                <a href="" class="btn btn-primary blue-btn-style btn-mini bold" data-toggle="modal" data-target="#Global_Discount_Modal">Add Global Discount</a>
+                                            </div>*@
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-5"></div>
+
+
+                                    <div class="col-md-1 pr-0 text-center">
+                                        <a>
+                                            <span class=""><img src="~/img/images/save.png" /></span><br />
+
+
+                                        </a>
+
+                                        <input type="submit" onclick="return submitResult();" value="Save" />
+
+
+                                    </div>
+
+                                    <div class="col-md-1 text-center">
+                                        <a href="~/Sale/New_Invoice">
+                                            <span class=""><img src="~/img/images/exit.png" /></span><br />
+                                            <input type="button" value="Exit" />
+                                            @*<span class="bold ml--7">Exit</span>*@
+
+                                        </a>
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                </div>
+
+                                <input id="counters" value="" type="text" hidden/>
+
+                                <input type="text" class="" id="order_sub_total_hidden" value="@ViewBag.purchase.Sub_Total" placeholder="order Subtotal" name="order_sub_total_hidden" hidden/>
+                                <input type="text" class="" id="order_vat_hidden" value="@ViewBag.purchase.VAT" name="order_vat_hidden" placeholder="order vat" hidden/>
+                                <input type="text" class="" id="order_total_hidden" value="@ViewBag.purchase.Total" name="order_total_hidden" placeholder="order total" hidden/>
+
+
+
+                                <input type="text" class="" id="received_sub_total_hidden" name="received_sub_total_hidden" placeholder="received Subtotal" hidden />
+                                <input type="text" class="" id="received_vat_hidden" name="received_vat_hidden" placeholder="received vat" hidden />
+                                <input type="text" class="" id="received_total_hidden" name="received_total_hidden" placeholder="received total" hidden />
+
+
+                                <input type="text" class="" id="amount_paid_hidden" name="amount_paid_hidden" value="@ViewBag.purchase.Amount_Paid" placeholder="Amount Paid" hidden/>
+                                <input type="text" class="" id="left_amount_hidden" name="left_amount_hidden" value="@ViewBag.purchase.Amount_Left" placeholder="Left Amount" hidden/>
+                            </form>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @*----------------------------POP UP FOR PARTIAL PAYMENT--------------------------------*@
+
+    <div class="modal fade one" id="Partial_Payment_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="color"><b>Add Partial Payment</b></h3>
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                            <form id="demo-form2" action="" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+
+
+                                <div class="empty-height"></div>
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group pull-left">
+                                        <label class="pull-left text-left width-72 font-16" for="middle-name">Amount</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="width-145" type="text" onkeypress="validate(event)" name="partial_amount" id="partial_amount">
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group pull-left">
+                                            <label class="pull-left text-left width-72 font-16" for="middle-name">Date</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-145" type="date" name="category_title" id="category">
+                                            </div>
+                                        </div>*@
+
+
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-1"></div>
+
+                                    <div class="col-md-5">
+                                        <input type="button" onclick="Partial_Payment()" data-dismiss="modal" value="Add" class="btn btn-success btn-mini center-block width-80" />
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <a href="" data-dismiss="modal" class="btn btn-primary btn-mini width-80 center-block height-40 mt-0">Cancel</a>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+
+
+                                </div>
+
+                            </form>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END PARTIAL PAYMENT--------------------------------*@
+
+
+
+
+
+
+
+
+
+
+    @*----------------------------POP UP for EXISTING SUPPLIER--------------------------------*@
+
+    <div class="modal fade" id="Existing_Supplier_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="color"><b>Find Supplier</b></h3>
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                            <div class="col-md-12">
+                                <table border="0" class="table table-responsive border_black" id="kj">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Postcode</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Credit Limit</th>
+                                            @*<th class="text-center">Balance</th>
+                                                <th class="text-center">Credit</th>
+                                                <th class="text-center">Credit Limit</th>*@
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="black-color bold" id="">
+                                        @foreach (var v in ViewBag.Supplier)
+                                        {
+                                            <tr onclick="existing_supplier_click(@v.Id)" class="disableRightClick" oncontextmenu="edit_supp(@v.Id,'Purchase')">
+                                                <td id="@String.Concat("suppliers1", v.Id)" data-title="User ID">@v.Name</td>
+                                                <td id="@String.Concat("suppliers2", v.Id)" data-title="Last Name">@v.Street</td>
+                                                <td id="@String.Concat("suppliers3", v.Id)" data-title="Last Name">@v.Post_Code</td>
+                                                <td id="@String.Concat("suppliers4", v.Id)" data-title="First Name">@v.Email</td>
+                                                <td id="@String.Concat("suppliers5", v.Id)" data-title="Email" class="user-emails">@v.Mobile</td>
+                                                <td id="@String.Concat("suppliers6", v.Id)" data-title="Email" class="user-emails">@v.Credit_Limit</td>
+                                                @*<td id="@String.Concat("supp5", v.Id)" data-title="Email" class="user-emails">@v.</td>*@
+
+
+
+                                                @*<td id="@String.Concat("supp6", v.Id)" data-title="Email" class="user-emails">@v.Balance</td>
+                                                    <td id="@String.Concat("supp7", v.Id)" data-title="Email" class="user-emails">@v.Credit</td>
+                                                    <td id="@String.Concat("supp8", v.Id)" data-title="Email" class="user-emails">@v.Credit_Limit</td>*@
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                            @*<table id="00" class="table table-responsive border_black">*@
+                            @*<table border="0" class="table table-responsive border_black" id="kj">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Postcode</th>
+                                            <th class="text-center">Email</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="black-color bold" id="">
+                                        @foreach (var v in ViewBag.Customer)
+                                    {
+                                            <tr onclick="go(@v.Id)">
+                                                <td id="@String.Concat("juni1", v.Id)" data-title="User ID">@v.Name</td>
+                                                <td id="@String.Concat("juni2", v.Id)" data-title="First Name">@v.phone</td>
+                                                <td id="@String.Concat("juni3", v.Id)" data-title="Last Name">@v.Billing_Address</td>
+                                                <td id="@String.Concat("juni4", v.Id)" data-title="Last Name">@v.Billing_Postcode</td>
+                                                <td id="@String.Concat("juni5", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                                <td id="@String.Concat("juni6", v.Id)" class="hidden">@v.Customer_Type_Id</td>
+                                            </tr>
+                                    }
+                                    </tbody>
+                                </table>*@
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+
+    @*----------------------------POP UP ADD SUPPLIER--------------------------------*@
+
+    <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>New Supplier</b></h3>
+                            <img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />
+
+                            <form id="demo-form2" action=@Url.Action("Create", "Supplier") method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+
+                                <div class="col-md-12 text-center">
+
+                                    <input type="text" id="redirect_check_id" name="redirect_check_id" value="1" hidden />
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Company Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="company_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Company Short Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="company_short_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="supplier-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Sales Contact Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="sales_contact_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Sales Contact Email <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="sales_contact_mail" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Sales Contact Phone <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input class="width-123" type="text" name="sales_contact_phone" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="ext-texts">Ext</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" class="width-43" name="sales_phone_ext" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Sales Contact Mobile <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="sales_contact_mobile" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Sales Contact Fax <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="sales_contact_fax" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="supplier-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account Contact Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account Contact Email <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_mail" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Account Contact Phone <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input class="width-123" type="text" name="account_contact_phone" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="ext-texts">Ext</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input class="width-43" type="text" name="account_ext_phone" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account Contact Mobile <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_mobile" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account Contact Fax <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_fax" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="supplier-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Bank Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="bank_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Account No <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_no" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Sort Code <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="sort_code" required>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Address<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="address1" required>
+                                                <input class="ml--50" type="text" name="address2">
+                                                <input class="ml--50" type="text" name="address3">
+                                                <input class="ml--50" type="text" name="address4">
+                                                <input class="ml--50" type="text" name="address5">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Postcode<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="postcode">
+                                                <a href="#"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                            </div>
+                                        </div>
+
+                                        <div id="input_container">
+
+                                        </div>
+
+                                        @*</div>*@
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Website<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="website" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Login<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="login" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Password<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="password" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="">Notes<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <textarea class="width-193 ml--50" name="notes" required></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="supplier-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Credit Limit<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="credit_limit" required>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Credit Period<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="credit_period" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                                        <input type="submit" value="Add Product" class="btn btn-success" />
+                                    </div>*@
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-145" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>*@
+                                        <a href="~/Purchase/New_Purchase_Order" class="btn btn-primary blue-btn-style-modal btn-mini center-block a-cancel">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    @*<input type="hidden" value="1" id="rowCounterrr" />*@
+
+    @{
+        counter = counter - 1;
+    }
+
+    <input type="hidden" name="totalRows" value="@counter" id="rowCounterrr"/>
+    <input type="hidden" value="1" id="ApnaApnaRowNumber"/>
+
+    @*----------------------------POP UP END ADD SUPPLIER--------------------------------*@
+
+
+
+
+
+    <script src="~/scripts/purchase/Edit_Purchase_Order.js"></script>
+
+    <script>
+
+    </script>
+
+    @*<script>
+            function convert_date() {
+                alert("dasdas");
+                var a = $("#converting_date").datepicker("dd-mm-yy" );
+                alert(a);
+                $("#converting_date").val(a);
+                //var b = a.to
+                //alert("b" + b);
+                //$("#converting_date").val(b);
+            }
+        </script>*@
+
+
+
+</body>

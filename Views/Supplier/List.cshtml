@@ -1,0 +1,312 @@
+﻿@model List<eSalesPro.Models.Supplier>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div class="col-md-12">
+                            <h3 class="bold">Suppliers<small></small></h3>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+                        <div class="col-md-12">
+
+                            <div class="col-md-3 mt-20 pull-left pl-0">
+                                <a href="/User/Epos" class="btn btn-primary blue-btn-style btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-3"></div>
+
+                            <div class="col-md-6 pull-right pr-0">
+
+                                <div class="col-md-3 col-sm-6 col-xs-6 text-center pull-right pr-0 pl-0">
+                                    <a href="#" data-toggle="modal" data-target="#Existing_Supplier_Modal">
+                                        <span class="box"><img src="/img/images/existing_supplier.png"></span><br>
+                                        <span><b>Existing Supplier</b></span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-3 col-sm-6 col-xs-6 text-center pull-right pl-0">
+                                    <a href="#" data-toggle="modal" data-target="#CreateModal">
+
+                                        <span class="box"><img src="/img/images/new_supplier.png"></span><br>
+                                        <span><b>New Supplier</b></span>
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="clearfix"></div>
+
+
+                        @*<section id="no-more-tables">*@
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div class="col-md-12">
+
+                                <!-- SUPPLIER BORDER TD RANGLERZ.CSS  1503 COMMENTED -->
+                                
+                                <table border="0" class="table table-responsive border_black" id="supplier_table">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            @*<th class="text-center">ID</th>*@
+                                            <th class="text-center">Salesman</th>
+                                            <th class="text-center">Company Name</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Email</th>
+                                            @*<th class="text-center">Address</th>*@
+                                            <th class="text-center">Postcode</th>
+
+                                            @*<th class="text-center">Status</th>*@
+
+                                            @*<th>Pay Rate</th>
+                    <th>Role</th>
+                    <th>Status</th>*@
+
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color bold text-center">
+                                      
+                                        @foreach (var v in Model)
+                                        {
+                                            @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+                                            <tr>
+                                                @*<td class="border-right-td text-center" data-title="User ID">@v.Id</td>*@
+                                                <td class="text-center" data-title="User ID">@v.Name</td>
+                                                <td class="text-center" data-title="User ID">@v.Company.Company_Name</td>
+                                                <td class="text-center" data-title="First Name">@v.Phone</td>
+                                                <td class="text-center" data-title="Last Name">@v.Email</td>
+                                                @*<td class="border-right-td text-center" data-title="Email">@v.Street</td>*@
+                                                <td class="text-center" data-title="Date Registered">@v.Post_Code</td>
+
+                                                @*@if (@v.Is_Active == 1)
+                                                {
+                                                    <td class="gg border-right-td">Active</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="red border-right-td">Deactive</td>
+                                                }*@
+
+                                                <td data-title="Actions" class="text-center buttons-block width-140">
+                                                    @*<a class="btn btn-sm btn-info bold" href="" data-toggle="modal" data-target="#EditModal" onclick="GetEditedObject(@v.Id)">*@
+                                                    <a class="btn btn-sm btn-info bold" href="#" onclick="edit_supp(@v.Id,'Supplier')">
+                                                        Edit
+                                                    </a>
+                                                    @*<a class="btn btn-sm btn-success bold" href="~/Supplier/Active/@v.Id">
+                                                        Enable
+                                                    </a>*@
+                                                    <a class="btn btn-sm btn-danger bold" onclick="delete_supplier_without_confirmation(@v.Id)" @*onclick="delete_supplier(@v.Id)" href="~/Supplier/Disable/@v.Id"*@>
+                                                        Delete
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+
+                                </table>
+
+                                <div class="clearfix"></div>
+
+
+                            </div>
+
+                        <script>
+
+                            function delete_supplier_without_confirmation(Id) {
+                                window.location.href = 'Disable/' + Id;
+                            }
+
+                            //function delete_supplier(id){
+
+
+
+                            //    swal({
+                            //            title: "Are you sure?",
+                            //            text: "You will not be able to recover this Supplier!",
+                            //            type: "warning",
+                            //            showCancelButton: true,
+                            //            confirmButtonColor: "#DD6B55",
+                            //            confirmButtonText: "Yes, delete it!",
+                            //            closeOnConfirm: false
+                            //        },
+                            //        function (isConfirmed) {
+                            //            if (isConfirmed) {
+
+                            //                window.location.href='Disable/' + id;
+
+                            //                //$(".file").addClass("isDeleted");
+                            //                swal("Deleted!", "Your Supplier has been deleted.", "success");
+                            //            }
+                            //        }
+                            //      );
+
+                            //}
+
+                        </script>
+
+
+
+
+
+
+                </div>
+                </div>
+
+                
+
+
+
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @*----------------------------POP UP ADD SUPPLIER--------------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Add_Supplier_Modal");
+    }
+
+    @*----------------------------POP UP END ADD SUPPLIER--------------------------------*@
+
+
+    @*----------------------------POP UP for EDIT SUPPLIER-----------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Edit_Supplier_Modal");
+    }
+
+    @*----------------------------POP UP END for EDIT SUPPLIER-----------------------------*@
+
+    
+    
+    @*----------------------------POP UP for EXISTING SUPPLIER--------------------------------*@
+
+    @{
+        Html.RenderPartial("Supplier_Modal/Existing_Supplier_Modal");
+    }
+
+    @*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+
+    @*----------------------------POP UP LOGOUT SESSION--------------------------------*@
+
+
+
+    
+
+
+    
+
+
+
+    @*----------------------------POP UP LOGOUT SESSION--------------------------------*@
+
+    <script src="~/scripts/supplier/list.js"></script>
+    <script src="~/Scripts/Common_JS_Functions/Common_JS.js"></script>
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+
+    @*<script>
+        
+    function GetEditedObject(Id) {
+
+    var url = "/Supplier/GetSupplier/";
+    var vendorslist = "#VendorsDD";
+    
+    $.ajax({
+    url: url,
+    data: { objID: Id },
+    cache: false,
+    type: "POST",
+    success: function (data) {
+    var serobj = jQuery.parseJSON(data);
+    document.getElementById('supplier_id').value = serobj.supplier_id;
+    document.getElementById('company_name').value = serobj.company_name;
+    document.getElementById('company_short_name').value = serobj.company_short_name ;
+    document.getElementById('sales_contact_name').value = serobj.supplier_name;
+    document.getElementById('sales_contact_mail').value = serobj.supplier_email;
+    document.getElementById('sales_contact_phone').value = serobj.supplier_phone;
+    document.getElementById('sales_phone_ext').value = serobj.supplier_phone_ext;
+    document.getElementById('sales_contact_mobile').value = serobj.supplier_mobile;
+    document.getElementById('sales_contact_fax').value = serobj.supplier_fax;
+    document.getElementById('account_contact_name').value = serobj.account_name;
+    document.getElementById('account_contact_mail').value = serobj.account_email;
+    document.getElementById('account_contact_phone').value = serobj.account_phone;
+    document.getElementById('account_ext_phone').value = serobj.account_phone_ext;
+    document.getElementById('account_contact_mobile').value = serobj.account_mobile;
+    document.getElementById('account_contact_fax').value = serobj.account_fax;
+    document.getElementById('bank_name').value = serobj.bank_name;
+    document.getElementById('account_name').value = serobj.bank_acc_name;
+    document.getElementById('account_no').value = serobj.account_no;
+    document.getElementById('sort_code').value = serobj.bank_sort_code;
+    document.getElementById('address').value = serobj.supplier_address;
+    document.getElementById('postcode').value = serobj.supplier_post_code;
+    document.getElementById('website').value = serobj.supplier_website;
+    document.getElementById('login').value = serobj.supplier_login;
+    document.getElementById('password').value = serobj.supplier_password;
+    document.getElementById('notes').value = serobj.supplier_notes;
+    document.getElementById('credit_limit').value = serobj.supplier_credit_limit;
+    document.getElementById('credit_period').value = serobj.supplier_credit_period;
+    },
+
+
+    error: function (reponse) {
+    alert("error : " + reponse);
+    }
+    });
+    }
+
+    </script>*@
+
+</body>

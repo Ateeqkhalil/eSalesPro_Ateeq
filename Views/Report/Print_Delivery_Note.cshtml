@@ -1,0 +1,266 @@
+﻿@model List<eSalesPro.Models.Sale_Invoice>
+
+
+<!doctype html>
+<html>
+<head>
+    <title>invoice sample(1)</title>
+    <style type="text/css">
+        body {
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+        }
+
+        .invoice-container {
+            width: 100%;
+            margin: -20px auto 0;
+            border: 1px solid #fff;
+            position: relative;
+            color: #000000;
+            /*font-size:13px;*/
+        }
+
+        .logo {
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 180px;
+            height: 60px;
+        }
+
+        .head {
+            text-align: center;
+            font-size: 38px;
+        }
+
+        .contact-details {
+            line-height: 25px;
+        }
+
+        .pull-right {
+            float: right;
+        }
+
+        .pull-left {
+            float: left;
+        }
+
+        .clearfix {
+            clear: both;
+        }
+
+        .infotablefirst,
+        .infotablesecond,
+        .infotablethird {
+            font-weight: bold;
+        }
+
+        /*.infotablesecond {
+            background-color: #bfbfbf;
+        }*/
+
+        .bgcolor {
+            background-color: #bfbfbf;
+        }
+
+        .detail-info,
+        .infotableforth {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .firstrow {
+            text-transform: uppercase;
+            background-color: #bfbfbf;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            height: 35px;
+        }
+
+        .tbl-image {
+            margin: 5px 0 1px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        .infotablefirst tr td,
+        .infotablesecond tr td,
+        .infotablethird tr td,
+        .infotableforth tr td,
+        .infotablefifth tr td {
+            padding-left: 5px !important;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    @*@{
+            var doc_type=v.Invoice.Doc_Type_ID;
+        }*@
+
+    <div class="invoice-container">
+        <div class="top-head">
+            @foreach (var config in @ViewBag.config)
+            {
+
+                if (@config.Image != null)
+                {
+                    if (@ViewBag.invoice.Doc_Type_ID != 3)
+                    {
+                        {
+                            var base64 = Convert.ToBase64String(@config.Image);
+                            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgsrc" alt="" class="logo" />
+                        }
+                    }
+                }
+                else
+                {
+                    <img src="~/img/images/default-image.jpg" alt="" class="logo" />
+                }
+
+            }
+            <h2 class="head">Delivery Note</h2>
+        </div>
+        <div class="head-info">
+            @foreach (var config in @ViewBag.config)
+            {
+                if (@ViewBag.invoice.Doc_Type_ID == 1)
+                {
+                    <p class="contact-details pull-left">@config.Shop_No  @config.Street_Name<br />@config.City, @config.PostCode<br /><strong>Phone:</strong>@config.Phone_No<br /><strong>Mob:</strong> @config.Mobile</p>
+                }
+            }
+            <div class="top-right-info pull-right">
+                <table cellpadding="5" cellspacing="5" border="1" class="infotablefirst pull-right">
+                    <tr>
+                        @if (@ViewBag.invoice.Doc_Type_ID == 1)
+                        {
+                            <td width="140px">Invoice No:</td>
+                            <td width="150px">@ViewBag.invoice.Invoice_Number</td>
+                        }
+
+                        else if (@ViewBag.invoice.Doc_Type_ID == 2)
+                        {
+                            <td width="140px">Quote No:</td>
+                            <td width="150px">@ViewBag.invoice.Quote_Number</td>
+                        }
+
+                        else if (@ViewBag.invoice.Doc_Type_ID == 3)
+                        {
+                            <td width="140px">Item Sale No:</td>
+                            <td width="150px">@ViewBag.invoice.Item_Sale_Number</td>
+                        }
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>@ViewBag.invoice.Created_at.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        @if (@ViewBag.invoice.Doc_Type_ID != 3)
+                        {
+                            <td>Account No:</td>
+                            <td>@ViewBag.invoice.Customer.Account_No</td>
+                        }
+                    </tr>
+                    <tr>
+                        @if (@ViewBag.invoice.Doc_Type_ID != 3)
+                        {
+                            <td>Purchase Order No:</td>
+                            <td>@ViewBag.invoice.Purchase_Order_Number</td>
+                        }
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div>&nbsp;</div>
+                @if (@ViewBag.invoice.Doc_Type_ID != 3)
+                {
+                    <table cellpadding="5" cellspacing="0" border="1" class="infotablesecond pull-right">
+                        <tr>
+                            <td class="bgcolor" width="140px">Served By:</td>
+                            <td width="150px">@ViewBag.invoice.User.display_name</td>
+                        </tr>
+                    </table>
+                }
+                <div class="clearfix"></div>
+                <div>&nbsp;</div>
+                <table cellpadding="5" cellspacing="0" border="1" class="infotablethird pull-right">
+                    <tr>
+                        <td colspan="2" class="bgcolor" width="300px">Customer Details</td>
+                        <td class="bgcolor" width="150px" align="center">Shipping Details</td>
+                    </tr>
+                    <tr style="font-size:11px">
+                        <td colspan="2" height="40px">@ViewBag.invoice.Customer.Name <br />@ViewBag.invoice.Customer.Company.Company_Name <br /> @ViewBag.invoice.Customer.Billing_Street <br />@ViewBag.invoice.Customer.Billing_County <br />@ViewBag.invoice.Customer.Billing_Postcode </td>
+                        @if (@ViewBag.invoice.Customer.Billing_Postcode == @ViewBag.invoice.Customer.Shipping_Postcode)
+                        {
+                            <td rowspan="3"></td>
+                        }
+                        else
+                        {
+                            <td rowspan="3" valign="top">@ViewBag.invoice.Customer.Billing_Street <br />@ViewBag.invoice.Customer.Billing_County <br />@ViewBag.invoice.Customer.Billing_Postcode </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="bgcolor">Customer Email</td>
+                        <td class="">@ViewBag.invoice.Customer.Email</td>
+                    </tr>
+                    <tr>
+                        <td class="bgcolor">Customer Phone</td>
+                        <td class="">@ViewBag.invoice.Customer.phone</td>
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="detail-info">
+
+
+
+            <table cellpadding="0" cellspacing="0" border="1" class="infotableforth">
+                <tr class="firstrow">
+                    <td width="20%">Item Code</td>
+                    <td width="10%">Qty</td>
+                    <td width="70%">Description</td>
+
+                </tr>
+                @foreach (var a in Model)
+                {
+
+                    <tr align="center" style="height:34px">
+                        <td>@a.Sale.Product.Custom_Label_</td>
+                        <td>@a.Sale.Quantity</td>
+                        <td>@a.Sale.Description</td>
+                    </tr>
+
+                }
+            </table>
+
+        </div>
+        <div>&nbsp;</div>
+        
+        <div class="clearfix"></div>
+        <div>&nbsp;</div>
+
+    </div>
+
+</body>
+</html>
+<script>
+    //var editorText = CKEDITOR.instances.text_area_conditions.getData();
+    //CKEDITOR.replace("text_area_conditions");
+
+
+    CKEDITOR.replace('text_area_conditions');
+
+    timer = setInterval(updateDiv, 100);
+    function updateDiv() {
+        var editorText = CKEDITOR.instances.text_area_conditions.getData();
+        $('#text_area_conditions').html(editorText);
+
+    }
+</script>

@@ -1,0 +1,327 @@
+﻿@model IEnumerable<eSalesPro.Models.Customer>
+
+@{
+    decimal? total = 0;
+}
+
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                <div id="loader_div" class="" style="display:none;">
+                                    <img src="~/img/loading.gif" class="ajax_loader">
+                                </div>
+
+                                <div class="empty-height"></div>
+                                <div class="col-md-4 padding-all-0 print_btn_hide_cols">
+                                    <h3 class="bold font-20 padding-0">
+                                        EPOS Credit Sales Report
+                                    </h3>
+                                </div>
+
+                                <div class="empty-height"></div>
+
+                                <div class="col-md-8 padding-0 print_btn_hide_cols">
+                                    <div class="pull-right">
+                                        <div class="mr-7 pull-left">
+
+
+                                            <select name="sale_type" id="docType" required class="form-control" onchange="findByDocType(this.value)">
+
+                                                <option value="-1">Select Any</option>
+                                                <option value="-1">All Types </option>
+
+                                                @foreach (var obj in ViewBag.docTypes)
+                                                {
+                                                    if (obj.Id == 2)
+                                                    {
+                                                        continue;
+                                                    }
+                                                    <option value="@obj.Id">@obj.Type </option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        <div class="mr-7 pull-left">
+
+                                            <select name="customer_type" id="customerType" required class="form-control" onchange="findByCustomerType(this.value)">
+
+                                                <option value="-1">Select Any</option>
+                                                <option value="-1">All Type of Customers</option>
+
+                                                @foreach (var obj in ViewBag.Customer_Type)
+                                                {
+                                                    <option value="@obj.Id">@obj.Type </option>
+                                                }
+
+                                            </select>
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <label class="black-color mr-3 mt-7">To Date :</label>
+                                        </div>
+                                        <div class="pull-left">
+                                            <input required type="date" id="to_date" oninput="findRecord(this.value)" class="mr-3 credit_date_width-height" name="to_date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+                        <div class="col-md-12 print_btn_hide_cols">
+
+                            <div class="col-md-3 pull-left pl-0">
+                                <a href="~/User/Epos" class="btn btn-primary blue-btn-style btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-5"></div>
+
+                            <div class="col-md-2 pull-right pr-0">
+                                <a href="#" data-toggle="modal" data-target="#ExistingModal" onclick="show_customer_summary()" class="btn btn-primary blue-btn-style btn-mini bold pull-right">Customer Summary</a>
+                            </div>
+
+                            <div class="col-md-2 pull-right pr-0">
+                                <a href="#" class="btn btn-primary blue-btn-style btn-mini bold width-150 pull-right print_btn_view">Print</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+
+                        <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                        @{
+                            Html.RenderPartial("Customer_Summary");
+                        }
+
+                        <div class="clearfix"></div>
+
+
+                        <div id="date_click_div">
+
+                            <div class="col-md-3 pl-0 pr-0 pull-left none print_page_heading">
+                                <h3 style="font-size:26px" class="bold">Customer List<small></small></h3>
+                            </div>
+
+
+                            <div class="col-md-12" id="">
+                                <table border="0" class="table table-responsive border_black hide_credit_sales_report show" id="table_on_dates">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th width="15%" class="text-center">Type</th>
+                                            <th width="17%" class="text-center">Customer</th>
+                                            <th width="17%" class="text-center">Phone No</th>
+                                            <th width="17%" class="text-center">Email</th>
+                                            <th width="17%" class="text-center">Credit Limit</th>
+                                            <th width="17%" class="text-center">Outstanding Balance</th>
+
+                                        </tr>
+
+                                        
+
+                                    </thead>
+                                    <tbody class="black-color bold text-center" id="updatedDiv">
+
+
+                                        @foreach (var obj in Model)
+                                        {
+
+                                            if (obj.Balance != 0)
+                                            {
+
+
+                                                <tr ondblclick="customer_summary_list(@obj.Id,@obj.Customer_Type_Id)">
+                                                    <td data-title="User ID">@obj.Customer_Type.Type</td>
+                                                    <td data-title="User ID">@obj.Name</td>
+                                                    <td data-title="User ID">@obj.phone</td>
+                                                    <td data-title="User ID">@obj.Email</td>
+                                                    <td class="text-center" data-title="User ID">£ @obj.Credit_Limit_Old</td>
+                                                    <td class="text-center" data-title="User ID">£ @obj.Balance</td>
+
+                                                </tr>
+
+                                            }
+                                            total = total + obj.Balance;
+
+                                            
+
+                                        }
+                                       
+
+                                    </tbody>
+
+                                    <tfoot>
+
+                                        @if (total != 0)
+                                        {
+                                            <tr class="red" style="background-color:#e6e6e6 !important">
+                                                <td data-title="User ID"></td>
+                                                <td data-title="User ID"></td>
+                                                <td data-title="User ID"></td>
+                                                <td data-title="User ID"></td>
+                                                <td class="text-center font-20" data-title="User ID">Total</td>
+                                                <td class="text-center font-20" data-title="User ID">£ @total</td>
+
+                                            </tr>
+                                        }
+                                    </tfoot>
+                                    
+
+                                </table>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    
+    @*----------------------------POP UP for CUSTOMER SUMMARY--------------------------------*@
+
+    @*<div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>Find Customer</b></h3>
+
+                            <form id="demo-form2" action="#" method="post" data-parsley-validate class="form-horizontal form-label-left mt-30" enctype="multipart/form-data">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <div class="pull-left">
+                                                <input type="text" name="customer" class="width-320">
+                                                <a href="~/Report/SaleReport" class="btn-primary btn-mini center-block btn-existing-supplier-cancel" style="">Cancel</a>
+                                                <input data-dismiss="modal" onclick="show_customer_summary()" type="button" class="btn-success btn-mini center-block btn-existing-supplier-search" value="Search" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+
+            </div>
+        </div>
+    </div>*@
+
+    @*----------------------------POP UP END CUSTOMER SUMMARY--------------------------------*@
+
+    <script src="~/scripts/customer_summary/customer_summary.js"></script>
+    <script src="~/scripts/report/credit_sale_report.js"></script>
+    
+    <!----------------------------NOT WORKING IN OTHER JS FILE------------------------->
+    <script>
+        $(document).ready(function () {
+            $('#customer_summary_table').dataTable();
+        });
+    </script>
+    <!----------------------------NOT WORKING IN OTHER JS FILE------------------------->
+    
+    <script>
+        function PrintBtn() {
+            $("#crud_btn_hide").addClass("none");
+            $("#side_navi_hide").addClass("none");
+
+            window.print();
+        }
+        function showToDate() {
+            var from = document.getElementById("from_date").value;
+
+            if (from == "") {
+            }
+
+            else {
+                document.getElementById("to_date").removeAttribute('disabled');
+            }
+        }
+        function myDate() {
+            var date = new Date(document.getElementById("to_date")).toDateString("yyyy-MM-dd");
+        }
+    </script>
+
+    <script>
+        
+    </script>
+
+</body>

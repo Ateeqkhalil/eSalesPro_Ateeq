@@ -1,0 +1,453 @@
+﻿@model List<eSalesPro.Models.Product_Categories>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+      
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                               
+                                <div class="col-md-6 pl-0 pr-0">
+                                    <h3 class="bold font-23">List Product Categories<small></small></h3>
+                                </div>
+
+                                <div class="col-md-6 pull-right pr-0 pt_15">
+                                    <a href="#" data-toggle="modal" data-target="#create_category_modal" class="btn btn-primary blue-btn-style btn-mini bold pull-right">Add New Category</a>
+                                </div>
+                                
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-6 pull-left pl-0">
+                                <a href="~/User/Epos" class="btn btn-primary blue-btn-style btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-6"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div class="clearfix"></div>
+
+                        @*<a href="~/Sale/List_Draft">DRAFT LIST</a>*@
+
+                        <div class="col-md-12">
+                            
+                            <!-- SUPPLIER BORDER TD RANGLERZ.CSS  1503 COMMENTED -->
+                            <div class="col-md-6">
+                            <table border="0" class="table table-responsive border_black" id="supplier_table">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        @*<th class="text-center">ID</th>*@
+                                        <th class="text-center width-70">Sr No.</th>
+                                        <th class="text-center">Category Name</th>
+                                        
+                                     
+
+                                        @*<th class="text-center">Status</th>*@
+
+                                        @*<th>Pay Rate</th>
+                        <th>Role</th>
+                        <th>Status</th>*@
+
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="black-color bold text-center">
+
+                                    @{
+                                        int i = 1;
+                                    }
+
+                                    @foreach (var v in Model)
+                                    {
+                                        @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+                                        <tr>
+                                            <td class="text-center" data-title="User ID">@i</td>
+                                            <td class="text-center" data-title="User ID">@v.Type</td>
+                                            
+                                          
+
+                                          
+                                            <td data-title="Actions" class="text-center buttons-block width-140">
+                                                <a class="btn btn-sm btn-info bold edit_category_click" id="@v.Id" name="@v.Type">
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-sm btn-danger bold" href="~/Product/Delete_Category/@v.Id">
+                                                    Delete
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                        { i++; }
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                            </div>
+                            <div class="col-md-3"></div>
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                   
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+
+    @*----------------------------POP UP for CATEGORY--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="create_category_modal" tabindex="-9" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Categories</span>
+                    <img src="~/img/images/c3.png" onclick="dismiss_modal_add()" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12">
+
+                                    @*<div class="form-group">
+                                            <label class="supplier-create-texts font-16" for="middle-name">Category Name<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-200" type="text" name="category_title" id="category" required>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="form-group pt-30">
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 bold">
+                                                Category Name<span class="required">*</span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input name="category_title" class="" type="text" id="category" autofocus required>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12 pt-30">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3 pl-0">
+                                        <input type="button" onclick="addCategorys();" value="Save" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="dismiss_modal_add()" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    @*----------------------------POP UP END CATEGORY--------------------------------*@
+
+
+
+
+
+    @*----------------------------POP UP for Edit CATEGORY--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="edit_category_modal" tabindex="-9" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Categories</span>
+                    <img src="~/img/images/c3.png" onclick="dismiss_modal_edit()" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12">
+
+                                    @*<div class="form-group">
+                                            <label class="supplier-create-texts font-16" for="middle-name">Category Name<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-200" type="text" name="category_title" id="category" required>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="form-group pt-30">
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 bold">
+                                                Category Name<span class="required">*</span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input name="edit_category_name" class="" type="text" id="edit_category_name" autofocus required>
+                                                <input name="edit_category_id" class="" type="text" id="edit_category_id" hidden>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12 pt-30">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3 pl-0">
+                                        <input type="button" onclick="edit_Categorys()" value="Edit" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="dismiss_modal_edit()" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    @*----------------------------POP UP for Edit CATEGORY--------------------------------*@
+
+
+
+
+
+
+    <script>
+    function addCategorys() {
+
+        var Name = document.getElementById('category').value;
+
+        $.ajax({
+
+            url: "/Product/addCategory/",
+            data: { name: Name },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+                document.getElementById('create_category_modal').style.display = "none";
+                location.reload();
+            },
+            error: function (response) {
+                alert("eeeeee");
+            }
+        });
+    }
+
+  
+
+
+    $(document).ready(function () {
+
+
+
+        $('body').on("click", ".edit_category_click", function () {
+
+
+
+            var id = $(this).attr("id");
+            var name = $(this).attr("name");
+            $("#edit_category_modal").addClass("in").show("slow");
+            $("#edit_category_name").val(name);
+            
+            $("#edit_category_id").val(id);
+            //alert(id);
+
+        });
+
+    });
+
+
+    function edit_Categorys() {
+        
+        var Name = $("#edit_category_name").val();
+
+        var catrgory_id= $("#edit_category_id").val();
+
+        //alert("Name " + Name + "  catrgory_id   " + catrgory_id);
+        
+
+
+
+        $.ajax({
+
+            url: "/Product/edit_product_Category_submit/",
+            data: { id: catrgory_id, category_name_edit: Name },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+                
+                location.reload();
+            },
+            error: function (response) {
+                //alert("eeeeee");
+            }
+        });
+    }
+
+
+    function dismiss_modal_edit() {
+        $("#edit_category_modal").hide();
+    }
+
+    function dismiss_modal_add() {
+        $("#create_category_modal").hide();
+    }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+</body>

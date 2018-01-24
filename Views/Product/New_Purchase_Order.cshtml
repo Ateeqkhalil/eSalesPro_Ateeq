@@ -1,0 +1,886 @@
+﻿<body id="body-index" onload="SetDate()">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div id="invoice_id">
+                            <div class="">
+                              
+                                <div class="">
+
+                                    <div class="col-md-4 pull-left">
+
+                                        <h3 class="bold mt-0">
+                                            New Purchase Order
+                                        </h3>
+
+                                        <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                        <div class="col-md-6 pull-left">
+                                            <a href="#" data-toggle="modal" onclick="abc()" data-target="#ExistingModal">
+                                                <span class=""><img src="~/img/images/existing_supplier.png" /></span><br />
+                                                <span class="bold">Existing Supplier</span>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-6 pull-left">
+                                            <a href="#" data-toggle="modal" data-target="#CreateModal">
+                                                <span class=""><img src="~/img/images/new_supplier.png" /></span><br />
+                                                <span class="bold">New Supplier</span>
+
+                                            </a>
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+
+
+                                    </div>
+
+
+
+                                    
+
+                                    <div id="supplier_added_partial" class="col-md-2 pull-left pl-0 pr-0">
+                                        <ul class="list-style-type-custom">
+                                            <li id="supplier_li" class="bold font-18 black-color"></li>
+                                            <li id="supplier_name_partial"></li>
+                                            <li id="supplier_address_partial"></li>
+                                            <li id="supplier_postcode_partial"></li>
+                                            <li id="supplier_phone_partial"></li>
+                                            <li id="supplier_email_partial"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-6 pull-left pl-0 pr-0">
+
+
+                                        <div class="col-md-5">
+                                            
+                                        </div>
+                                        <div class="col-md-7 pl-0 pr-0">
+
+                                            <label><input type="checkbox" value="" />Filter Supplier</label>
+
+                                            
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-134" for="middle-name">Number</label>
+                                                <div class="pull-left">
+                                                    <input class="width-145 text-center" type="text" name="company_name" id="company_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-134" for="middle-name">Date</label>
+                                                <div class="pull-left">
+                                                    <input class="width-145 text-center" id="myDate" type="text" name="company_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-134" for="middle-name">Request Person</label>
+                                                <div class="pull-left">
+                                                    <input class="width-145 text-center" type="text" name="company_name" id="company_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-134" for="middle-name">Payment Method</label>
+                                                <div class="pull-left">
+                                                    <select name="supplier_name" class="form-control border_black-1px width-145 select-class-color">
+                                                        <option class="option-color" value="">Cash</option>
+                                                        <option class="option-color" value="">Card</option>
+                                                        <option class="option-color" value="">Cheque</option>
+                                                        <option class="option-color" value="">Bank Transfer</option>
+                                                        <option class="option-color" value="">Paypal</option>
+                                                        <option class="option-color" value="">Credit</option>
+                                                        <option class="option-color" value="">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <hr class="hr_customer" />
+
+
+                            <div class="col-md-12">
+
+
+                                <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable">
+                                    <thead>
+                                        <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                            <th class="text-center">Code</th>
+                                            <th class="text-center width-53p">Description</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th width="10%" class="text-center">Price</th>
+                                            <th class="text-center hidecolumn">Price+VAT</th>
+                                            <th width="2%" class="text-center">Total</th>
+                                            <th class="text-center hidecolumn">Total+VAT</th>
+                                            <th class="text-center">Discount</th>
+                                            <th width="25%" class="text-center">Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color">
+
+                                        <tr id="rowId" class="font-15 id remove_div">
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" id="codeforProduct" name="yoyoyoyoyoyoyoy" onkeyup="productList()" type="text"></div></td>
+
+
+
+                                            <td class="border-right-td">
+                                                <textarea class="description-text-area unbold width-100p" id="invoice_description" required="" placeholder="Description"></textarea>
+                                            </td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_quantity" onkeypress="validate(event)" placeholder="0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_price" onkeypress="validate(event)" placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td>
+                                            <td class="border-right-td hidecolumn text-center"><input id="invoice_price_vat" onkeypress="validate(event)" placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td>
+                                            <td class="text-center border-right-td width-68"><div id="invoice_total" onkeypress="validate(event)" class="total_invoice_background">£12345678</div></td>
+                                            <td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat" onkeypress="validate(event)" class="total_invoice_background">£123456789</div></td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_discount" onkeypress="validate(event)" placeholder="0.0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="text-center width-27p" style="vertical-align:middle;">
+                                                <a href="#" class="add_new_row showdiv">
+                                                    <img src="/img/images/plus_new_sale.png">
+                                                </a>
+                                                <a href="#" class="remove">
+                                                    <img src="/img/images/cross_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/barcode_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/findpost.png">
+                                                </a>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+
+                                <div id="addedRows"></div>
+                                <div id="productList">
+                                    <h1></h1>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+                            <div class="">
+
+                                <div class="col-md-4 unbold">
+                                    <textarea class="textarea-style-none unbold textarea-width" placeholder="Customer notes..."></textarea>
+                                </div>
+                                <div class="col-md-4 pl-0">
+                                    <textarea class="textarea-style-none unbold textarea-width" placeholder="Private notes..."></textarea>
+                                </div>
+                                <div class="col-md-4 pl-0">
+                                    <table id="table_cash" class="black-color col-md-12 border_black">
+                                        <tr>
+                                            <td class="bold">Sub Total</td>
+                                            <td class="text-right">£0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold">VAT</td>
+                                            <td class="text-right">£0</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="bold">Total</td>
+                                            <td class="text-right">£0</td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td class="bold">Payment Status</td>
+                                            <td class="text-right">
+                                                <select id="custom_date_select_invoice" onclick="show_custom_date_payment()" name="supplier_name" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                    <option class="option-color" value="">Paid</option>
+                                                    <option class="option-color" value="">Not Paid</option>
+                                                    <option class="option-color" value="">Partially Paid</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                            <td class="bold">Payment Priority</td>
+                                            <td class="text-right">
+                                                <select id="custom_date_select_purchase_order" onclick="show_custom_date_purchase_order()" name="supplier_name" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                    <option class="option-color" value="">Pay Now</option>
+                                                    <option class="option-color" value="">Pay in Day</option>
+                                                    <option class="option-color" value="">Pay in Week</option>
+                                                    <option class="option-color" value="">Pay in Month</option>
+                                                    <option class="option-color" value="1">Custom Date</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <tr id="custom_date_show_purchase_order" style="display:none">
+                                            <td class="bold width-134">Custom Date</td>
+                                            <td><input type="date" class="width-180 pull-right"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="bold">PO Status</td>
+                                            <td class="text-right">
+                                                <select id="custom_date_select_purchase_order" onclick="show_custom_date_purchase_order()" name="supplier_name" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                    <option class="option-color" value="">Unsent</option>
+                                                    <option class="option-color" value="">Sent</option>
+                                                    <option class="option-color" value="">Received</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td><a href="#"><img class="pull-right" src="~/img/images/i.png" /></a></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+
+                            <div class="col-md-12">
+
+
+
+                                <div class="col-md-5"></div>
+
+
+                                <div class="col-md-1 pr-0 text-center">
+                                    <a href="#">
+                                        <span class=""><img src="~/img/images/save.png" /></span><br />
+                                        <span class="bold">Save</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-1 text-center">
+                                    <a href="#">
+                                        <span class=""><img src="~/img/images/exit.png" /></span><br />
+                                        <span class="bold ml--7">Exit</span>
+
+                                    </a>
+                                </div>
+                                <div class="col-md-5"></div>
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        
+
+
+                        
+
+
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP ADD SUPPLIER--------------------------------*@
+
+    <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>New Supplier</b></h3>
+                            <img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />
+
+                            @using (Ajax.BeginForm("Create_Supplier", new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+
+                                UpdateTargetId = "supplier_added_partial",
+                                InsertionMode = InsertionMode.Replace
+
+                            }))
+                            {
+                                <div id="form_supp_div" class="form-horizontal form-label-left">
+
+
+
+                                    <div class="col-md-12 text-center">
+
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Company Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="company_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Company Short Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="company_short_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="supplier-border"></div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Sales Contact Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="sales_contact_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Sales Contact Email <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="sales_contact_mail" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="">
+                                                        <label class="supplier-create-texts" for="middle-name">Sales Contact Phone <span class="required">*</span></label>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input class="width-123" type="text" name="sales_contact_phone" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="">
+                                                        <label class="ext-texts">Ext</label>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input type="text" class="width-43" name="sales_phone_ext" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clear"></div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Sales Contact Mobile <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="sales_contact_mobile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Sales Contact Fax <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="sales_contact_fax" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="supplier-border"></div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account Contact Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_contact_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account Contact Email <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_contact_mail" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="">
+                                                        <label class="supplier-create-texts" for="middle-name">Account Contact Phone <span class="required">*</span></label>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input class="width-123" type="text" name="account_contact_phone" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="">
+                                                        <label class="ext-texts">Ext</label>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input class="width-43" type="text" name="account_ext_phone" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clear"></div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account Contact Mobile <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_contact_mobile" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account Contact Fax <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_contact_fax" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="supplier-border"></div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Bank Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="bank_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account Name <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_name" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Account No <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="account_no" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Sort Code <span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" name="sort_code" required>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+
+
+
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Address<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="address1" required>
+                                                    <input class="ml--50" type="text" name="address2">
+                                                    <input class="ml--50" type="text" name="address3">
+                                                    <input class="ml--50" type="text" name="address4">
+                                                    <input class="ml--50" type="text" name="address5">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Postcode<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="postcode">
+                                                    <a href="#"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                                </div>
+                                            </div>
+
+                                            <div id="input_container">
+
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Website<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="website" required>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Login<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="login" required>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Password<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="password" required>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="">Notes<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <textarea class="width-193 ml--50" name="notes" required></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="supplier-border"></div>
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Credit Limit<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="credit_limit" required>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label class="supplier-create-texts" for="middle-name">Credit Period<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="credit_period" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+                                    @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                        <input type="submit" value="Add Product" class="btn btn-success" />
+                    </div>*@
+                                    <div class="col-md-12">
+                                        <div class="col-md-3"></div>
+
+                                        <div class="col-md-3">
+                                            <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-145" />
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>*@
+                                            <a href="~/Product/New_Purchase_Order" class="btn btn-primary blue-btn-style-modal btn-mini center-block a-cancel">Cancel</a>
+                                        </div>
+                                        <div class="col-md-3"></div>
+
+
+
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    @*----------------------------POP UP END ADD SUPPLIER--------------------------------*@
+
+
+    @*----------------------------POP UP for EXISTING CUSTOMER--------------------------------*@
+
+    <div class="modal fade" id="ExistingModal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="color"><b>Find Supplier</b></h3>
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                            <div class="col-md-12">
+                                <table border="0" class="table table-responsive border_black" id="kj">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Postcode</th>
+                                            <th class="text-center">Email</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="black-color bold" id="">
+                                        @foreach (var v in ViewBag.Supplier)
+                                        {
+                                            <tr onclick="new_supplier_added_on_table(@v.Id)">
+                                                <td id="@String.Concat("suppName", v.Id)" data-title="User ID">@v.Name</td>
+                                                <td id="@String.Concat("suppPhone", v.Id)" data-title="First Name">@v.Phone</td>
+                                                <td id="@String.Concat("suppAddress", v.Id)" data-title="Last Name">@v.Address</td>
+                                                <td id="@String.Concat("suppPostcode", v.Id)" data-title="Last Name">@v.Post_Code</td>
+                                                <td id="@String.Concat("suppEmail", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                            @*<table id="00" class="table table-responsive border_black">*@
+                            @*<table border="0" class="table table-responsive border_black" id="kj">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Postcode</th>
+                                            <th class="text-center">Email</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="black-color bold" id="">
+                                        @foreach (var v in ViewBag.Customer)
+                                    {
+                                            <tr onclick="go(@v.Id)">
+                                                <td id="@String.Concat("juni1", v.Id)" data-title="User ID">@v.Name</td>
+                                                <td id="@String.Concat("juni2", v.Id)" data-title="First Name">@v.phone</td>
+                                                <td id="@String.Concat("juni3", v.Id)" data-title="Last Name">@v.Billing_Address</td>
+                                                <td id="@String.Concat("juni4", v.Id)" data-title="Last Name">@v.Billing_Postcode</td>
+                                                <td id="@String.Concat("juni5", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                                <td id="@String.Concat("juni6", v.Id)" class="hidden">@v.Customer_Type_Id</td>
+                                            </tr>
+                                    }
+                                    </tbody>
+                                </table>*@
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+    
+
+  
+
+    <script>
+        function new_supplier_added_on_table(id) {
+            var name = document.getElementById('suppName' + id);
+            var phone = document.getElementById('suppPhone' + id);
+            var address = document.getElementById('suppAddress' + id);
+            var postcode = document.getElementById('suppPostcode' + id);
+            var email = document.getElementById('suppEmail' + id);
+
+            var name1 = name.innerHTML
+            var phone1 = phone.innerHTML
+            var address1 = address.innerHTML
+            var postcode1 = postcode.innerHTML
+            var email1 = email.innerHTML
+
+            //alert(name1);
+            //alert(phone1);
+            //alert(address1);
+            //alert(postcode1);
+            //alert(email1);
+            //alert(type1);
+
+            //$("#ExistingModal").hide;
+
+
+            $("#supplier_name_partial").text(name1);
+            $("#supplier_address_partial").text(phone1);
+            $("#supplier_postcode_partial").text(address1);
+            $("#supplier_phone_partial").text(postcode1);
+            $("#supplier_email_partial").text(email1);
+            $("#supplier_li").text("Supplier");
+
+            $("#ExistingModal").hide();
+
+        }
+    </script>
+
+
+
+    <script>
+        function tbody_add_record(id) {
+            //alert("Record");
+
+            var sku = document.getElementById('partial_row1' + id);
+            var sku_inner = sku.innerHTML;
+            $("#codeforProduct").val(sku_inner);
+
+            var desc = document.getElementById('partial_row2' + id);
+            var desc_inner = desc.innerHTML;
+            $("#invoice_description").val(desc_inner);
+
+            var quantity = document.getElementById('partial_row3' + id);
+            var quantity_inner = quantity.innerHTML;
+            $("#invoice_quantity").val(quantity_inner);
+
+            var price = document.getElementById('partial_row4' + id);
+            var price_inner = price.innerHTML;
+            $("#invoice_price").val(price_inner);
+
+            var price_vat = document.getElementById('partial_row5' + id);
+            var price_vat_inner = price_vat.innerHTML;
+            $("#invoice_price_vat").val(price_vat_inner);
+
+            //alert(price_inner);
+
+            document.getElementById("invoice_total").innerHTML = "£" + price_inner;
+            document.getElementById("invoice_total_vat").innerHTML = "£" + price_vat_inner;
+
+
+            $("#invoice_discount").val("0.00");
+
+            $("#productList").hide();
+
+        }
+    </script>
+
+    @*----------------------INVOICE ADD ROW-----------------------*@
+    <script>
+        $('.add_new_row').click(function () {
+            //$('#maintable tr:last').after('<tr id="rowId" class="font-15 remove_div"><td class="border-right-td"><div class="text-center"><input class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required=""></textarea></td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumn text-center"><input class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68">£12345678</td><td class="border-right-td text-center width-78 hidecolumn">£123456789</td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif" onclick="removeRow()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+            $('#maintable tr:last').after('<tr id="rowId" class="font-15    remove_div"><td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" id="codeforProduct" name="yoyoyoyoyoyoyoy" onkeyup="productList()" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" id="invoice_description" required="" placeholder="Description"></textarea></td><td class="border-right-td"><div class="text-center"><input id="invoice_quantity" placeholder="0" class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input id="invoice_price" placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumn text-center"><input id="invoice_price_vat" placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68"><div id="invoice_total" class="total_invoice_background">£0</div></td><td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat" class="total_invoice_background">£123456789</div></td><td class="border-right-td"><div class="text-center"><input id="invoice_discount" placeholder="0.0" class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif" onclick="removeRow()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+        });
+
+        //function removeRow()
+
+        $(document).on('click', '.kashif', function removeRow() {
+
+            $(this).closest(".remove_div").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeRow(){
+            //    $(this).closest(".remove_div").remove();
+            //}
+
+        });
+    </script>
+    @*----------------------INVOICE ADD ROW-----------------------*@
+
+
+
+   
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#kj').dataTable();
+        });
+    </script>
+
+
+
+
+
+   
+
+
+
+
+
+</body>

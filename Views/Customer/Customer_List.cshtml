@@ -1,0 +1,356 @@
+﻿@model List<eSalesPro.Models.Customer>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            
+
+                            <div class="col-md-12">
+
+                                <div id="loader_div" class="none">
+                                    <img src="~/img/loading.gif" class="ajax_loader">
+                                </div>
+
+                                @*<div class="col-md-4">
+                                        <h3 class="bold update-stock-margin"><small></small></h3>
+                                    </div>*@
+
+                                <input hidden type="text" value="-1" id="customer_list_edit_modal_value" />
+
+                                <div class="pull-left col-md-3 pl-0">
+                                    <a href="~/User/Epos" class="btn btn-primary blue-btn-style mt-10 btn-mini bold">Back to EPOS Main Panel</a>
+                                </div>
+
+                                <div class="empty-height"></div>
+                                <div class="col-md-9 pr-0">
+
+
+                                    <div class="col-md-3 pull-left"></div>
+
+                                    <div class="col-md-3 pull-right pr-0">
+                                        <a href="#" data-toggle="modal" data-target="#ExistingModal" class="btn pull-right btn-primary blue-btn-style btn-mini text-center width-170 bold">Customer Summary</a>
+                                    </div>
+
+                                    <div class="col-md-3 pull-right pr-0">
+                                        <a href="#" class="btn pull-right btn-primary blue-btn-style btn-mini text-center width-170 bold print_btn_view none">Print</a>
+                                        @*<a href="javascript:void();" onclick="document.getElementById('printOption').style.visibility = 'hidden';document.print();return true;">Print</a>*@
+                                        @*<a href="#" data-target="#View_Payment_Status_Modal" data-toggle="modal" class="btn btn_view_payment_status btn-mini bold width-170 pull-right">View Payment Status</a>*@
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                            <div class="">
+                                <div class="col-md-3 pull-left width-260">
+                                    <h4 class="black-color bold">Choose Customer type : </h4>
+                                </div>
+                                <div class="col-md-2 pull-left padding-all-0">
+                                    <select onchange="Custom_List()" name="customer_type" id="customer_type_dropdown" required class="form-control">
+                                        <option>Please Select any</option>
+                                        <option value="-1">All Customers</option>
+                                        @foreach (var customer_type in ViewBag.Customer_Type)
+                                        {
+                                            <option value="@customer_type.Id">@customer_type.Type</option>
+                                        }
+                                    </select>
+
+
+
+
+                                </div>
+
+                                
+
+                                <div class="col-md-3"></div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <input hidden type="text" id="" onkeypress="testKeyEvent(this.value)" />
+
+                        <input hidden type="text" id="customer_id" name="customer_id" />
+
+
+
+                        <div class="col-md-12" id="customer_table_div" style="display:none">
+                            
+                            @*<div class="col-md-3 pull-left print_page_heading">
+                                <h3 class="black-color bold print_page_heading">Customer List</h3>
+                            </div>*@
+
+                            <div class="col-md-3 pl-0 pr-0 pull-left none print_page_heading">
+                                <h3 style="font-size:26px" class="bold">Customer List<small></small></h3>
+                            </div>
+
+
+
+                            <div class="col-md-3 pull-right pr-0 print_btn_hide_cols" style="padding-bottom:10px">
+                                <a href="#" onclick="tableToExcel('chuss', 'W3C Example Table')" class="btn pull-right btn-primary blue-btn-style btn-mini text-center width-170 bold">Export</a>
+                            </div>
+                            
+
+                            
+                            
+                            <table class="table table-responsive border_black" id="chuss">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        @*<th class="text-center">ID</th>*@
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Company Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Postcode</th>
+                                        @*<th class="text-center">Status</th>*@
+
+                                        @*<th>Pay Rate</th>
+                        <th>Role</th>
+                        <th>Status</th>*@
+
+                                        <th class="text-center print_btn_hide_cols">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="black-color bold" id="updated_customer_list"></tbody>
+
+
+                            </table>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div id="customer_summary_loading_hide">
+
+                            @{
+                                Html.RenderPartial("Customer_Summary");
+                            }
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    <script src="~/Scripts/Customer/Customer_List.js"></script>
+    <script src="~/scripts/customer_summary/customer_summary.js"></script>
+    <script src="~/Scripts/Customer/Edit_Customers.js"></script>
+    <script src="~/Scripts/Postcode_Customer/Edit_Customer_Postcode.js"></script>
+
+    @*----------------------------POP UP for CUSTOMER SUMMARY--------------------------------*@
+
+    
+
+    @*----------------------------POP UP END CUSTOMER SUMMARY--------------------------------*@
+
+
+  
+
+
+
+ 
+
+
+
+    @*----------------------------POP UP for VIEW PAYMENT STATUS--------------------------------*@
+
+    @*<div class="modal fade" id="View_Payment_Status_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="col-md-6 pl-0 pr-0 pull-left">
+                        <h3 class="color"><b>Customer Payment Statement</b></h3>
+                    </div>
+                    <div class="pull-right mt-15">
+                        <div class="pull-left">
+                            <label class="black-color mr-3 mt-5">From :</label>
+                        </div>
+                        <div class="pull-left">
+                            <input required type="date" id="from_date" oninput="showToDate()" class="date_width_height_Customer_Summary mr-3" name="from_date">
+                        </div>
+                        <div class="pull-left">
+                            <label class="black-color mr-3 mt-5">To :</label>
+                        </div>
+                        <div class="pull-left">
+                            <input required type="date" disabled id="to_date" oninput="showDateDiv();findByDate()" class="date_width_height_Customer_Summary" name="to_date">
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                <div class=""></div>
+
+                
+
+                <div class="col-md-12 mt-20 font-15">
+                    <label class="bold pull-left black-color">Customer Name : </label>
+                    <label class="pull-left black-color unbold ml-10">Imran Khan Niazi</label>
+
+                    <div class="clearfix"></div>
+
+                    <label class="bold pull-left black-color">Date Range : </label>
+                    <label class="pull-left black-color unbold ml-10">06-06-2017</label>
+
+                    <label class="bold pull-left black-color ml-10">to</label>
+                    <label class="pull-left black-color unbold ml-10">20-06-2017</label>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                <div class="col-md-12 black-color">
+                    <div class="col-md-12">
+                        <h3 class="bold col-md-12">Payment History</h3>
+                        <div class="col-md-6">
+                            <table></table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h3 class="bold col-md-12">Payment History</h3>
+                        <div class="col-md-6">
+                            <b>Invoice-31</b>; Total: £31<br>Paid in  £31 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-32</b>; Total: £74<br>Paid in  £74 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-33</b>; Total: £54<br>Paid in £1 on 12-05-17<br>Paid in £20 on 25-05-17<br>Paid in £33 on 25-05-17<br>Fully Paid <br>&nbsp;<br><b>Invoice-3555</b>; Total: £105<br>Paid in £5 on 25-05-17<br>Paid in £2 on 25-05-17<br>Paid in £100 on 25-05-17<br>Fully Paid <font color="green">£2 Overpay</font><br>&nbsp;<br>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <h3 class="bold col-md-12">Debts / Money Owed</h3>
+                        <div class="col-md-6">
+                            <b>Invoice-31</b>; Total: £31<br>Paid in  £31 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-32</b>; Total: £74<br>Paid in  £74 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-33</b>; Total: £54<br>Paid in £1 on 12-05-17<br>Paid in £20 on 25-05-17<br>Paid in £33 on 25-05-17<br>Fully Paid <br>&nbsp;<br><b>Invoice-3555</b>; Total: £105<br>Paid in £5 on 25-05-17<br>Paid in £2 on 25-05-17<br>Paid in £100 on 25-05-17<br>Fully Paid <font color="green">£2 Overpay</font><br>&nbsp;<br>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <div class="col-md-5"></div>
+
+                    <div class="col-md-2 pr-0">
+                        <a href="#" onclick="show_customer_summary()" class="btn btn-primary width-134 blue-btn-style btn-mini bold pull-right">Ok</a>
+                    </div>
+
+                    <div class="col-md-5"></div>
+
+                </div>
+
+
+                <div class=""></div>
+
+
+                <div class="modal-footer"></div>
+                <div class=""></div>
+
+            </div>
+        </div>
+    </div>*@
+
+    @*----------------------------POP UP END VIEW PAYMENT STATUS--------------------------------*@
+
+
+
+
+    <script>
+
+        function testKeyEvent(e) {
+
+            if (e.keyCode == 32) //We are using Enter key press event for test purpose.
+            {
+                alert('Enter key pressed');
+
+            }
+            else //If any other button pressed.
+            {
+                alert('Not Enter key pressed');
+            }
+        }
+       
+    </script>
+
+    @*<script src="~/scripts/customer/customer_list.js"></script>*@
+
+
+    
+
+    
+
+    
+
+    <script>
+        //$(document).ready(function () {
+        //    $('#customer_summary_table').dataTable();
+        //    $('#item_history_table').dataTable();
+        //    $('#customer_invoices_table').dataTable();
+        //});
+
+    </script>
+
+   
+</body>

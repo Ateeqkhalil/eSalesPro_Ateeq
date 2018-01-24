@@ -1,0 +1,248 @@
+﻿@*----------------------------POP UP ADD CUSTOMER--------------------------------*@
+
+<div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="win text-center">
+                        <h3 class="black-color"><b>New Customer</b></h3>
+                        <img class="pull-right margin-supplier ml-22" src="~/img/images/customer.png" />
+
+                        <form id="demo-form2" action="@Url.Action("Create","Customer")" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+
+                            <div class="col-md-12 text-center">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Name <span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Company Name <span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="company_name" required>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="customer-border"></div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Phone</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="phone" onkeypress="validation_phones(event)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Email</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="email">
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Bank<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+
+                                                <select id="" name="bank_name" class="form-control width-192">
+                                                    <option value="">Please select any </option>
+                                                    @foreach (var banks in ViewBag.Bank)
+                                                    {
+                                                        <option value="@banks.Id">@banks.Bank_Name</option>
+                                                    }
+                                                </select>
+
+
+                                            </div>
+                                        </div>*@
+
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Account No</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="account_no">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="">Notes</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <textarea class="width-193" name="notes"></textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="empty-height"></div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Type<span class="required">*</span></label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+
+                                            <select id="customer_type" name="customer_type" class="form-control width-192">
+                                                <option value="">Please select any </option>
+                                                @foreach (var customer_type in ViewBag.Customer_Type)
+                                                {
+                                                    <option value="@customer_type.Id">@customer_type.Type</option>
+                                                }
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Opening Balance</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="opening_balance" onkeypress="validation_numeric(event)">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts" for="middle-name">Credit Limit</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" name="credit_limit" onkeypress="validation_numeric(event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-6">
+                                    `
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts width-178" for="middle-name">Address</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="ml--50" type="text" name="billing_street" id="add_street_postcode">
+                                            <input class="ml--50" type="text" name="billing_town" id="add_town_postcode">
+                                            <input class="ml--50" type="text" name="billing_county" id="add_county_postcode">
+                                            <input class="ml--50" type="text" name="billing_country" id="add_country_postcode">
+                                            @*<input class="ml--50" type="text" name="address5">*@
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="customer-create-texts width-178" for="middle-name">Postcode</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="ml--50" type="text" id="postcode_add" name="billing_postcode" onkeypress="Postcode_Enter_Click(event)">
+                                            <a href="#" onclick="postcode_testing()"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="customer-border"></div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="pull-left ml-9">
+                                        <label><input type="checkbox" id="billing_address_checkbox_new" checked="checked" onclick="Different_Address_New()" />Use this as billing and shipping address</label>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="empty-height"></div>
+
+
+                                    <div id="" class="Shipping_Address_Div_New none">
+                                        <div class="form-group">
+                                            <label class="customer-create-texts width-178" for="middle-name">Shipping Address</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="shipping_street" id="shipping_street_add">
+                                                <input class="ml--50" type="text" name="shipping_town" id="shipping_town_add">
+                                                <input class="ml--50" type="text" name="shipping_county" id="shipping_county_add">
+                                                <input class="ml--50" type="text" name="shipping_country" id="shipping_country_add">
+                                                @*<input class="ml--50" type="text" name="shipping_street">*@
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts width-178" for="middle-name">Postcode</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="shipping_postcode" id="shipping_postcode_add">
+                                                <a href="#"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="clearfix"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div class="col-md-12">
+                                <p class="font-12 black-color text-center">
+                                    NOTE: Opening Balance use - values if customer owed to seller and + values if seller owed to customer.
+                                    <br /> Add (-1) for unlimited Credit
+                                </p>
+                            </div>
+
+                            <div class="clearfix"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div class="clearfix"></div>
+
+                            @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                                    <input type="submit" value="Add Product" class="btn btn-success" />
+                                </div>*@
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+
+                                <div class="col-md-3">
+                                    <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-145" />
+                                </div>
+
+                                <div class="col-md-3">
+                                    @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>*@
+                                    <a href="#" class="btn btn-primary blue-btn-style-modal btn-mini center-block a-cancel" onclick="hide_add_customer_modal()">Cancel</a>
+                                </div>
+                                <div class="col-md-3"></div>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@*----------------------------POP UP END ADD CUSTOMER--------------------------------*@

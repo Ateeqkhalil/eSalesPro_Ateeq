@@ -1,0 +1,130 @@
+﻿<body id="body-index" onload="startTime()">
+
+    <div id="sticky-footer-wrap">
+
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+
+                <div class="right-side-custom">
+                    <div class="bggg-img">
+
+                        @*<h3 id="time_"></h3>*@
+
+                        <div class="">
+                            <div class="title" style="">
+                                @*<img src="~/img/images/triangle.png"/>*@
+                                <span style="margin-left:15px">Attendance Logging</span>
+                                <a style="float:right" href="#" data-toggle="modal" data-target=".bs-example-modal-sm"><img src="~/img/images/i.png" style="margin: -2px 3px 0px 0;" /></a>
+                            </div>
+                            <div class="space">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin:30px 0 40px 0">
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-xs-6">
+                                            @*<a class="btn btn-primary btn-lg">Clock In</a>*@
+
+                                            <a href="#"><div class="reveal hd1" style="text-align:center;">Clock In</div></a>
+
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-xs-6">
+                                            <a href="#"><div class="reveal hd1" style="text-align:center;">Clock Out</div></a>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <a href="#"><div class="reveal hd1" style="text-align:center;">Start Tea Break</div></a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="#"><div class="reveal hd1" style="text-align:center;">Start Lunch Break</div></a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="#"><div class="reveal hd1" style="text-align:center;">Start Second Tea Break</div></a>
+                                        </div>
+                                        @*<div class="col-md-1"></div>*@
+                                    </div>
+                                    <div class="col-md-12" style="margin:22px 0 11px 0">
+                                        <span id="time" style="font: bold 25px Courier"></span>
+                                        <br />
+                                        <span style="font: bold 16px Courier" id="date"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="background: linear-gradient(to bottom, #fafafd, #b2b2b3);">
+
+                <div class="title">
+                    <span style="margin-left:15px">Alert</span>
+                    <img src="~/img/images/c3.png" class="close" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="text-center" align="center">
+                            <br>
+                            <label class="control-label col-md-12" style="color: #000; margin-top: 15px">
+                                Attendance logging for <span> @Session["username"]</span>
+                            </label>
+
+                            <div class="col-md-12">
+                                <a href="" class="btn btn-success btn-mini center-block" style="margin-top:15px;">OK</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,58 @@
+﻿@model eSalesPro.Models.Supplier
+
+@{
+    int count = @ViewBag.ID;
+}
+
+
+
+
+<div>
+
+    <table border="0" class="table table-responsive border_black" id="partial_table_add">
+
+        <thead>
+            <tr class="table-heading-fonts table-main-headings">
+                <th class="text-center">Custom Label</th>
+                <th class="text-center">Supplier Code</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Normal</th>
+                <th class="text-center">Premium</th>
+                <th class="text-center">Trade</th>
+                <th class="text-center">Others</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var v in Model.Products)
+        {
+            if (v.Id == null)
+            {
+                continue;
+            }
+
+            <tbody class="black-color">
+
+
+                <tr id="rowId" class="font-15" onclick="tbody_add_record(@v.Id,@count)">
+
+                    <td id="@String.Concat("partial_row1", v.Id)" class="border-right-td text-center">@v.Custom_Label_</td>
+                    <td id="@String.Concat("partial_row2", v.Id)" class="border-right-td text-center">@v.Supplier_Code</td>
+                    <td id="@String.Concat("partial_row3", v.Id)" class="border-right-td text-center">@v.Item_Title</td>
+                    <td id="@String.Concat("partial_row4", v.Id)" class="border-right-td text-center">@v.Price_Normal</td>
+                    <td id="@String.Concat("partial_row5", v.Id)" class="border-right-td text-center">@v.Price_Premium</td>
+                    <td id="@String.Concat("partial_row6", v.Id)" class="border-right-td text-center">@v.Price_Trade</td>
+                    <td id="@String.Concat("partial_row7", v.Id)" class="border-right-td text-center">@v.Price_Others</td>
+
+                    <td id="partial_normal_vat" hidden class="border-right-td text-center">@v.Normal_VAT</td>
+                    <td id="partial_quantity" hidden>@v.Quantity.Quantity1</td>
+
+                </tr>
+
+            </tbody>
+        }
+    </table>
+
+
+
+</div>

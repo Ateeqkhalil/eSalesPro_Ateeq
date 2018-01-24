@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="847ff0e6cb804a0c970dd7d54b9b3a21" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="Database1Model.Company" Width="1.5" PointX="1.5" PointY="26.125" />
+        <EntityTypeShape EntityType="Database1Model.Config_Settings" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Database1Model.Customer" Width="1.5" PointX="0.75" PointY="17.25" />
+        <EntityTypeShape EntityType="Database1Model.Customer_Type" Width="1.5" PointX="1.5" PointY="29.375" />
+        <EntityTypeShape EntityType="Database1Model.Document_Type" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="Database1Model.Email" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Database1Model.Invoice" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="Database1Model.Invoice_Document" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Database1Model.Invoice_Log" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="Database1Model.Item_Sale_Document" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Database1Model.Payment_Methods" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="Database1Model.Payment_Priority" Width="1.5" PointX="3.75" PointY="19.75" />
+        <EntityTypeShape EntityType="Database1Model.Payment_Status" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="Database1Model.PO_Sale_Invoice" Width="1.5" PointX="11.25" PointY="13.125" />
+        <EntityTypeShape EntityType="Database1Model.Product_At_Warehouse" Width="1.5" PointX="9" PointY="45.375" />
+        <EntityTypeShape EntityType="Database1Model.Product_Categories" Width="1.5" PointX="1.5" PointY="39" />
+        <EntityTypeShape EntityType="Database1Model.Product" Width="1.5" PointX="3.75" PointY="42.875" />
+        <EntityTypeShape EntityType="Database1Model.Purchase_Log" Width="1.5" PointX="11.25" PointY="7.375" />
+        <EntityTypeShape EntityType="Database1Model.Purchase_Order" Width="1.5" PointX="6" PointY="10.75" />
+        <EntityTypeShape EntityType="Database1Model.Purchase_Order_Product" Width="1.5" PointX="9" PointY="2.125" />
+        <EntityTypeShape EntityType="Database1Model.Purchase_Order_Status" Width="1.5" PointX="3.75" PointY="6.875" />
+        <EntityTypeShape EntityType="Database1Model.Quantity" Width="1.5" PointX="1.5" PointY="42" />
+        <EntityTypeShape EntityType="Database1Model.Quote_Document" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Database1Model.Sale" Width="1.5" PointX="6" PointY="44.25" />
+        <EntityTypeShape EntityType="Database1Model.Sale_Transaction_History" Width="1.5" PointX="5.25" PointY="24.625" />
+        <EntityTypeShape EntityType="Database1Model.Sale_Invoice" Width="1.5" PointX="8.25" PointY="8.125" />
+        <EntityTypeShape EntityType="Database1Model.Serial_Number_Purchase_Table" Width="1.5" PointX="13.5" PointY="12.875" />
+        <EntityTypeShape EntityType="Database1Model.Serial_Number_Table" Width="1.5" PointX="8.25" PointY="18" />
+        <EntityTypeShape EntityType="Database1Model.Supplier" Width="1.5" PointX="1.5" PointY="45.25" />
+        <EntityTypeShape EntityType="Database1Model.User" Width="1.5" PointX="0.75" PointY="33.125" />
+        <EntityTypeShape EntityType="Database1Model.Warehouse" Width="1.5" PointX="6.75" PointY="40.125" />
+        <AssociationConnector Association="Database1Model.FK_company_ID" />
+        <AssociationConnector Association="Database1Model.FK_Supplier_ToTable" />
+        <AssociationConnector Association="Database1Model.Customer_ID_Sale_FK" />
+        <AssociationConnector Association="Database1Model.FK_customer_type_ID" />
+        <AssociationConnector Association="Database1Model.FK_Sale_Logf_Customer_ID" />
+        <AssociationConnector Association="Database1Model.FK_Sales_Customer" />
+        <AssociationConnector Association="Database1Model.FK_Sales_Document" />
+        <AssociationConnector Association="Database1Model.FK_Invoicdfde_Log_Sale" />
+        <AssociationConnector Association="Database1Model.FK_Sale_Transaction_History_ToTable" />
+        <AssociationConnector Association="Database1Model.FK_Sales_PayMethod" />
+        <AssociationConnector Association="Database1Model.FK_Sales_PayStatus" />
+        <AssociationConnector Association="Database1Model.FK_Sales_User" />
+        <AssociationConnector Association="Database1Model.FK_Sales_Product_SaleID" />
+        <AssociationConnector Association="Database1Model.FK_Serial_Number_Table_ToTable" />
+        <AssociationConnector Association="Database1Model.FK_Sale_Lodfg_Payment_Typeeeee" />
+        <AssociationConnector Association="Database1Model.FK_Payment_Method_Purchase_Order" />
+        <AssociationConnector Association="Database1Model.FK_Payment_Piriority_Id" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Log_Piriority_Id" />
+        <AssociationConnector Association="Database1Model.FK_Payment_Status_Purchase_Order" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Log_Status_Id" />
+        <AssociationConnector Association="Database1Model.FK_PO_Sale_Invoice_ToTable" />
+        <AssociationConnector Association="Database1Model.FK_PO_Sale_Invoice_ToTable_1" />
+        <AssociationConnector Association="Database1Model.FK_Serial_Number_Purchase_Table_ToTable_2" />
+        <AssociationConnector Association="Database1Model.FK_Table_ToTable" />
+        <AssociationConnector Association="Database1Model.FK_Table_ToTable_1" />
+        <AssociationConnector Association="Database1Model.FK_Products_Categories" />
+        <AssociationConnector Association="Database1Model.FK_Products_Quantity" />
+        <AssociationConnector Association="Database1Model.FK_Products_Supplier" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Order_Product_Table" />
+        <AssociationConnector Association="Database1Model.FK_Sales_Product_ID" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Log_PO_Id" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Log_Supp_Id" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Order_Status_Purchase_Order" />
+        <AssociationConnector Association="Database1Model.FK_Serial_Number_Purchase_Table_ToTable" />
+        <AssociationConnector Association="Database1Model.FK_Supplier_Purchase_Order" />
+        <AssociationConnector Association="Database1Model.FK_User_Purchase_Order" />
+        <AssociationConnector Association="Database1Model.FK_Purchase_Order_Supplier_Table" />
+        <AssociationConnector Association="Database1Model.FK_Serial_Number_Purchase_Table_ToTable_1" />
+        <AssociationConnector Association="Database1Model.FK_Sales_Product_ProductID" />
+        <AssociationConnector Association="Database1Model.FK_Serial_Number_Table_ToTable_1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,151 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+
+                @*-----------------Main Container Start---------------*@
+
+                <div class="right-side-custom">
+                    <div class="bggg-img">
+
+                        <div>
+                            <h2 style="margin: 15px auto;text-align:center; color:#000;font-weight:bold">
+                                EPOS Main Panel
+                            </h2>
+                            <div class="col-md-12" style="margin-top:30px;font-size:14px">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Sale/New_Invoice">
+                                        <span class="box"><img src="~/img/epos/new_sale.png" /></span>
+                                        <span><br /><b>New Sale</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Report/SaleReport">
+                                        <span class="box"><img src="~/img/epos/sales_report.png" /></span>
+                                        <span><br /><b>Sales Report</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Customer/Customer_List">
+                                        <span class="box"><img src="~/img/epos/customer_list.png" /></span>
+                                        <span><br /><b>Customer List</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Product/List_Product_Categories">
+                                        <span class="box"><img src="~/img/epos/check_prices.png" /></span>
+                                        <span><br /><b>Category List</b></span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+
+                            <div class="col-md-12" style="margin-top: 25px; font-size: 14px">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Product/List">
+                                        <span class="box"><img src="~/img/epos/manage_stock.png" /></span>
+                                        <span><br /><b>Manage Stock</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Product/Low_Stock_List">
+                                        <span class="box"><img src="~/img/epos/low_stock1.png" /></span>
+                                        <span><br /><b>Low Stock</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Purchase/New_Purchase_Order">
+                                        <span class="box"><img src="~/img/epos/purchase_order.png" /></span>
+                                        <span><br /><b>Purchase Order</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Report/PurchaseOrderReport">
+                                        <span class="box"><img src="~/img/epos/po_report.png" /></span>
+                                        <span><br /><b>PO Reports</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+
+
+                            <div class="col-md-12" style="margin-top: 25px; font-size: 14px">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Supplier/List">
+                                        <span class="box"><img src="~/img/epos/supplier_list.png" /></span>
+                                        <span><br /><b>Supplier List</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Config/Config_Settings">
+                                        <span class="box"><img src="~/img/epos/config.png" /></span>
+                                        <span><br /><b>Config</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Report/Data_Report">
+                                        <span class="box"><img src="~/img/epos/data_report.png" /></span>
+                                        <span><br /><b>Data Report</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-6 text-center">
+                                    <a href="~/Report/CreditSaleReport">
+                                        <span class="box"><img src="~/img/epos/credit_sale_report.png" /></span>
+                                        <span><br /><b>Credit Sales Report</b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+</body>

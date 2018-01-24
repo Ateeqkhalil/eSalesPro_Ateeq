@@ -1,0 +1,110 @@
+﻿<body id="body-index">
+
+    <div id="sticky-footer-wrap">
+
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+                <div class="right_side_custom_style">
+                    <div class="bggg-img">
+
+                        @*<a href="#" onclick="postcode_testing()">POSTCODE</a>*@
+                        <a href="#" data-target="#Postcode_Confirmation" data-toggle="modal">MODAL</a>
+
+
+                        @*----------------------------POP UP FOR SOLD HISTORY--------------------------------*@
+
+                        
+                        @*----------------------------POP UP END SOLD HISTORY--------------------------------*@
+
+
+                            <!-- Modal -->
+
+
+
+</div>
+                </div>
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+
+
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    <script>
+        function postcode_testing() {
+
+            //Get Postcode
+            //var number = $('#number').val("0l12odr");
+            var postcode = "SY10";
+
+            //Get latitude & longitude
+            $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + postcode + '&sensor=false', function (data) {
+                //alert("postcode" + postcode)
+                var lat = data.results[0].geometry.location.lat;
+                var lng = data.results[0].geometry.location.lng;
+                //alert("lat  " + lat);
+                //alert("lng  " + lng);
+
+                //Get address    
+                $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&sensor=false', function (data) {
+                    
+                    var address = data.results[0].address_components;
+                    var street = address[1].long_name;
+                    var town = address[2].long_name;
+                    var county = address[3].long_name;
+
+                    //alert(address);
+
+                    //Insert
+                    alert("street  " + street + ', ' + "   town   " + town + ', ' +  "    county  " + county + ', ' +  "    postcode  " + postcode);
+
+                });
+            });
+        }
+    </script>
+
+
+    <script>
+        $("[data-toggle='modal']").click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $("[data-toggle='modal']").on("contextmenu", function (e) {
+            e.preventDefault();
+            $("#changeTime").modal("show");
+        })
+    </script>
+
+
+
+
+
+</body>

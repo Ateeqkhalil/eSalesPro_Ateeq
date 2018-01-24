@@ -1,0 +1,2013 @@
+﻿@model  List<eSalesPro.Models.Product>
+<script type="text/javascript">
+    var vat_percent=@ViewBag.config.Vat_Percentage;
+</script>
+<body id="body-index">
+    @{
+        byte[] buffer = Guid.NewGuid().ToByteArray();
+        var FormNumber = BitConverter.ToUInt32(buffer, 0) ^ BitConverter.ToUInt32(buffer, 4) ^ BitConverter.ToUInt32(buffer, 8) ^ BitConverter.ToUInt32(buffer, 12);
+        var barcode = FormNumber.ToString("X");
+    }
+
+
+
+
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                <div class="col-md-3 pl-0">
+                                    <h3 class="bold">Stock Manager<small></small></h3>
+                                </div>
+
+                                <div class="empty-height"></div><div class="empty-height"></div>
+                                @*<div class="col-md-3">
+                                        <a href="#" data-toggle="modal" data-target="#EditModal" class="btn btn-primary blue-btn-style btn-mini width-170 product-stock-btn bold">Edit</a>
+                                    </div>*@
+
+                                <div class="col-md-2 pull-right pr-0">
+                                    <a href="/Product/Stock_Taking_List" class="btn btn-success pull-right blue-btn-style btn-mini width-170 bold">Update Stocktaking</a>
+                                </div>
+
+                                <div class="col-md-3 pull-right">
+                                    <a href="~/Product/Export_Product_List" target="_blank" class="btn btn-success pull-right btn-mini blue-btn-style width-170 bold">Export</a>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        @*<div class="col-md-12">
+
+                                <div class="col-md-3 pull-left">
+                                    <a href="~/Home/Epos" class="btn btn-primary blue-btn-style btn-mini supplier-epos-btn bold">Back to EPOS Main Panel</a>
+                                </div>
+
+                                <div class="col-md-3 pull-left">
+                                    <a href="#" data-toggle="modal" data-target="#CreateModal" class="btn btn-primary blue-btn-style btn-mini width-200 ml--50 product-import-btn bold">Add New Item</a>
+
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>*@
+                        <div class="empty-height"></div><div class="empty-height"></div>
+                        <div class="col-md-12 col-lg-12">
+
+                            <div class="col-md-3 col-lg-3 width-280 pull-left pl-0">
+                                <a href="~/User/Epos" target="_blank" class="btn btn-primary btn-mini blue-btn-style bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-3 col-lg-2 pull-left">
+                                <a href="#" data-toggle="modal" data-target="#CreateModal" class="btn btn-primary blue-btn-style btn-mini width-200 ml--72 bold">Add New Item</a>
+                            </div>
+                            <div class="col-md-3 col-lg-3 pull-right pr-0">
+                                <a href="#" target="_blank" class="btn btn-primary pull-right btn-mini blue-btn-style width-170 bold print_btn_view">Print</a>
+                            </div>
+                            <div class="col-md-3 col-lg-3"></div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="margin-checkboxes-product">
+                            <div class="row1 pull-right">
+                                <div class="pull-left bold  mr-5">Custom Fields</div>
+                                @*<div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox-normal" type="checkbox" />Normal</label></div>
+                                    <div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox-trade" type="checkbox" />Trade</label></div>
+                                    <div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox-premium" type="checkbox" />Premium</label></div>
+                                    <div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox-other" type="checkbox" />Other</label></div>
+                                    <div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox-cost" type="checkbox" />Cost</label></div>*@
+                                <div class="pull-left mr-5"><label class="unbold"><input onclick="abc()" id="checkbox_normal" type="checkbox" />Normal</label></div>
+                                <div class="pull-left mr-5"><label class="unbold"><input onclick="abc1()" id="checkbox_trade" type="checkbox" />Trade</label></div>
+                                <div class="pull-left mr-5"><label class="unbold"><input onclick="abc2()" id="checkbox_premium" type="checkbox" />Premium</label></div>
+                                <div class="pull-left mr-5"><label class="unbold"><input onclick="abc3()" id="checkbox_other" type="checkbox" />Other</label></div>
+                                <div class="pull-left mr-5"><label class="unbold"><input onclick="abc4()" id="checkbox_cost" type="checkbox" />Cost</label></div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+
+                        @*<section id="no-more-tables">*@
+
+                        <div class="col-md-12" style="overflow-x:scroll;overflow-y:hidden">
+                            <div id="product_print_div">
+
+                                <div class="col-md-3 pl-0 pr-0 pull-left none print_page_heading">
+                                    <h3 style="font-size:26px" class="bold">Product List<small></small></h3>
+                                </div>
+
+
+                                <table border="0" class="table table-responsive border_black" id="product_list_tableeee">
+                                    <thead>
+                                        <tr class="table-heading-fonts font-15 table-main-headings">
+                                            <th class="export_hide print_btn_hide_cols">Image</th>
+                                            <th class="text-center">SKU</th>
+                                            <th class="text-center">Description</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th class="text-center">Normal</th>
+                                            <th class="text-center">Trade</th>
+                                            <th class="text-center">Premium</th>
+                                            <th class="text-center">Other</th>
+                                            <th class="text-center">Cost</th>
+
+
+
+                                            <th class="normal_total text-center" style="display:none">Total Normal</th>
+                                            <th class="trade_total text-center" style="display:none">Total Trade</th>
+                                            <th class="premium_total text-center" style="display:none">Total Premium</th>
+                                            <th class="other_total text-center" style="display:none">Total Other</th>
+                                            <th class="cost_total text-center" style="display:none">Total Cost</th>
+                                            @*<th class="normal_total text-center">Total Normal</th>
+                        <th class="trade_total text-center">Total Trade</th>
+                        <th class="premium_total text-center">Total Premium</th>
+                        <th class="other_total text-center">Total Other</th>
+                        <th class="cost_total text-center">Total Cost</th>*@
+
+                                            <th class="text-center export_hide print_btn_hide_cols">Actions</th>
+
+
+                                        </tr>
+                                    </thead>
+
+
+
+                                    <tbody class="bold tbody-font-style font-14 text-center">
+
+                                        @foreach (var v in Model)
+                                    {
+                                        if (@v.Quantity.Quantity1 <= @v.Warn_Level) {
+                                        <tr style="background-color:red !important;">
+
+                                            @if (v.Image != null)
+                                                {
+                                                    {
+                                                        var base64 = Convert.ToBase64String(v.Image);
+                                                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+
+                                                <td class="export_hide print_btn_hide_cols">
+
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" />*@
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" />*@
+
+
+                                                    <ul class="enlarge export_hide" style="margin:0px; padding:0px;">
+                                                        <li style="margin: 0px;">
+                                                            <img src="@imgsrc" class="img-circle max_width_45_height_40 export_hide" />
+                                                            <span style="margin:0px; padding:0px;"><img src="@imgsrc export_hide" alt="" width="250" height="250" /></span>
+                                                        </li>
+                                                    </ul>
+
+
+
+
+                                                </td>
+                                                    }
+                                                }
+
+
+                                                else
+                                                {
+                                                <td class="export_hide print_btn_hide_cols">
+
+
+                                                    <img class="img-circle max_width_50 export_hide" src="~/img/images/new_img.png" />
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" /><span><img src="@imgsrc" /></span>*@
+                                                </td>
+                                                }
+
+
+
+
+
+                                            <td data-title="User ID">@v.Custom_Label_</td>
+                                            <td data-title="First Name">@v.Item_Title</td>
+                                            <td>@v.Quantity.Quantity1</td>
+                                            <td data-title="Last Name">@v.Price_Normal</td>
+                                            <td data-title="Email" class="user-emails">@v.Price_Trade</td>
+                                            <td data-title="Date Registered">@v.Price_Premium</td>
+                                            <td class="">@v.Price_Others</td>
+                                            <td class="">@v.Cost_Price</td>
+
+
+                                            <td class="normal_total" style="display:none">@v.Normal_VAT</td>
+                                            <td class="trade_total" style="display:none">@v.Trade_VAT</td>
+                                            <td class="premium_total" style="display:none">@v.Premium_VAT</td>
+                                            <td class="other_total" style="display:none">@v.Other_VAT</td>
+                                            <td class="cost_total" style="display:none">@v.Cost_VAT</td>
+
+                                            @*<td class="normal_total">@v.Normal_VAT</td>
+                        <td class="trade_total">@v.Trade_VAT</td>
+                        <td class="premium_total">@v.Premium_VAT</td>
+                        <td class="other_total">@v.Other_VAT</td>
+                        <td class="cost_total">@v.Cost_VAT</td>*@
+
+
+
+                                            <td class="export_hide print_btn_hide_cols">
+                                                <a href="#" data-toggle="modal" data-target="#EditModal" class="btn btn-sm btn-success bold" onclick="GetProduct(@v.Id)">Edit</a>
+                                                <a class="btn btn-sm btn-danger bold" href="~/Product/Delete/@v.Id">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        }
+                                        else
+                                        {
+                                        <tr class="">
+
+                                            @if (v.Image != null)
+                                                {
+                                                    {
+                                                        var base64 = Convert.ToBase64String(v.Image);
+                                                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+
+                                                <td class="export_hide print_btn_hide_cols">
+
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" />*@
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" />*@
+
+
+                                                    <ul class="enlarge export_hide" style="margin:0px; padding:0px;">
+                                                        <li style="margin: 0px;">
+                                                            <img src="@imgsrc" class="img-circle max_width_45_height_40 export_hide" />
+                                                            <span style="margin:0px; padding:0px;"><img src="@imgsrc export_hide" alt="" width="250" height="250" /></span>
+                                                        </li>
+                                                    </ul>
+
+
+
+
+                                                </td>
+                                                    }
+                                                }
+
+
+                                                else
+                                                {
+                                                <td class="export_hide print_btn_hide_cols">
+
+
+                                                    <img class="img-circle max_width_50 export_hide" src="~/img/images/new_img.png" />
+
+                                                    @*<img class="img-circle max_width_50" src="@imgsrc" /><span><img src="@imgsrc" /></span>*@
+                                                </td>
+                                                }
+
+
+
+
+
+                                            <td data-title="User ID">@v.Custom_Label_</td>
+                                            <td data-title="First Name">@v.Item_Title</td>
+                                            <td>@v.Quantity.Quantity1</td>
+                                            <td data-title="Last Name">@v.Price_Normal</td>
+                                            <td data-title="Email" class="user-emails">@v.Price_Trade</td>
+                                            <td data-title="Date Registered">@v.Price_Premium</td>
+                                            <td class="">@v.Price_Others</td>
+                                            <td class="">@v.Cost_Price</td>
+
+
+                                            <td class="normal_total" style="display:none">@v.Normal_VAT</td>
+                                            <td class="trade_total" style="display:none">@v.Trade_VAT</td>
+                                            <td class="premium_total" style="display:none">@v.Premium_VAT</td>
+                                            <td class="other_total" style="display:none">@v.Other_VAT</td>
+                                            <td class="cost_total" style="display:none">@v.Cost_VAT</td>
+
+                                            @*<td class="normal_total">@v.Normal_VAT</td>
+                        <td class="trade_total">@v.Trade_VAT</td>
+                        <td class="premium_total">@v.Premium_VAT</td>
+                        <td class="other_total">@v.Other_VAT</td>
+                        <td class="cost_total">@v.Cost_VAT</td>*@
+
+
+
+                                            <td class="export_hide print_btn_hide_cols">
+                                                <a href="#" data-toggle="modal" data-target="#EditModal" class="btn btn-sm btn-success bold" onclick="GetProduct(@v.Id)">Edit</a>
+                                                <a class="btn btn-sm btn-danger bold" href="~/Product/Delete/@v.Id">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                                    </tbody>
+                                </table>
+
+                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="" style="height:138px"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+    
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+    
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @*----------------------------POP UP for BARCODE--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="barcode_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Confirm</span>
+                    <img src="~/img/images/c3.png" onclick="dismiss_modal()" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+
+                            <div class="col-md-12">
+                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+                                <label class="font-16 text-center" for="middle-name">Are you sure you want to use this barcode ?</label>
+                                <br />
+                                <label class="font-17 text-center black-color" id="barcode_label" for="middle-name">@barcode</label>
+
+                                <div class="empty-height"></div><div class="empty-height"></div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+
+                                <div class="col-md-3">
+                                    <input type="button" onclick="Barcode_Ok();" value="Ok" class="btn btn-success btn-mini center-block width-123" />
+                                </div>
+
+                                <div class="col-md-3">
+                                    <a href="#" onclick="dismiss_modal()" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                </div>
+                                <div class="col-md-3"></div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END BARCODE--------------------------------*@
+
+
+    @*----------------------------POP UP for EDIT SUPPLIER--------------------------------*@
+
+
+
+
+    @*----------------------------POP UP END EDIT SUPPLIER--------------------------------*@
+
+
+
+
+    @*----------------------------POP UP for STOCK TRANSFER--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="transfer_stock" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Stock Transfer</span>
+                    @*<img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />*@
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="~/Product/List" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12 margin-stock-modal">
+
+                                    <p class="margin-stock-modal-heading bold font-16">Please select the stock locations. </p>
+
+                                    <div class="form-group">
+                                        <label class="stock-transfer-texts" for="middle-name">From:</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <select id="from_warehouse" name="From_Warehouse" class="form-control width-365">
+                                                <option value="">Please select any </option>
+                                                @foreach (var warehouse in ViewBag.Warehouses)
+                                                {
+                                                    <option value="@warehouse.Id">@warehouse.Name </option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="stock-transfer-texts" for="middle-name">To:</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <select id="to_warehouse" name=" to_warehouse" class="form-control width-365">
+                                                <option value="">Please select any </option>
+                                                @foreach (var warehouse in ViewBag.Warehouses)
+                                                {
+                                                    <option value="@warehouse.Id">@warehouse.Name </option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="stock-transfer-texts" for="middle-name">QTY:</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input type="text" class="width-110" name="stock_qty" id="quantity">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" onclick="transferStock();" value="Transfer" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="#" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0" onclick="dismiss_modal()">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END STOCK TRANSFER--------------------------------*@
+
+
+    @*<----------------CATEGORY POP UP------------------>*@
+    <div class="modal fade" style="overflow:auto" id="" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg-2" role="document">
+            <div class="modal-content modal-border" style="border-radius:10px;background:#e6e6e6;">
+
+                <div class="title col-md-12">
+                    <span>Categories</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Add New Item</b></h3>
+                                <img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*--------------------POP UP ENDS--------------------*@
+
+
+    @*----------------------------POP UP for ADD NEW LOCATION--------------------------------*@
+
+
+
+
+    @*----------------------------POP UP END ADD NEW LOCATION--------------------------------*@
+
+
+
+
+    @*----------------------------POP UP for COMPOSITE ITEMS--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="composite_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+
+                <div class="title col-md-12">
+                    <span>Composite Items</span>
+                    @*<img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />*@
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+
+                            <p class="mt-30 bold">
+                                Add Composite items
+                                <a class="ml-5 mr-5" href="#">
+                                    <img class="size-35-32 ml-5 mr-5" src="~/img/images/plus.png" />Add Items
+                                </a>
+                            </p>
+
+                            <form action="" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12">
+                                    <div class="ml-75">
+                                        <div class="form-group pull-left">
+                                            <label class="control-label pull-left mt--4">SKU:</label>
+
+
+                                            <input id="sku_composite" class="form-control pull-left width-170" type="text" name="sku_composite" placeholder="" required="" title="admin" style="height: 25px">
+
+
+
+                                        </div>
+
+                                        <div class="form-group pull-left">
+                                            <label class="control-label pull-left ml-31 mt--4">QTY:</label>
+
+
+                                            <input id="sku_composite" class="form-control pull-left width-170" type="text" name="sku_composite" placeholder="" required="" title="admin" style="height: 25px">
+
+
+
+                                        </div>
+                                        <a href=""><img class="del-img" src="~/img/images/delete.png" /></a>
+                                    </div>
+
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="~/Product/List" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END COMPOSITE ITEMS--------------------------------*@
+
+
+    @*----------------------------POP UP for ESHOP SETTINGS SETTINGS--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="eshop_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+
+                <div class="title col-md-12">
+                    <span>Edit-Sync Settings</span>
+                    @*<img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />*@
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+
+                            <div>
+                                <h4 class="mt-30 pull-left black-color bold">
+                                    Manage Item Syncing
+                                    @*<a class="ml-5 mr-5" href="#">
+                                            <img class="size-35-32 ml-5 mr-5" src="~/img/images/plus.png" />Add Items
+                                        </a>*@
+                                </h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="">
+
+                                <div class="row1 pull-left">
+                                    <div class="pull-left"><label>Sync Options  : </label></div>
+                                    <div class="pull-left"><label class="mb-0"><input name="syncing" onclick="showBasic()" value="Basic" type="radio" />Basic</label></div>
+                                    <div class="pull-left"><label class="mb-0"><input name="syncing" onclick="showStandard()" value="Standard" type="radio" />Standard</label></div>
+                                    <div class="pull-left"><label class="mb-0"><input name="syncing" onclick="showAdvance()" value="Advance" type="radio" />Advance</label></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="">
+                                <div id="basic_id" class="none mt-15">
+                                    <div class="row1 pull-left">
+                                        <div class="pull-left"><label>If warning level reach  : </label></div>
+                                        <div class="pull-left"><label class="mb-0"><input name="syncing" value="Basic" type="radio" />Update increased price :</label></div>
+                                        <div class="pull-left"><label class="mb-0"><input name="syncing" value="Standard" type="radio" />Put listing Out of Stock :</label></div>
+                                    </div>
+
+                                    <form action="" class="form-horizontal form-label-left" method="post">
+
+                                        <div class="col-md-12 margin-stock-modal">
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-145" for="middle-name">Warning Level (Qty) :</label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" class="width-150" name="stock_qty" id="login">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="pull-left width-145" for="middle-name">Increased price:</label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" class="width-150" name="stock_qty" id="login">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </form>
+
+
+
+                                </div>
+
+                                <div id="advance_id" class="none">
+                                    <form action="" class="form-horizontal form-label-left" method="post">
+
+                                        <div class="col-md-12 margin-stock-modal">
+
+                                            <div class="form-group">
+                                                <label class="pull-left" for="middle-name">Maximum Listed Quantity:</label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input type="text" class="width-150" name="stock_qty" id="login">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </form>
+
+
+                                </div>
+
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="~/Product/List" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END ESHOP SETTINGS--------------------------------*@
+
+
+    @*----------------------------POP UP ADD PRODUCT--------------------------------*@
+
+    <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Add-Stock</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color mb-40"><b>Add New Item</b></h3>
+                            @*<img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />*@
+
+                            <form id="demo-form2" action="@Url.Action("Create","Product")" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+                                <div class="col-md-12 text-center">
+
+                                    <div class="col-md-9">
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Custom Label / SKU <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" type="text" name="sku" required placeholder="SKU is case sensitive. eshop's SKU need to be same.">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Item Title <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" type="text" name="item_title" required>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Normal Price<span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="NormalPrice" onkeypress="validation_numeric(event)" onkeyup="Normal_Price_Calculating_VAT(1);" class="width-170" type="text" name="normal_price" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">+VAT= <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="NormalTotal" onkeypress="validation_numeric(event)" onkeyup="Normal_Price_by_Vat(1)" type="text" class="width-170" name="normal_vat" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Trade Price<span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="TradePrice" onkeypress="validation_numeric(event)" onkeyup="Trade_Price_Calculating_VAT(1);" class="width-170" type="text" name="trade_price" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">+VAT= <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="TradeTotal" onkeypress="validation_numeric(event)" onkeyup="Trade_Price_by_Vat(1)" type="text" class="width-170" name="trade_vat" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Premium Price<span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="PremiumPrice" onkeypress="validation_numeric(event)" class="width-170" onkeyup="Premium_Price_Calculating_VAT(1)" type="text" name="premium_price" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">+VAT= <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="PremiumTotal" onkeypress="validation_numeric(event)" onkeyup="Premium_Price_by_Vat(1)" type="text" class="width-170" name="premium_vat" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Other Price<span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="OtherPrice" onkeypress="validation_numeric(event)" class="width-170" onkeyup="Other_Price_Calculating_VAT(1);" type="text" name="other_price" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">+VAT= <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="OtherTotal" onkeypress="validation_numeric(event)" onkeyup="Other_Price_by_Vat(1)" type="text" class="width-170" name="other_vat" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                        <div class="product-border"></div>
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts font-16 black-color" for="middle-name">Total Quantity<span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input class="width-170" onkeypress="validation_numeric(event)" type="text" name="total_quantity" required>
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="">
+                                                    <a href="#" data-toggle="modal" data-target="#transfer_stock">
+                                                        <img class="stock-transfer-img" src="~/img/images/stock_transfer.png" />
+                                                        <label class="mr-60 font-16">Transfer Stock</label>
+                                                    </a>
+                                                </div>*@
+
+                                                <div class="clearfix"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+
+
+
+                                        <div class="form-group">
+                                            <div style="position:relative">
+                                                <div class="">
+                                                    <label class="supplier-create-texts mt-10" for="middle-name">Warehouse Locations</label>
+                                                </div>
+
+
+
+
+                                                <div class="">
+
+
+
+                                                    <a href="#" class="add_new_warehouse showDiv  mb-10">
+                                                        <img class="pull-left width-35" src="~/img/images/plus.png" />
+                                                        <div class="clearfix"></div>
+                                                        @*<label class="mr-160 font-16">Add New Locations</label>*@
+                                                    </a>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+
+                                                <div class="">
+                                                    <a href="~/Product/AddWarehouse/" target="_blank" class="">
+                                                        <img class="edit_warehouse_class" src="~/img/images/pencil48.png" />
+                                                    </a>
+                                                </div>
+
+                                               
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                        @*<div class="remove_warehouse_div">
+                                            <div class="form-group pull-left pl-0">
+                                                <label class="control-label pull-left">Location:</label>
+
+
+                                                <select name="ware_house_name" class="form-control width-170 pull-left">
+                                                    <option class="text-center">-- Select --</option>
+                                                    @foreach (var warehouse in ViewBag.Warehouses)
+                                                    {
+                                                        <option value="@warehouse.Id">@warehouse.Name </option>
+                                                    }
+
+
+                                                </select>
+
+
+
+
+
+                                            </div>
+
+
+
+
+                                            @*<div class="pull-left">
+                                                <label class="control-label pull-left ml-22 mr-5">Shelf No :</label>
+                                                <select name="ware_shelf_number" class="form-control width-94 pull-left">
+                                                    <option class="text-center"> -- Select --</option>
+                                                    @foreach (var warehouse in ViewBag.Warehouses)
+                                                    {
+                                                        <option value="@warehouse.Id">@warehouse.shelf_number </option>
+                                                    }
+
+                                                </select>
+
+
+
+
+                                            </div>*@
+
+                                            @*<div id="addedRows"></div>
+
+
+                                            <div class="form-group pull-left">
+                                                <label class="control-label pull-left ml-45">QTY:</label>
+
+
+                                                <input onkeypress="validation_numeric(event)" id="" class="form-control pull-left width-78 ml-5" type="text" name="ware_house_qty" placeholder="Qty" title="admin">
+
+
+
+                                            </div>
+                                            <div>
+                                                <a class="pull-left ml-30"><img class="del-img-size" src="~/img/images/delete.png" /></a>
+                                            </div>
+
+
+                                        </div>*@
+
+                                        <div class="clearfix"></div>
+
+
+                                        <div class="empty-height"></div>
+
+                                        <div class="product-border"></div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Warn Level</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" onkeypress="validation_numeric(event)" type="text" name="warn_level">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Barcode</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="barcode_code" class="width-170" type="text" name="barcode_code">
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <a href="#" onclick="" data-toggle="modal" data-target="#barcode_modal">
+                                                        <img class="add-barcode-img" src="~/img/images/add_barcode.png" />
+                                                    </a>
+                                                    <a>
+                                                        <img class="print-barcode-img" src="~/img/images/barcode_print.png" />
+                                                    </a>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Supplier Name<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <select name="supplier_name" required class="form-control width-400">
+                                                    <option value="">Please select any </option>
+                                                    @foreach (var name in ViewBag.Suppliers)
+                                                    {
+                                                        <option value="@name.Id">@name.Name </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Supplier Code</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" type="text" name="supplier_code">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Cost Price</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="CostPrice" onkeyup="Cost_Price_Calculating_VAT(1)" class="width-170" onkeypress="validation_numeric(event)" type="text" name="cost_price">
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">+VAT=</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="CostTotal" type="text" onkeypress="validation_numeric(event)" onkeyup="Cost_Price_by_Vat(1)" class="width-170" name="cost_vat">
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div>
+                                                <div class="">
+                                                    <label class="supplier-create-texts" for="middle-name">Quantity in Box (Inner)</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input class="width-170" onkeypress="validation_numeric(event)" type="text" name="inner">
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label class="vat-texts">(Outer)</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" onkeypress="validation_numeric(event)" class="width-170" name="outer">
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+
+
+
+
+                                        <div id="" class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Category Name<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <select name="cat_name" required class="form-control width-360">
+
+                                                    <option value="">Please select any </option>
+                                                    @foreach (var name in ViewBag.Categories)
+                                                    {
+                                                        <option value="name.Id">@name.Type</option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="" style="position:relative">
+                                                <a href="#" id="myModal_id" data-toggle="modal" data-target="#create_category_modal">
+                                                    @*<a href="#" id="myModal_id">*@
+                                                    <img class="plus-img" src="~/img/images/plus.png" />
+                                                </a>
+                                                <a href="~/Product/List_Product_Categories/" target="_blank" class="">
+                                                    <img class="edit_category_class" src="/img/images/pencil48.png">
+                                                </a>
+                                                <div class="clear"></div>
+                                            </div>
+
+                                            <div class="clear"></div>
+                                        </div>
+
+                                        <script>
+                                            //$('#modal_opening_asd').on('click', function () {
+                                            //    //$(document).off('focusin.modal');
+                                            //    $("#create_category_modal").show();
+                                            //    $("#category").focus();
+
+                                            //});
+                                        </script>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Courier Type</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" type="text" name="courier_type">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Tax Type</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-400" type="text" name="tax_type">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts" for="middle-name">Notes</label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <textarea class="width-400" name="notes"></textarea>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts bold font-16 black-color" for="middle-name">Composite(Kit) Items</label>
+
+                                            <div class="pull-left">
+                                                <a href="#" data-toggle="modal" data-target="#composite_modal">
+                                                    <img class="pencil-img" src="~/img/images/pencil48.png" />
+                                                </a>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                        <div class="product-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts bold font-16 black-color" for="middle-name">Sync eShops</label>
+
+                                            <div class="pull-left">
+                                                <a href="#">
+                                                    <img class="pencil-img" src="~/img/images/sync248.png" />
+                                                    <p class="black-color width-400">NOTE: eShop synchronized according to your settings.</p>
+                                                </a>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="supplier-create-texts bold font-16 black-color" for="middle-name">eShop Settings</label>
+
+                                            <div class="pull-left">
+                                                <a href="#" data-toggle="modal" data-target="#eshop_modal">
+                                                    <img class="pencil-img" src="~/img/images/pencil.png" />
+                                                </a>
+                                            </div>
+
+                                            <input id="unique_number" type="hidden" value="@barcode" />
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div>
+                                            <h3 class="bold mt-0">Item Images</h3>
+                                            <div class="fileupload fileupload-new" data-provides="fileupload" align="center">
+
+                                                <div class="fileupload-new thumbnail"><img src="~/img/images/default-image.jpg" class="product-img" /></div>
+
+                                                <div class="fileupload-preview fileupload-exists thumbnail @*product-img*@"></div>
+
+                                                <div>
+
+                                                    <span class="btn btn-file btn-primary btn-margin-product"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="file" id="a_image1" onchange="Checkfilesimage(1)"></span>
+
+                                                    <a href="javascript:;" class="btn btn-primary btn-margin-product fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Save" class="btn btn-success btn-mini center-block width-145" />
+                                        @*<input id="unique_number" type="hidden" value=""/>*@
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="#" data-dismiss="modal" class="btn btn-primary btn-mini blue-btn-style-modal center-block a-cancel">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/Product/List.js"></script>
+
+    @*----------------------------POP UP END ADD PRODUCT--------------------------------*@
+
+
+    @*----------------------------POP UP Edit PRODUCT--------------------------------*@
+
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Add-Stock</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div id="EditProduct" class="win text-center">
+                            <h3 class="black-color mb-40"><b>Edit Item</b></h3>
+                            @*<img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />*@
+
+                            <form id="demo-form2" action="@Url.Action("Edit", "Product")" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                <div id="PleaseWait" class="hideDiv">
+                                    <img src="~/img/loading.gif" />
+                                </div>
+
+                                <div id="EditProduct" class="col-md-12 text-center">
+
+                                
+
+
+                                </div>
+
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Save" class="btn btn-success btn-mini center-block width-145" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="~/Product/List" class="btn btn-primary btn-mini blue-btn-style-modal center-block a-cancel">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    @*----------------------------POP UP END EDIT PRODUCT--------------------------------*@
+
+
+
+    @*----------------------------POP UP for CATEGORY--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="create_category_modal" tabindex="-9" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Categories</span>
+                    <img src="~/img/images/c3.png" onclick="dismiss_modal()" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12">
+
+                                    @*<div class="form-group">
+                                            <label class="supplier-create-texts font-16" for="middle-name">Category Name<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="width-200" type="text" name="category_title" id="category" required>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="form-group pt-30">
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 bold">
+                                                Category Name<span class="required">*</span>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input name="category_title" class="" type="text" id="category" autofocus required>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12 pt-30">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3 pl-0">
+                                        <input type="button" onclick="addCategorys();" value="Save" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="dismiss_modal()" class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.1.0/css/select.dataTables.min.css" type="text/css" />
+
+    
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://datatables.net/release-datatables/media/js/jquery.js"></script>
+<script type="text/javascript" src="https://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" scr="https://datatables.net/release-datatables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.html5.min.js"></script>*@
+
+    
+
+
+    @*----------------------------POP UP END CATEGORY--------------------------------*@
+
+
+    <script type="text/javascript">
+        var tableToExcel = (function () {
+            //$(".export_hide").hide();
+            //alert("sadsad");
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+        })()
+
+
+        $(document).ready(function () {
+            var oTable = $('#product_list_tableeee').DataTable({
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
+            });
+
+        });
+
+
+    </script>
+
+    <script>
+
+    $('#create_category_modal').on('shown.bs.modal', function () {
+        $(document).off('focusin.modal');
+    });
+
+    </script>
+
+
+
+    <script>
+     
+
+    </script>
+
+    <script>
+        function Barcode_Ok() {
+            var v = document.getElementById("barcode_label").textContent;
+            if (v == "") {
+                alert(v);
+                alert("EMPTY");
+            }
+            else {
+
+                alert("NOT EMPTY");
+                alert(v);
+                $("#barcode_code").val(v);
+                
+                $("#barcode_code").prop("readonly", true);
+                $("#barcode_modal").hide('fast');
+            }
+        }
+
+        function dismiss_modal() {
+            $("#create_category_modal").hide('fast');
+            $("#barcode_modal").hide('fast');
+            $("#transfer_stock").hide('fast');
+        }
+
+
+    </script>
+
+
+    <script>
+        function barcode_generator() {
+            var unique = document.getElementById("unique_number").value;
+
+            document.getElementById("barcode_code").value = unique;
+            document.getElementById("barcode_code").readOnly = true;
+        }
+
+    </script>
+
+    <script>
+    $('.add_new_warehouse').click(function () {
+            @*$(this).after('<div class="ml-16 remove_warehouse_div"><div class="form-group pull-left"><label class="control-label pull-left">Location:</label><select name="ware_house_name" required class="form-control width-170 pull-left">@foreach (var warehouse in ViewBag.Warehouses){<option value="@warehouse.Id">@warehouse.Name </option>}</select></div><div class="pull-left"><label class="control-label pull-left ml-22 mr-5">Shelf No :</label><select name="ware_shelf_number" required class="form-control width-94 pull-left">@foreach (var warehouse in ViewBag.Warehouses){<option value="@warehouse.Id">@warehouse.shelf_number </option>}</select></div><div id="addedRows"></div><div class="form-group pull-left"><label class="control-label pull-left ml-22">QTY:</label><input id="" class="form-control pull-left width-78 ml-5" type="text" name="ware_house_qty" placeholder="" required="" title="admin"></div><div><a class="kashif" onclick="removeWarehouse()"><img class="del-img-size" style="margin-left:-14px;" src="/img/images/delete.png" /></a></div><div class="clearfix"></div></div>');*@
+        $(this).after('<div class="ml-16 remove_warehouse_div"><div class="form-group pull-left"><label class="control-label pull-left">Location:</label><select name="ware_house_name" required class="form-control width-170 pull-left"><option class="text-center">-- Select --</option>@foreach (var warehouse in ViewBag.Warehouses){<option value="@warehouse.Id">@warehouse.Name </option>}</select></div><div id="addedRows"></div><div class="form-group pull-left ml-22 mr-5"><label class="control-label pull-left ml-7">QTY:</label><input id="" class="form-control pull-left width-78 ml-5" type="text" name="ware_house_qty" placeholder="Qty" required="" title="admin"></div><div><a class="kashif pull-left" onclick="removeWarehouse()"><img class="del-img-size" style="margin-left:9px;" src="/img/images/delete.png" /></a></div><div class="clearfix"></div></div>');
+        });
+
+        //function removeWarehouse()
+
+        $(document).on('click', '.kashif', function removeWarehouse() {
+
+            $(this).closest(".remove_warehouse_div").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeWarehouse(){
+            //    $(this).closest(".remove_warehouse_div").remove();
+            //}
+
+        });
+    </script>
+
+    <script>
+        $('.add').click(function () {
+            $(this).before('<div class="block"><input type="text" /><span class="remove">Remove Option</span></div>');
+        });
+
+        $(document).on('click', '.remove', function () {
+            $(this).parent('div').remove();
+        });
+
+
+    </script>
+
+
+    <script>
+    function delete_btn(id) {
+        //alert(id);
+        
+        $("#remove_p_warehouse_" + id).remove();
+    }
+    </script>
+
+    <script>
+    $('.add_new_warehouse_edit').click(function () {
+        alert("dsaddadsa");
+        
+    });
+
+    //function removeWarehouse()
+
+  
+    </script>
+
+    <script>
+        function cancel_btn() {
+
+            //alert("cancel")
+            //if(document.getElementById("create_category_modal"))
+            //{
+            //    alert("if")
+            //    $("#create_category_modal").hide('fast');
+            //}
+        }
+    </script>
+
+    @*<script>
+            function same_warehouse() {
+
+                var From = document.getElementById("from_warehouse").value;
+                var To = document.getElementById("to_warehouse").value;
+
+                if (From == To) {
+                    Alert("Both Fields Warehouses Cannot be Same");
+                    document.getElementById("from_warehouse").value = "";
+                    document.getElementById("to_warehouse").value = "";
+                    return false;
+                }
+
+            }
+        </script>*@
+
+
+    <script>
+        function showBasic() {
+            $("#basic_id").removeClass("none");
+            $("#basic_id").addClass("showDiv");
+            $("#advance_id").addClass("none");
+        }
+
+    </script>
+
+
+    <script>
+        function showAdvance() {
+            $("#advance_id").removeClass("none");
+            $("#advance_id").addClass("showDiv");
+            $("#basic_id").addClass("none");
+        }
+
+    </script>
+    <script>
+        function showStandard() {
+            $("#advance_id").addClass("none");
+            $("#basic_id").addClass("none");
+        }
+
+    </script>
+
+
+    <script>
+
+        function GetEditedObject(Id) {
+
+            var url = "/Supplier/GetSupplier/";
+            var vendorslist = "#VendorsDD";
+
+            $.ajax({
+                url: url,
+                data: { objID: Id },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    var serobj = jQuery.parseJSON(data);
+                    document.getElementById('supplier_id').value = serobj.supplier_id;
+                    document.getElementById('company_name').value = serobj.company_name;
+                    document.getElementById('company_short_name').value = serobj.company_short_name;
+                    document.getElementById('sales_contact_name').value = serobj.supplier_name;
+                    document.getElementById('sales_contact_mail').value = serobj.supplier_email;
+                    document.getElementById('sales_contact_phone').value = serobj.supplier_phone;
+                    document.getElementById('sales_phone_ext').value = serobj.supplier_phone_ext;
+                    document.getElementById('sales_contact_mobile').value = serobj.supplier_mobile;
+                    document.getElementById('sales_contact_fax').value = serobj.supplier_fax;
+                    document.getElementById('account_contact_name').value = serobj.account_name;
+                    document.getElementById('account_contact_mail').value = serobj.account_email;
+                    document.getElementById('account_contact_phone').value = serobj.account_phone;
+                    document.getElementById('account_ext_phone').value = serobj.account_phone_ext;
+                    document.getElementById('account_contact_mobile').value = serobj.account_mobile;
+                    document.getElementById('account_contact_fax').value = serobj.account_fax;
+                    document.getElementById('bank_name').value = serobj.bank_name;
+                    document.getElementById('account_name').value = serobj.bank_acc_name;
+                    document.getElementById('account_no').value = serobj.account_no;
+                    document.getElementById('sort_code').value = serobj.bank_sort_code;
+                    document.getElementById('address').value = serobj.supplier_address;
+                    document.getElementById('postcode').value = serobj.supplier_post_code;
+                    document.getElementById('website').value = serobj.supplier_website;
+                    document.getElementById('login').value = serobj.supplier_login;
+                    document.getElementById('password').value = serobj.supplier_password;
+                    document.getElementById('notes').value = serobj.supplier_notes;
+                    document.getElementById('credit_limit').value = serobj.supplier_credit_limit;
+                    document.getElementById('credit_period').value = serobj.supplier_credit_period;
+                },
+
+
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+    <script>
+        //function normalprice() {
+        //    alert("NORMAL");
+        //    if (document.getElementById("checkbox-normal").checked) {
+        //        $("#check-normal-price-th").show('slow');
+        //        $("#check-normal-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-normal-price-th").hide('slow');
+        //        $("#check-normal-price-td").hide('slow');
+        //    }
+
+        //    if (document.getElementById("checkbox-trade").checked) {
+        //        $("#check-trade-price-th").show('slow');
+        //        $("#check-trade-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-trade-price-th").hide('slow');
+        //        $("#check-trade-price-td").hide('slow');
+        //    }
+
+        //    if (document.getElementById("checkbox-trade").checked) {
+        //        $("#check-trade-price-th").show('slow');
+        //        $("#check-trade-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-trade-price-th").hide('slow');
+        //        $("#check-trade-price-td").hide('slow');
+        //    }
+        //    if (document.getElementById("checkbox-premium").checked) {
+        //        $("#check-premium-price-th").show('slow');
+        //        $("#check-premium-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-premium-price-th").hide('slow');
+        //        $("#check-premium-price-td").hide('slow');
+
+        //    }
+
+
+        //    if (document.getElementById("checkbox-other").checked) {
+        //        $("#check-other-price-th").show('slow');
+        //        $("#check-other-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-other-price-th").hide('slow');
+        //        $("#check-other-price-td").hide('slow');
+        //    }
+
+
+        //    if (document.getElementById("checkbox-cost").checked) {
+        //        $("#check-cost-price-th").show('slow');
+        //        $("#check-cost-price-td").show('slow');
+        //    }
+
+        //    else {
+        //        $("#check-cost-price-th").hide('slow');
+        //        $("#check-cost-price-td").hide('slow');
+        //    }
+        //}
+
+    </script>
+
+    <script>
+        function addCategorys() {
+
+            var Name = document.getElementById('category').value;
+
+            $.ajax({
+
+                url: "/Product/addCategory/",
+                data: { name: Name },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+                    document.getElementById('create_category_modal').style.display = "none";
+                    document.getElementById('updated_Category').innerHTML = data;
+
+                },
+                error: function (response) {
+                    alert("eeeeee");
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+
+        function GetProduct(ID) {
+
+            $("#PleaseWait").addClass('showDiv');
+
+            $.ajax({
+
+                url: "/Product/Edit/",
+                data: { id: ID },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+                    document.getElementById("EditProduct").innerHTML = data;
+                    $("#PleaseWait").removeClass('showDiv');
+                    $("#PleaseWait").addClass('hideDiv');
+
+                    //exist_product_image();
+
+                },
+                error: function (response) {
+                    alert("Error" + response);
+                }
+
+            })
+        }
+
+        //function exist_product_image() {}
+
+    </script>
+
+
+
+
+    <script>
+
+        function transferStock() {
+
+            var From = document.getElementById("from_warehouse").value;
+            var To = document.getElementById("to_warehouse").value;
+            var Quantity = document.getElementById("quantity").value;
+
+
+            if (From == To) {
+                alert("ERROR Same Warehouses");
+            }
+
+            else {
+                $.ajax({
+
+                    url: "/Product/TransferStock/",
+                    data: { from: From, to: To, quantity: Quantity },
+                    cache: false,
+                    type: "Get",
+                    success: function (data) {
+
+                    },
+                    error: function (response) {
+
+                        alert("error");
+
+                    }
+
+                })
+            }
+        }
+
+    </script>
+
+
+    <script>
+        function warehouse_show() {
+            $("#show_warehouse").removeClass("none");
+            $("#show_warehouse").addClass("showDiv");
+        }
+    </script>
+
+
+    <script>
+        function warehouse_add_more() {
+            //alert("dssadsad");
+            $(".new_rows_add_warehouse").append('<div class="remove_warehouse_divsssss"><div class="form-group pull-left pl-0"><label class="control-label pull-left">Location:</label><select name="ware_house_name" class="form-control width-170 pull-left"><option class="text-center">-- Select --</option>@foreach (var warehouse in ViewBag.Warehouses){<option value="@warehouse.Id">@warehouse.Name</option>}</select></div><div class="form-group pull-left ml-22 mr-5"><label class="control-label pull-left ml-7">QTY:</label><input onkeypress="validation_numeric(event)" id="" class="form-control pull-left width-78 ml-5" type="text" name="ware_house_qty" placeholder="Qty" title="admin"></div><div><a class="del_rows_p_w pull-left" onclick="p_w_delete_row()"><img class="del-img-size" style="margin-left:11px;" onclick="pw_del()" src="/img/images/delete.png"/></a></div></div><div class="clearfix"></div>');
+        }
+
+
+        $(document).on('click', '.del_rows_p_w', function p_w_delete_row() {
+
+            $(this).closest(".remove_warehouse_divsssss").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeWarehouse(){
+            //    $(this).closest(".remove_warehouse_div").remove();
+            //}
+
+        });
+
+
+
+
+
+        //function pw_del(){
+        //    $(this).find('.remove_warehouse_divsssss').remove();
+        //}
+
+        //$('.remove_warehouse_divsssss').click(function () {
+        //    alert('del');
+            
+        //});
+    </script>
+
+</body>

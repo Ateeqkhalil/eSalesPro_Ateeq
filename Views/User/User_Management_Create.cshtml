@@ -1,0 +1,1086 @@
+﻿@model List<eSalesPro.Models.User>
+<body id="body-index">
+    <style>
+
+    </style>
+
+    <div id="sticky-footer-wrap">
+
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                @*-----------------Main Container Start---------------*@
+
+                <div class="user-page-height">
+                    <div class="bggg-img user">
+
+                        @*<h3 id="time_"></h3>*@
+                        <div class="">
+                            <div class="title">
+                                @*<img src="~/img/images/triangle.png"/>*@
+                                <span class="ml-15">User Access</span>
+                            </div>
+
+                            <div class="space">
+                                <div class="">
+                                    <h3><b>Choose user to modify:</b></h3>
+
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <form id="demo-form2" action="~/User/User_Management_Create" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" style="margin-top:30px">
+
+                                                <div class="form-group">
+                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <select id="user_id" name="username" required class="form-control user-management-button ml-9">
+                                                            <option value="">Please select any </option>
+                                                            @foreach (var v in Model)
+                                                            {
+                                                                <option value="@v.Id">@v.username</option>
+                                                            }
+
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <input type="button" onclick="javascript: showhide_EDIT('edit_user_div'); get_user()" value="Edit User Settings" class="btn btn-primary btn-mini bold center-block user-management-button mr-9" />
+                                                    </div>
+
+
+                                                    <div class="col-md-3"></div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                <a href="javascript:showhide_ADD('add_user_div')" class="btn bold btn-success btn-mini center-block user-management-button">Add New User</a>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <a href="" onclick="delete_user(); return confirm('Are you sure you want to Delete?')" class="btn btn-danger btn-mini center-block user-management-button bold">Delete Existing User</a>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+
+                                <hr class="hrr">
+
+                                @*--------------------NEW USER DIV----------------*@
+
+                                <div class="row hideDiv" id="add_user_div">
+                                    <h4 class="index-page-heading">User Personal Details</h4>
+
+                                    <form id="demo-form2" action="~/User/User_Management_Create" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-1"></div>
+
+                                            <div class="col-md-5">
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Full Name</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="full_name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Display Name</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="display_name">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Address</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="address">
+                                                        <input type="text" name="address1">
+                                                        <input type="text" name="address2">
+                                                        <input type="text" name="address3">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Postcode</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="postcode">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Phone</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="phone">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Emergency Contact Number</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="emergency_contact">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Username <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="username" type="text" name="username" placeholder="User Name" onblur="username_validation()" required>
+
+                                                        <span id="user_exist" class="hideDiv red-border width-192">Already Exist !</span>
+                                                    </div>
+                                                    @*<div class="">
+                                <label id="user_exist" class="">Username User name Exist !!!</label>
+                            </div>
+                            <div class="clearfix"></div>*@
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Set New Password <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input id="password" type="password" name="password" required placeholder="Password">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Confirm Password <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm Password">
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
+                                            </div>
+
+
+
+                                            <div class="col-md-5 ml--30">
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">Pay Rate</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="pay_rate">
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">Tax Code</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="tax_code">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">NI Number</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" name="ni_number">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="">Notes</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <textarea class="width-193" name="notes"></textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"></div>
+
+
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                <input type="submit" onclick="javascript: show_AddPermissions('add-user-div-permissions')" id="btnn" value="Save & Go to Permissions" class="bold btn btn-success btn-mini center-block width-200 user-permission-btn" />
+                                                @*<a href="javascript:show_AddPermissions('add-user-div-permissions')" class="btn bold btn-success btn-mini center-block width-200 user-permission-btn">Save &amp; Go to Permissions</a>*@
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                                @*--------------------NEW USER DIV ENDS----------------*@
+
+
+
+                                @*--------------------NEW USER PERMISSION DIV----------------*@
+
+
+                                <div id="add-user-div-permissions" class="row hideDiv">
+                                   
+                                    <div class="col-md-12">
+
+                                        <h5 class="bold black-color text-left">User Access Permissions</h5>
+
+                                        @*<div style="margin:10px 0 0 10px" class="">
+
+            </div>*@
+
+
+
+
+                                        <div class="row1 mt-20">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />User Tools</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Attendance</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Quick Links</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Send Email</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Company Messenger</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />Automation</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Order Fetcher</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Feedback Manager</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Message Quantity</label></div>
+                                        </div>
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />Orders</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Add Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Search Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Print Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Order Tracking</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Waiting Orders</label></div>
+                                        </div>
+
+
+                                        @*<div class="row1">
+                <div class="col1"><input type="checkbox" /><label></label></div>
+                <div class="col1"><input type="checkbox" /><label></label></div>
+                <div class="col1"><input type="checkbox" /><label></label></div>
+                <div class="col1"><input type="checkbox" /><label></label></div>
+                <div class="col1"><input type="checkbox" /><label></label></div>
+            </div>*@
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-44"><label class="checkbox-main-style vertical-align"><input type="checkbox" />EPOS System</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />EPOS Main Panel</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Editing</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Refunds</label></div>
+                                            <div class="col1 width-87 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Supplier Data &amp; Cost Price</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Supplier List</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Credit</label></div>
+                                            <div class="col1 width-110 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Customer Opening Balance</label></div>
+                                            <div class="col1 min-height-44 width-50"><label class="mb-0"><input type="checkbox" />Credit Limit</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Total Price</label></div>
+                                            <div class="col1 width-73 min-height-44"><label class="mb-0"><input type="checkbox" />Update Stock Recount</label></div>
+                                            <div class="col1 max-width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Modify Invoice No</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Revenue Report</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />File Manager</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1-without-padding min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />Refund &amp; Return</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />RMA &amp; Replacements</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Data Reports</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Refund Queue</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Waiting Orders</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />Admin</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Admin Menu</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Accounting</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />User Access</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Attendance Management</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Database Management</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Log Explorer</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Assign Mail Service</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />IP</label></div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-12 mt-15">
+
+                                        <h5 class="bold black-color text-left">Authcode for temporary permission</h5>
+                                        <div>
+                                            <h5 class="bold black-color" style="float:left">Authcode:</h5>
+                                            <div class="col-md-3 col-sm-6 col-xs-12 pull-left">
+                                                <input type="text" name="" required class="width-135 mt-5">
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Allow Editing</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Allow Refunds</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Modify Invoice No</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Credit Limit</label></div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+
+                                @*--------------------NEW USER PERMISSION DIV ENDS----------------*@
+
+
+                                @*--------------------EDIT USER DIV----------------*@
+
+                                <div class="row hideDiv" id="edit_user_div">
+                                    <h4 class="index-page-heading">Edit User Personal Details</h4>
+
+                                    <form id="demo-form2" action="@Url.Action("Edit","User")" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-1"></div>
+
+                                            <div class="col-md-5">
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Full Name</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="full_name_edit" name="full_name_edit">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Display Name</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="display_name_edit" name="display_name_edit">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Address</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="address_edit" name="address_edit">
+                                                        <input type="text" name="address1">
+                                                        <input type="text" name="address2">
+                                                        <input type="text" name="address3">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Postcode</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="postcode_edit" name="postcode_edit">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Phone</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="phone_edit" name="phone_edit">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Emergency Contact Number</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="emergency_contact_edit" name="emergency_contact_edit">
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Username <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="username_edit" name="username_edit" onblur="username_edit_validation()" placeholder="User Name" required>
+                                                        <span id="user_exist_edit" class="hideDiv red-border width-192">Already Exist !</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Set New Password <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="password" id="password_edit" name="password_edit" required placeholder="Password">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-135" for="middle-name">Confirm Password <span class="required">*</span></label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="password" id="confirm_password_edit" name="confirm_password_edit" required placeholder="Confirm Password">
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+
+                                            </div>
+
+
+
+                                            <div class="col-md-5 ml--30">
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">Pay Rate</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="pay_rate_edit" name="pay_rate_edit">
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">Tax Code</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="tax_code_edit" name="tax_code_edit">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="middle-name">NI Number</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <input type="text" id="ni_number_edit" name="ni_number_edit">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="width-94" for="">Notes</label>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <textarea class="width-193" id="notes_edit" name="notes_edit"></textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-1"></div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"></div>
+
+
+                                            <div class="col-md-3">
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                <input type="hidden" id="users_id" value="" name="users_id" />
+                                                @*<input type="button" onclick="edit_password_check()" value="Save" class="bold btn btn-success btn-mini center-block width-200 user-permission-btn" />*@
+                                                <input type="submit" onclick="javascript: edit_password_check()" value="Save" class="bold btn btn-success btn-mini center-block width-200 user-permission-btn" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                @*--------------------EDIT USER DIV ENDS----------------*@
+
+
+                                @*--------------------EDIT USER PERMISSION DIV----------------*@
+                                <div id="edit-user-permissions" class="hideDiv">
+                                    <div class="col-md-12">
+
+                                        <h5 class="bold black-color text-left">User Access Permissions</h5>
+
+                                        @*<div style="margin:10px 0 0 10px" class="">
+
+                </div>*@
+
+
+
+
+                                        <div class="row1 mt-20">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />User Tools</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Attendance</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Quick Links</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Send Email</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Company Messenger</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />Automation</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Order Fetcher</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Feedback Manager</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />eBay Message Quantity</label></div>
+                                        </div>
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32 text-center"><label class="checkbox-main-style"><input type="checkbox" />Orders</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Add Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Search Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Print Order</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Order Tracking</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Waiting Orders</label></div>
+                                        </div>
+
+
+                                        @*<div class="row1">
+                    <div class="col1"><input type="checkbox" /><label></label></div>
+                    <div class="col1"><input type="checkbox" /><label></label></div>
+                    <div class="col1"><input type="checkbox" /><label></label></div>
+                    <div class="col1"><input type="checkbox" /><label></label></div>
+                    <div class="col1"><input type="checkbox" /><label></label></div>
+                </div>*@
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-44"><label class="checkbox-main-style vertical-align"><input type="checkbox" />EPOS System</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />EPOS Main Panel</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Editing</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Refunds</label></div>
+                                            <div class="col1 width-87 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Supplier Data &amp; Cost Price</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Supplier List</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Credit</label></div>
+                                            <div class="col1 width-110 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Customer Opening Balance</label></div>
+                                            <div class="col1 min-height-44 width-50"><label class="mb-0"><input type="checkbox" />Credit Limit</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Allow Total Price</label></div>
+                                            <div class="col1 width-73 min-height-44"><label class="mb-0"><input type="checkbox" />Update Stock Recount</label></div>
+                                            <div class="col1 max-width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Modify Invoice No</label></div>
+                                            <div class="col1 width-61 min-height-44"><label class="mb-0"><input type="checkbox" />Revenue Report</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />File Manager</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1-without-padding min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />Refund &amp; Return</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />RMA &amp; Replacements</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Data Reports</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Refund Queue</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Waiting Orders</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />Admin</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Admin Menu</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Accounting</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />User Access</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Attendance Management</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Database Management</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Log Explorer</label></div>
+                                            <div class="col1"><label class="mb-0"><input type="checkbox" />Assign Mail Service</label></div>
+                                        </div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1 min-width-88 min-height-32"><label class="checkbox-main-style"><input type="checkbox" />IP</label></div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-12 mt-15">
+
+                                        <h5 class="bold black-color text-left">Authcode for temporary permission</h5>
+                                        <div>
+                                            <h5 class="bold black-color" style="float:left">Authcode:</h5>
+                                            <div class="col-md-3 col-sm-6 col-xs-12 pull-left">
+                                                <input type="text" name="" required class="width-135 mt-5">
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+
+                                        <div class="row1 mt-5">
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Allow Editing</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Allow Refunds</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Modify Invoice No</label></div>
+                                            <div class="col1"><label class="font-13"><input type="checkbox" />Credit Limit</label></div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                
+
+
+                                @*--------------------EDIT USER PERMISSION DIV ENDS----------------*@
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    
+
+
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+
+    @*----------------DELETE VALIDATION Script----------------*@
+    <script>
+        function delete_user() {
+
+            var user = document.getElementById("user_id").value;
+            var urls = "/User/Delete_User/";
+
+            $.ajax({
+                url: urls,
+                data: { user_id: user },
+                cache: false,
+                type: "Post",
+
+                success: function (data) {
+                    
+               
+            },
+                error: function () {
+                    alert("FAILURE");
+                }
+            });
+        }
+
+
+
+
+    </script>
+    @*----------------DELETE VALIDATION Script----------------*@
+
+    @*----------------AddPermissions Script----------------*@
+    <script>
+
+        function edit_password_check() {
+            
+            var u = document.getElementById("username_edit").value;
+            var p = document.getElementById("password_edit").value;
+            var c = document.getElementById("confirm_password_edit").value;
+            //alert(u);
+            //alert(p);
+            //alert(c);
+            //alert(c);
+            //alert(c);
+
+
+
+            if (u == "" || p == "" || c == "") {
+                
+                alert("Please enter Required Fields");
+            }
+
+            else if (c == p) {
+                return true;
+            }
+
+            else {
+                alert("Password Not Matched");
+                document.getElementById('password_edit').value = '';
+                document.getElementById('confirm_password_edit').value = '';
+
+                return false;
+            }
+        }
+
+    </script>
+    @*----------------AddPermissions Script----------------*@
+
+   
+
+
+
+
+
+
+
+
+    @*----------------USERNAME VALIDATION Script----------------*@
+    <script>
+        function username_validation() {
+
+            var user = document.getElementById("username").value;
+            var v = "";
+
+            var urls = "/User/user_validation/";
+
+            $.ajax({
+                url: urls,
+                data: { username: user },
+                cache: false,
+                type: "Post",
+
+                success: function (data) {
+
+                   
+                    
+                    if (data == "True")
+                    {
+                        document.getElementById('username').value = '';
+                        
+                        $('#user_exist').addClass('showDiv');
+                    }
+
+
+                    else {
+                        $('#user_exist').removeClass('showDiv');
+                        $('#user_exist').AddClass('hideDiv');
+                        
+                    }
+                },
+                error: function () {
+                    
+                }
+            });
+        }
+            
+        
+
+
+    </script>
+    @*----------------USERNAME VALIDATION Script----------------*@
+
+
+    @*----------------ADD USER DIV Script----------------*@
+    <script>
+
+        function showhide_ADD(id) {
+            var e = document.getElementById(id);
+            $("#edit_user_div").removeClass("showDiv");
+            $("#edit_user_div").addClass("hideDiv");
+            $("#add_user_div").addClass("showDiv");
+            $("#edit-user-permissions").removeClass("showDiv");
+            $("#add-user-div-permissions").removeClass("showDiv");
+
+
+        }
+
+    </script>
+    @*----------------ADD USER DIV Script----------------*@
+
+
+
+    @*----------------AddPermissions Script----------------*@
+    <script>
+
+        function show_AddPermissions(id) {
+            var e = document.getElementById(id);
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var confirm = document.getElementById("confirm_password").value;
+
+            if (username == "" || password == "" || confirm == "")
+            {
+                alert("Please enter Required Fields")
+            }
+
+            else if (confirm != password) {
+
+                $("#add-user-div-permissions").removeClass("showDiv");
+                $("#edit_user_div").addClass("hideDiv");
+                $("#add_user_div").addClass("hideDiv");
+                $("#edit_user_div").removeClass("showDiv");
+                $("#add_user_div").removeClass("showDiv");
+                
+                alert("Password Not Matched");
+                document.getElementById('password').value = '';
+                document.getElementById('confirm_password').value = '';
+                $("#add_user_div").addClass("showDiv");
+                return false;
+            }
+
+            else {
+                $("#add-user-div-permissions").addClass("showDiv");
+                $("#edit_user_div").removeClass("showDiv");
+                $("#add_user_div").removeClass("showDiv");
+
+                return true;
+            }
+
+            alert(u);
+
+
+          
+
+
+        }
+
+    </script>
+    @*----------------AddPermissions Script----------------*@
+
+
+        @*<script type="text/javascript">
+            function show_AddPermissions(id) {
+
+                var e = document.getElementById(id);
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("username").value;
+
+                if (username == "" || password == "") {
+                    swal({
+                        title: "ERROR!",
+                        text: "Please Enter username or password",
+                        type: "warning",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Okay",
+                        closeOnConfirm: true,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                    });
+                }
+
+                else {
+                    $("#add-user-div-permissions").addClass("showDiv");
+                    $("#edit_user_div").addClass("hideDiv");
+                    $("#add_user_div").addClass("hideDiv");
+                    $("#edit_user_div").removeClass("showDiv");
+                    $("#add_user_div").removeClass("showDiv");
+                }
+                }
+            }
+
+
+
+            </script>*@
+
+
+    @*----------------EDIT USER DIV Script----------------*@
+    
+    <script>
+
+        function showhide_EDIT(id) {
+            var e = document.getElementById(id);
+          
+        }
+
+    </script>
+
+    @*----------------EDIT USER DIV Script----------------*@
+
+    @*----------------EDIT USER CRUD Script----------------*@
+
+    <script>
+        function get_user() {
+            var id = $('#user_id').val();
+
+            $.ajax ({
+                url: "/User/edit_users/",
+                data:{user_id:id},
+                
+                cache:false,
+                type:"Get",
+
+                success: function (data) {
+
+                    $("#add_user_div").removeClass("showDiv");
+                    $("#add-user-div-permissions").removeClass("showDiv");
+                    $("#add_user_div").addClass("hideDiv");
+                    $("#edit_user_div").addClass("showDiv");
+                    //edit-user-permissions
+                    $("#edit-user-permissions").addClass("showDiv");
+
+                    
+                    var serobj = jQuery.parseJSON(data);
+
+                    //document.getElementById('users_id').value = serobj.user_id;
+                    //document.getElementById('full_name').value = serobj.full_name;
+
+                    document.getElementById('users_id').value = serobj.user_id;
+                    document.getElementById('full_name_edit').value = serobj.full_name;
+                    document.getElementById('display_name_edit').value = serobj.display_name;
+                    document.getElementById('address_edit').value = serobj.address;
+                    document.getElementById('postcode_edit').value = serobj.postcode;
+                    document.getElementById('phone_edit').value = serobj.phone;
+                    document.getElementById('emergency_contact_edit').value = serobj.emergency_contact;
+                    document.getElementById('username_edit').value = serobj.username;
+                    document.getElementById('password_edit').value = serobj.password;
+                    document.getElementById('confirm_password_edit').value = serobj.password;
+                    document.getElementById('pay_rate_edit').value = serobj.pay_rate;
+                    document.getElementById('tax_code_edit').value = serobj.tax_code;
+                    document.getElementById('ni_number_edit').value = serobj.ni_number;
+                    document.getElementById('notes_edit').value = serobj.notes;
+                    
+                    
+
+                },
+
+                error: function (response) {
+                    $("#add_user_div").removeClass("showDiv");
+                    $("#add-user-div-permissions").removeClass("showDiv");
+                    $("#edit_user_div").removeClass("showDiv");
+                    $("#edit_user_div").addClass("hideDiv");
+                    alert("Please Select Any User");
+
+                }
+
+
+
+
+
+
+
+            })
+
+        }
+
+    </script>
+
+    @*----------------EDIT USER CRUD Script----------------*@
+
+
+
+
+
+
+
+    @*----------------USERNAME-EDIT VALIDATION Script----------------*@
+    <script>
+            function username_edit_validation() {
+               
+                var user = document.getElementById("username_edit").value;
+                var user_ID = document.getElementById("user_id").value;
+                var v = "";
+            
+                var urls = "/User/user_edit_validation/";
+
+                $.ajax({
+                    url: urls,
+                    data: { username: user, id: user_ID },
+                    cache: false,
+                    type: "Post",
+
+                    success: function (data) {
+                        
+                        if (data == "True") {
+                            document.getElementById('username_edit').value = '';
+
+                            $('#user_exist_edit').addClass('showDiv');
+                        }
+
+
+                        else {
+                            $('#user_exist_edit').removeClass('showDiv');
+                            $('#user_exist_edit').AddClass('hideDiv');
+
+                        }
+                    },
+                    error: function () {
+                        alert("FAILURE");
+                    }
+                });
+            }
+        </script>
+    @*----------------USERNAME-EDIT VALIDATION Script----------------*@
+</body>

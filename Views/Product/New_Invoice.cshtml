@@ -1,0 +1,845 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div class="">
+
+                            <div class="col-md-4 pull-left">
+                                <h3 class="bold">
+                                    New Invoice
+                                </h3>
+
+                                <div class="empty-height"></div>
+                                <div class="empty-height"></div>
+
+
+                                <div class="col-md-6 pull-left">
+                                    <a href="#" data-toggle="modal" data-target="#ExistingModal">
+                                        <span class=""><img src="~/img/images/existing_supplier.png" /></span><br />
+                                        <span class="bold">Existing Customer</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-6 pull-left">
+                                    <a href="#" data-toggle="modal" data-target="#CreateModal">
+                                        <span class=""><img src="~/img/images/new_supplier.png" /></span><br />
+                                        <span class="bold">New Customer</span>
+
+                                    </a>
+                                </div>
+
+
+                                <div class="clearfix"></div>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-2 pull-left">
+                                <div class="empty-height"></div>
+                                <ul class="list-style-type-custom">
+                                    <li class="bold font-18 black-color">Premium Customer</li>
+                                    <li>cctv</li>
+                                    <li>185 Rochdale</li>
+                                    <li>OL12ODR</li>
+                                    <li>8687655</li>
+                                    <li>test@cctv.co.uk</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6 pull-left pr-0">
+
+                                <div class="empty-height"></div>
+                                <div class="col-md-5">
+                                    <label><input type="checkbox" value="" />Check Sold History</label>
+                                    <label><input type="checkbox" id="excludeVat" value="" onclick="excludeVatUnchecked();"/>Exclude VAT</label>
+                                    <label><input type="checkbox" value="" />Show Details</label>
+                                </div>
+                                <div class="col-md-7 pr-0">
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Document Type</label>
+                                        <div class="pull-left">
+                                            <select name="supplier_name" class="form-control border_black-1px width-120">
+                                                <option value="">Invoice</option>
+                                                <option value="">Quote</option>
+                                                <option value="">Item Sale</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Invoice Number</label>
+                                        <div class="pull-left">
+                                            <input class="width-120" type="text" name="company_name" id="company_name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Date</label>
+                                        <div class="pull-left">
+                                            <input class="width-120" type="text" name="company_name" id="company_name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Sales Person</label>
+                                        <div class="pull-left">
+                                            <input class="width-120" type="text" name="company_name" id="company_name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Payment Method</label>
+                                        <div class="pull-left">
+                                            <select name="supplier_name" class="form-control border_black-1px width-120">
+                                                <option value="">Cash</option>
+                                                <option value="">Card</option>
+                                                <option value="">Cheque</option>
+                                                <option value="">Bank Transfer</option>
+                                                <option value="">Paypal</option>
+                                                <option value="">Credit</option>
+                                                <option value="">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+
+                                    <div class="form-group">
+                                        <label class="pull-left width-145" for="middle-name">Purchase Order No</label>
+                                        <div class="pull-left">
+                                            <input class="width-120" type="text" name="company_name" id="company_name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+                        <hr class="hrr"/>
+
+
+                        <div class="col-md-12">
+                            <table border="0" class="table table-responsive border_black" id="maintable">
+                                <thead>
+                                    <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                        <th>Code</th>
+                                        <th class="width-250 text-center">Description</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th id="price_vat_th">Price+VAT</th>
+                                        <th>Total</th>
+                                        <th id="total_vat_th">Total+VAT</th>
+                                        <th>Discount%</th>
+                                        <th class="text-center min-width-130">Actions</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="black-color">
+
+                                    @*@foreach (var v in Model)
+                {*@
+                                    @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+
+
+                                    <tr id="rowId" class="font-17">
+                                        <td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td>
+                                        <td>
+                                            <textarea class="description-text-area unbold" required></textarea>
+                                        </td>
+                                        <td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td>
+                                        <td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td>
+                                        <td id="price_vat_td"><input class="new-invoice-width-boxes unbold" name="" type="text" /></td>
+                                        <td>£123</td>
+                                        <td id="total_vat_td">£246</td>
+                                        <td>£246</td>
+                                        <td class="text-center">
+                                            <a href="#" id="addrows">
+                                                <img src="~/img/images/plus_new_sale.png"/>
+                                            </a>
+                                            <a href="#" class="remove">
+                                                <img src="~/img/images/cross_new_sale.png"/>
+                                            </a>
+                                            <a href="#">
+                                                <img src="~/img/images/barcode_new_sale.png"/>
+                                            </a>
+                                            <a href="#">
+                                                <img src="~/img/images/findpost.png"/>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+
+
+
+
+                                    @*}*@
+                                </tbody>
+
+                            </table>
+                            <div id="addedRows"></div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+
+                        <div class="">
+
+                            <div class="col-md-4">
+                                <textarea class="textarea-style-none textarea-width" placeholder="Customer notes..."></textarea>
+                            </div>
+                            <div class="col-md-4 pl-0">
+                                <textarea class="textarea-style-none textarea-width" placeholder="Private notes..."></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <table id="table_cash" class="black-color col-md-12 border_black">
+                                    <tr>
+                                        <td class="bold">Net</td>
+                                        <td class="text-right">£123</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">VAT (20%)</td>
+                                        <td class="text-right">£1</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="bold">Gross</td>
+                                        <td class="text-right">£83</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">Discount</td>
+                                        <td class="text-right">£0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">Total After Discount</td>
+                                        <td class="text-right">£0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">Payment Status</td>
+                                        <td class="text-right">
+                                            <select name="supplier_name" class="form-control border_black-1px height-28 width-120">
+                                                <option value="">Invoice</option>
+                                                <option value="">Quote</option>
+                                                <option value="">Item Sale</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="bold"><a href="#">Add Partial Payment</a></td>
+                                        <td class="bold"><a href="#">Give Refund</a></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div class="col-md-3 pull-right">
+                                <a href="" class="btn btn-primary blue-btn-style btn-mini bold">Add Global Discount</a>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                            
+
+                            <div class="col-md-5"></div>
+                                
+
+                                <div class="col-md-1 pr-0 text-center">
+                                    <a href="#">
+                                        <span class=""><img src="~/img/images/save.png"/></span><br />
+                                        <span class="bold">Save</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-1 text-center">
+                                    <a href="#">
+                                        <span class=""><img src="~/img/images/exit.png"/></span><br />
+                                        <span class="bold ml--7">Exit</span>
+
+                                    </a>
+                                </div>
+                            <div class="col-md-5"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    @*----------------------------POP UP for CUSTOMER SUMMARY--------------------------------*@
+
+    <div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>Find Customer</b></h3>
+
+                            <form id="demo-form2" action="#" method="post" data-parsley-validate class="form-horizontal form-label-left mt-30" enctype="multipart/form-data">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <div class="pull-left">
+                                                <input type="text" name="customer" class="width-320">
+                                                <a href="~/Report/SaleReport" class="btn-primary btn-mini center-block btn-existing-supplier-cancel" style="">Cancel</a>
+                                                <input data-dismiss="modal" onclick="show_customer_summary()" type="button" class="btn-success btn-mini center-block btn-existing-supplier-search" value="Search" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+
+            </div>
+        </div>
+    </div>
+
+    @*----------------------------POP UP END CUSTOMER SUMMARY--------------------------------*@
+
+    @*----------------------------POP UP for EXISTING CUSTOMER--------------------------------*@
+
+    <div class="modal fade" id="ExistingModal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>Find Customer</b></h3>
+                            @*<img class="pull-right" src="~/img/images/supplier.png" style="margin:-34px 81px 20px 0" />*@
+
+
+                            <form id="demo-form2" action="" method="post" data-parsley-validate class="form-horizontal form-label-left mt-30" enctype="multipart/form-data">
+
+
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <div class="pull-left">
+                                                <input type="text" name="credit_period" class="width-320">
+                                                <a href="" class="btn-primary btn-mini center-block btn-existing-supplier-cancel" style="">Cancel</a>
+                                                <input type="submit" value="Search" class="btn-success btn-mini center-block btn-existing-supplier-search" />
+
+                                            </div>
+                                        </div>
+
+                                        @*<label style="float: left;margin: 1px -32px 0 25px">Ext</label>*@
+
+                                        <div class="clear"></div>
+
+
+
+
+                                    </div>
+
+
+
+                               
+
+                                </div>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+
+    @*----------------------------POP UP ADD CUSTOMER--------------------------------*@
+
+    <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>New Customer</b></h3>
+                            <img class="pull-right margin-supplier ml-22" src="~/img/images/supplier.png" />
+
+                            <form id="demo-form2" action="" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+
+
+                                <div class="col-md-12 text-center">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Company Name <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="company_name" required>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="customer-border"></div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Phone <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="phone" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Email <span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="email" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Account No<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_no" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="">Notes<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <textarea class="width-193" name="notes" required></textarea>
+                                            </div>
+                                        </div>
+
+                                     
+
+                                        <div class="empty-height"></div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Type<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Opening Balance<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_mail" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts" for="middle-name">Credit Limit<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input type="text" name="account_contact_mobile" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts width-178" for="middle-name">Address<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="address1" required>
+                                                <input class="ml--50" type="text" name="address2">
+                                                <input class="ml--50" type="text" name="address3">
+                                                <input class="ml--50" type="text" name="address4">
+                                                <input class="ml--50" type="text" name="address5">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="customer-create-texts width-178" for="middle-name">Postcode<span class="required">*</span></label>
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <input class="ml--50" type="text" name="postcode">
+                                                <a href="#"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="customer-border"></div>
+
+                                        <div class="clearfix"></div>
+
+                                        <div class="pull-left ml-9">
+                                            <label><input type="checkbox" id="billing_address_checkbox" checked="checked" onclick="Different_Address()" />Use this as billing and shipping address</label>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <div class="empty-height"></div>
+
+
+                                        <div id="Shipping_Address_Div" class="none">
+                                            <div class="form-group">
+                                                <label class="customer-create-texts width-178" for="middle-name">Shipping Address<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="address1" required>
+                                                    <input class="ml--50" type="text" name="address2">
+                                                    <input class="ml--50" type="text" name="address3">
+                                                    <input class="ml--50" type="text" name="address4">
+                                                    <input class="ml--50" type="text" name="address5">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="customer-create-texts width-178" for="middle-name">Postcode<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                    <input class="ml--50" type="text" name="postcode">
+                                                    <a href="#"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="clearfix"></div>
+
+                                
+                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                                <div class="col-md-12">
+                                    <p class="font-12 black-color text-center">
+                                        NOTE: Opening Balance use - values if customer owed to seller and + values if seller owed to customer.
+                                        <br/> Add (-1) for unlimited Credit
+                                    </p>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+                                
+
+                                <div class="clearfix"></div>
+
+                                @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                                        <input type="submit" value="Add Product" class="btn btn-success" />
+                                    </div>*@
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Add" class="btn btn-success btn-mini center-block width-145" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>*@
+                                        <a href="~/Product/New_Invoice" class="btn btn-primary blue-btn-style-modal btn-mini center-block a-cancel">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+
+
+                                </div>
+
+
+                                <div class="clearfix"></div>
+
+                               
+
+                            </form>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    @*----------------------------POP UP END ADD CUSTOMER--------------------------------*@
+
+    <script>
+        function Different_Address() {
+            if (document.getElementById("billing_address_checkbox").checked) {
+                $("#Shipping_Address_Div").addClass('none');
+            }
+            else {
+                $("#Shipping_Address_Div").removeClass('none');
+                $("#Shipping_Address_Div").addClass('showDiv');
+            }
+        }
+    </script>
+
+
+    @*<script type="text/javascript">
+        var rowCount = 1;
+        function addMoreRows(frm) {
+            rowCount++;
+            var recRow = '<p id="rowCount' + rowCount + '"><tr><td><input  name="" class="width-43" type="text"/></td></tr> <a href="javascript:void(0);" onclick="removeRow(' + rowCount + ');">Delete</a></p>';
+            jQuery('#addedRows').append(recRow);
+        }
+
+        function removeRow(removeNum) {
+            jQuery('#rowCount' + removeNum).remove();
+        }
+    </script>*@
+
+    <script>
+
+        $("#addrows").click(function () {
+            $('#maintable tr:last').after('<tr id="rowId" class="font-17"><td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td><td><textarea class="description-text-area unbold" required></textarea></td><td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td><td><input class="new-invoice-width-boxes unbold" name="" type="text" /></td><td id="price_vat_td"><input class="new-invoice-width-boxes unbold" name="" type="text" /></td><td>£123</td><td id="total_vat_td">£246</td><td>£246</td><td class="text-center"><a href="#" id="addrows"><img src="/img/images/plus_new_sale.png"/></a><a href="#" class="remove"><img src="/img/images/cross_new_sale.png"/></a><a href="#"><img src="/img/images/barcode_new_sale.png"/></a><a href="#"><img src="/img/images/findpost.png"/></a></td></tr>');
+            //$('#maintable tr:last').after('<tr id="delete_tr"><td><input class="width-43" name="" type="text" /></td><td><textarea class="textarea-style width-250"></textarea></td><td><input class="width-43" name="" type="text" /></td><td><input class="width-43" name="" type="text" /></td><td id="price_vat_td"><input class="width-43" name="" type="text" /></td><td>£123</td><td id="total_vat_td">£246</td><td>£246</td><td class="text-center"><a href="#" id="addrows" style="margin-left: 3px;"><img src="../img/images/24.png"/></a><a class="remove" style="margin-left: 3px;" href="#"><img src="../img/images/24.png" /></a><a href="#" style="margin-left: 3px;"><img src="../img/images/24.png" /></a><a style="margin-left: 3px;" href="#"><img src="../img/images/24.png" /></a><a href="#" style="margin-left: 3px;"><img src="../img/images/24.png" /></a><a href="#" style="margin-left: 3px;"><img src="../img/images/24.png" /></a></td></tr>');
+            $('.remove').click(function () {
+                $(this).closest('tr').remove();
+            });
+        });
+
+
+    </script>
+
+    
+   
+
+
+
+  
+
+    <script>
+        function show_customer_summary() {
+            $("#customer_summary").removeClass("none");
+            $("#customer_summary").addClass("showDiv");
+            $("#date_click_div").addClass("none");
+        }
+    </script>
+
+    <script>
+        function showDateDiv() {
+            var to = document.getElementById("to_date").value;
+            $("#date_click_div").removeClass("none");
+            $("#date_click_div").addClass("showDiv");
+            $("#customer_summary").addClass("none");
+        }
+
+
+    </script>
+
+    <script>
+        function showToDate() {
+            var from = document.getElementById("from_date").value;
+
+            if (from == "") {
+            }
+
+            else {
+                document.getElementById("to_date").removeAttribute('disabled');
+            }
+        }
+
+
+    </script>
+
+
+    <script>
+
+        function myDate() {
+            var date = new Date(document.getElementById("to_date")).toDateString("yyyy-MM-dd");
+        }
+
+    </script>
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_on_dates').dataTable();
+        });
+    </script>
+
+    <script>
+        function PrintBtn() {
+            $("#crud_btn_hide").addClass("none");
+            $("#side_navi_hide").addClass("none");
+
+            window.print();
+        }
+    </script>
+
+    <script>
+        function excludeVAT() {
+
+            var v = document.getElementById("excludeVat").value;
+
+            if (v == 1) {
+                alert("Checked");
+                $("#price_vat_th").addClass("none");
+                $("#price_vat_td").addClass("none");
+                $("#total_vat_th").addClass("none");
+                $("#total_vat_td").addClass("none");
+            }
+
+            else if (v = "") {
+                alert("UNCHECKED")
+                $("#price_vat_th").addClass("showDiv");
+                $("#price_vat_td").addClass("showDiv");
+                $("#total_vat_th").addClass("showDiv");
+                $("#total_vat_td").addClass("showDiv");
+            }
+        }
+    </script>
+
+
+
+
+
+    
+</body>

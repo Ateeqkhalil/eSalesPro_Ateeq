@@ -1,0 +1,110 @@
+﻿@model List<eSalesPro.Models.Invoice>
+
+@foreach (var v in Model)
+{
+    @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+    if (v != null)
+    {
+        <tr ondblclick="double_click_edit_sale(@v.Id)">
+            @*<td id="@String.Concat("customer_invoice_td1",v.Id)" class="text-center">@v.Invoice_Number</td>
+                <td id="@String.Concat("customer_invoice_td2",v.Id)" class="text-center">@v.Payment_Methods.Type</td>
+                <td id="@String.Concat("customer_invoice_td3",v.Id)" class="text-center">@v.Payment_Status.Status</td>
+                <td id="@String.Concat("customer_invoice_td4",v.Id)" class="text-center">@v.Net_Price</td>
+                <td id="@String.Concat("customer_invoice_td5",v.Id)" class="text-center">@v.VAT_20</td>
+                <td id="@String.Concat("customer_invoice_td6",v.Id)" class="text-center">@v.Gross</td>
+                <td id="@String.Concat("customer_invoice_td7",v.Id)" class="text-center">@v.Created_at.ToShortDateString()</td>*@
+
+            @if (@v.Doc_Type_ID == 1)
+            {
+                <td class="text-center vertical_align_middle">@v.Invoice_Number</td>
+            }
+            else if (@v.Doc_Type_ID == 2)
+            {
+                <td class="text-center vertical_align_middle">@v.Quote_Number</td>
+            }
+            else if (@v.Doc_Type_ID == 3)
+            {
+                <td class="text-center vertical_align_middle">@v.Item_Sale_Number</td>
+            }
+
+            <td class="text-center">
+                @v.Payment_Methods.Type
+
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Payment_Type</span>
+                }
+
+            </td>
+
+            <td class="text-center">
+                @v.Payment_Status.Status
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Status</span>
+                }
+            </td>
+
+            <td class="text-center">
+                @v.Net_Price
+
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Net_Amount</span>
+                }
+            </td>
+
+            <td class="text-center">
+                @v.VAT_20
+
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Vat</span>
+                }
+            </td>
+
+            <td class="text-center">
+                @v.Gross
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Gross</span>
+                }
+            </td>
+
+            <td class="text-center">
+                @v.Created_at.ToShortDateString()
+
+                @foreach (var sale in v.Sale_Transaction_History)
+                {
+                    <br /><span class="sub_tr_values">@sale.Date.ToString("dd-MMM-yy")</span>
+                }
+            </td>
+
+        </tr>
+    }
+}
+
+
+<script>
+
+
+
+    //$('body').on('click', '.abbb', function () {
+    //    var idd = $(this).data("id");
+    //    alert(idd);
+    //    //alert("IDD" + idd);
+
+    //    //window.open("dd/"+idd);
+
+
+    //    //$("#loader_div").show();
+
+    //    //alert("ADASDSDASDASDAD");
+    //    //
+    //    var url = $("#RedirectTo").val();
+    //    location.href = url + "/" + idd;
+
+    //})
+
+</script>

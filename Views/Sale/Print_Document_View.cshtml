@@ -1,0 +1,801 @@
+﻿@model List<eSalesPro.Models.Sale_Invoice>
+
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+        @{
+            decimal sum = 0;
+        }
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div id="edit_invoice">
+
+
+
+                            <form id="demo-form2" action="@Url.Action("Edit_Sale","Sale")" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+                                <input hidden type="text" value="-3" id="customer_list_edit_modal_value" />
+                                @*<input hidden type="text" id="partial_net_id" name="partial_net_id" value="@ViewBag.invoice.Net_Price"/>
+                                    <input hidden type="text" id="partial_vat_price_id" name="partial_vat_price_id" value="@ViewBag.invoice.VAT_20"/>
+                                    <input hidden type="text" id="partial_gross_id" name="partial_gross_id" value="@ViewBag.invoice.Gross_Total"/>*@
+
+                                <input hidden value="@Model.Count" />
+
+                                <input hidden type="text" id="partial_net_sale_history" name="partial_net_id" />
+                                <input hidden type="text" id="partial_vat_sale_history" name="partial_vat_price_id" />
+                                <input hidden type="text" id="partial_gross_sale_history" name="partial_gross_id" />
+
+                                <div class="col-md-12">
+
+                                    @{
+                                        Html.RenderPartial("Loader_Div");
+                                    }
+
+                                    <div class="empty-height"></div><div class="empty-height"></div>
+
+                                    <div class="form-group pull-right mb-0 margin_right_6">
+                                        <label class="width-134 pull-left mt-5" for="middle-name">Document Type</label>
+                                        <div class="pull-left">
+                                            <select id="language" value="@ViewBag.invoice.Document_Type.Id" oninput="run_invoice();" @*oninput="run_invoice();checkQuoteNumber()"*@ onblur="" name="document_type" class="select-class-color form-control border_black-1px width-145" disabled style="background:#bcbcc5">
+
+
+                                                <option value="@ViewBag.invoice.Document_Type.Id">@ViewBag.invoice.Document_Type.Type</option>
+
+                                                @foreach (var document in ViewBag.Document_Type)
+                                                {
+                                                    if (ViewBag.invoice.Document_Type.Id == document.Id)
+                                                    {
+                                                        continue;
+                                                    }
+                                                    <option value="@document.Id">@document.Type</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div id="invoice_id" class="hideDocument">
+                                    <div class="">
+
+                                        <div class="">
+
+
+
+                                            <div class="col-md-4 pull-left">
+
+                                                <h3 id="new_invoice_heading" class="bold mt-0">
+                                                    Edit Invoice
+                                                </h3>
+
+                                                <h3 class="bold mt-0" id="new_quote_heading" style="display:none;">
+                                                    Edit Quote
+                                                </h3>
+
+                                                <h3 class="bold mt-0" id="new_item_sale_heading" style="display:none;">
+                                                    Edit Item Sale
+                                                </h3>
+
+                                                <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+
+                                                <div class="col-md-6 pull-left">
+                                                    <a href="#" data-toggle="modal" data-target="#CreateModal">
+                                                        <span class=""><img src="~/img/images/add_customer.png" /></span><br />
+                                                        <span class="bold">New Customer</span>
+
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-md-6 pull-left">
+                                                    <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#ExistingModal">
+                                                        <span class=""><img src="~/img/images/search_customer.png" /></span><br />
+                                                        <span class="bold">Existing Customer</span>
+                                                    </a>
+                                                </div>
+                                                <div class="clearfix"></div>
+
+
+                                            </div>
+
+
+
+
+
+                                            <div class="col-md-2 pull-left pl-0 pr-0">
+                                                <input type="text" name="exist_customer_idd" class="hidden" id="exist_customer_id" value="@ViewBag.invoice.Customer.Id" />
+                                                <input type="text" name="credit_limit_input" class="hidden" id="credit_limit_input" value="@ViewBag.invoice.Customer.Credit_Limit" />
+                                                <ul class="list-style-type-custom">
+                                                    <li id="type_customer" class="bold font-18 black-color">@ViewBag.invoice.Customer.Customer_Type.Type</li>
+                                                    <li id="customer_name">@ViewBag.invoice.Customer.Name</li>
+                                                    <li id="customer_address">@ViewBag.invoice.Customer.Billing_Street</li>
+                                                    <li id="customer_postcode">@ViewBag.invoice.Customer.Billing_Postcode</li>
+                                                    <li id="customer_phone">@ViewBag.invoice.Customer.phone</li>
+                                                    <li id="customer_email">@ViewBag.invoice.Customer.Email</li>
+                                                    <li id="customer_balance" class="hidden">@ViewBag.invoice.Customer.Opening_Balance</li>
+                                                    <li id="customer_credit" class="hidden">@ViewBag.invoice.Customer.Credit</li>
+                                                    <li id="customer_credit_limit" class="hidden">@ViewBag.invoice.Customer.Credit_Limit</li>
+                                                </ul>
+                                            </div>
+
+
+
+                                            <div class="col-md-6 pull-left pl-0 pr-0">
+
+
+                                                <div class="col-md-5">
+                                                    <label><input type="checkbox" id="sold_history_checkbox" value="" />Check Sold History</label><br />
+                                                    <label id="hideExcludeVat"><input type="checkbox" id="excludeVat" value="" onclick="excludeVatUnchecked();" />Exclude VAT</label>
+                                                    <label hidden id="show_details"><input type="checkbox" id="show_details" value="" />Show Details</label>
+                                                    @*<label><input type="checkbox" value="" />Show Details</label>*@
+                                                </div>
+
+                                                <div class="col-md-7 pl-0 pr-0">
+
+
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="form-group" id="invoice_number_div">
+                                                        <label class="pull-left width-134" for="middle-name">Invoice Number</label>
+                                                        <div class="pull-left" id="quote_to_invoice">
+                                                            <input class="width-145 text-center" readonly value="@ViewBag.invoice.Invoice_Number" onkeypress="validate(event)" type="text" name="invoice_number" id="invoice_number" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="quote_number_div" style="display:none;">
+                                                        <label class="pull-left width-134" for="middle-name">Quote Number</label>
+                                                        <div class="pull-left">
+                                                            <input class="width-145 text-center" type="text" readonly value="@ViewBag.invoice.Quote_Number" onblur="checkQuoteNumber()" name="" id="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" id="item_sale_div" style="display:none;">
+                                                        <label class="pull-left width-134" for="middle-name">Item Sale Number</label>
+                                                        <div class="pull-left">
+                                                            <input class="width-145 text-center" type="text" readonly value="@ViewBag.invoice.Item_Sale_Number" name="item_sale_number" id="item_sale">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="pull-left width-134" for="middle-name">Date</label>
+                                                        <div class="pull-left">
+                                                            <input class="width-145 height-28" type="date" id="edit_date" name="invoice_date">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="form-group">
+                                                        <label class="pull-left width-134" for="middle-name">Sales Person</label>
+                                                        <div class="pull-left">
+                                                            <input readonly class="width-145 text-center" type="text" name="company_name" id="company_name" value="Admin" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="form-group" id="payment_method_div">
+                                                        <label class="pull-left width-134" for="middle-name">Payment Method</label>
+                                                        <div class="pull-left">
+                                                            <select name="payment_method_id" class="form-control border_black-1px width-145 select-class-color">
+                                                                @foreach (var method in ViewBag.Payment_Method)
+                                                                {
+
+                                                                    <option value="@method.Type">@method.Type</option>
+                                                                }
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="form-group">
+                                                        <label class="pull-left width-134" for="middle-name">Purchase Order No</label>
+                                                        <div class="pull-left">
+                                                            <input class="width-145 text-center" value="@ViewBag.invoice.Purchase_Order_Number" type="text" name="invoice_purchase_no" id="company_name" placeholder="N/A">
+                                                        </div>
+                                                    </div>
+
+                                                    @*<a href="#" data-target="#Sold_History_Modal" data-dismiss="modal" data-toggle="modal">Sold History</a>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                    <hr class="hr_customer" />
+
+
+                                    <div class="col-md-12">
+
+
+                                        <table border="0" class="table table-responsive border_black readonly_table_style" style="width:100%" id="maintable">
+                                            <thead>
+                                                <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                                    <th class="text-center">Code</th>
+                                                    <th class="text-center width-53p">Description</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th width="10%" class="text-center">Price</th>
+                                                    <th id="" class="text-center priceVAT hidecolumn">Price+VAT</th>
+                                                    <th width="2%" class="text-center">Total</th>
+                                                    <th class="text-center priceVAT hidecolumn">Total+VAT</th>
+                                                    <th class="text-center">Discount</th>
+                                                    <th width="25%" class="text-center">Actions</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            @{
+                                                var counter = 1;
+
+                                            }
+
+                                            @foreach (var obj in Model)
+                                            {
+
+
+                                                <tr id="@String.Concat("rowId"+counter)" class="font-15 id remove_div">
+
+                                                    <td class="border-right-td">
+
+                                                        <div class="text-center">
+
+                                                            <input placeholder="Code" value="@obj.Sale.Product.Custom_Label_" class="yoyo unbold width-110 text-center"
+                                                                   id="@String.Concat("codeforProduct",counter)" name="yoyoyoyoyoyoyoy"
+                                                                   onkeyup="productList(event,this.value,@counter);Total(counter)" type="text">
+
+                                                        </div>
+
+                                                    </td>
+
+
+
+                                                    <td class="border-right-td">
+
+                                                        <textarea class="2 description-text-area unbold width-100p"
+                                                                  id="@String.Concat("invoice_description",counter)"
+                                                                  name="@String.Concat("invoice_description",counter)" required=""
+                                                                  placeholder="Description">
+                                                            @obj.Sale.Description
+
+
+                                                        </textarea>
+
+                                                    </td>
+
+                                                    <td class="border-right-td">
+
+                                                        <div class="text-center">
+
+                                                            <input onkeypress="validate(event);" id="@String.Concat("invoice_quantity",counter)"
+                                                                   onkeyup="Total(@counter);checkQuantityAvailable(this.value,@counter);" placeholder="0"
+                                                                   class="3 unbold width-45 text-center" value="@obj.Sale.Quantity"
+                                                                   name="@String.Concat("invoice_quantity",counter)" type="text">
+
+                                                        </div>
+
+                                                    </td>
+
+                                                    <td class="border-right-td priceVAT">
+
+                                                        <div class="text-center">
+
+                                                            <input onkeypress="validate(event)" id="@String.Concat("invoice_price", counter)"
+                                                                   onkeyup="Total(@counter)" placeholder="0.0" class="4 new-invoice-width-boxes unbold width-68 text-center"
+                                                                   value="@obj.Sale.Price" name="@String.Concat("invoice_price", counter)" onkeyup="Total(@counter)" type="text">
+
+                                                        </div>
+
+                                                    </td>
+
+                                                    <td class="border-right-td hidecolumn text-center">
+
+                                                        <input onkeypress="validate(event)" id="@String.Concat("invoice_price_vat",counter)"
+                                                               onkeyup="Total2(@counter)" placeholder="0.0" class="5 new-invoice-width-boxes unbold width-78 text-center"
+                                                               value="@obj.Sale.PriceVAT" name="@String.Concat("invoice_price_vat",counter)" type="text">
+
+                                                    </td>
+
+                                                    <td class="border-right-td text-center priceVAT">
+
+                                                        <input readonly id="@String.Concat("invoice_total",counter)" placeholder="0.0"
+                                                               class="6 new-invoice-width-boxes unbold width-68 text-center priceVAT" name="@String.Concat("invoice_total",counter)" value="@obj.Sale.Total"
+                                                               type="text">
+
+                                                    </td>
+
+                                                    <td class="border-right-td hidecolumn text-center">
+
+                                                        <input readonly id="@String.Concat("invoice_total_vat",counter)"
+                                                               placeholder="0.0" class="7 new-invoice-width-boxes unbold width-78 text-center"
+                                                               value="@obj.Sale.Total_VAT" name="@String.Concat("invoice_total_vat",counter)" type="text">
+
+                                                    </td>
+
+                                                    @*<td class="text-center border-right-td width-68"><div id="@String.Concat("invoice_total",counter)" class="6 total_invoice_background text-center">£0</div></td>
+                                                        <td class="border-right-td text-center width-78 hidecolumn"><div id="@String.Concat("invoice_total_vat",counter)" class="7 total_invoice_background text-center">£0</div></td>*@
+
+
+
+                                                    <td class="border-right-td">
+
+                                                        <div class="text-center">
+
+                                                            <input onkeypress="validate(event)" onkeyup="Total(@counter);" id="@String.Concat("invoice_discount",@counter)"
+                                                                   placeholder="0.0" class="8 unbold width-45 text-center" name="@String.Concat("invoice_discount",counter)"
+                                                                   value="@obj.Sale.Discount" type="text">
+
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="hidden">
+
+                                                        <input type="text" class="hidden" name="@String.Concat("invoice_product_id",counter)"
+                                                               id="@String.Concat("invoice_product_id",counter)" value="@obj.Sale.Product_ID" />
+
+                                                    </td>
+                                                    <td class="text-center width-27p" style="vertical-align:middle;">
+                                                        <a href="#" class="showdiv" onclick="addNewRow(@Model.Count()),rowcounterPlus()">
+                                                            <img src="/img/images/plus_new_sale.png">
+                                                        </a>
+                                                        <a href="#" class="remove">
+                                                            <img src="/img/images/cross_new_sale.png">
+                                                        </a>
+                                                        <a href="#">
+                                                            <img src="/img/images/barcode_new_sale.png">
+                                                        </a>
+                                                        <a href="#">
+                                                            <img src="/img/images/findpost.png" onclick="image_click(@counter)">
+                                                        </a>
+                                                    </td>
+
+                                                    <input type="hidden" id="@String.Concat("total_hidden", counter)" name="@String.Concat("total_hidden", counter)" />
+                                                    <input type="hidden" id="@String.Concat("total_vat_hidden", counter)" name="@String.Concat("total_vat_hidden", counter)" />
+
+                                                </tr>
+                                                counter = counter + 1;
+                                            }
+
+                                            <input type="hidden" id="rowNumber" value="@counter" />
+
+
+                                            @for (int i = 1; i <= 1000; i++)
+                                            {
+
+                                                <tbody class="black-color" id="@String.Concat("newrow",i)"></tbody>
+                                            }
+
+
+                                            @*<input type="text" value="@ViewBag.Counter_Refund_Row" />*@
+
+
+
+
+                                            @{
+                                                int b = counter;
+    //counter = counter + 1;
+                                            }
+
+                                            <tbody class="black-color bold" id="after_refund_tr" style="display:none">
+
+
+                                                @for (var j = 1; j < 4; j++)
+                                                {
+
+                                                    <tr id="@String.Concat("rowId" + b)" class="font-15 id remove_div">
+
+                                                        <td class="border-right-td">
+
+                                                            <div class="text-center">
+
+                                                                <input class="yoyo unbold width-110 text-center" readonly
+                                                                       id="@String.Concat("code_after_refund", b)" name=""
+                                                                       onkeyup="Total(counter)" type="text">
+
+                                                            </div>
+
+                                                        </td>
+
+
+
+                                                        <td class="border-right-td">
+
+                                                            <textarea class="2 description-text-area unbold width-100p" readonly
+                                                                      id="@String.Concat("description_after_refund", b)" name=""></textarea>
+
+                                                        </td>
+
+                                                        <td class="border-right-td">
+
+                                                            <div class="text-center">
+
+                                                                <input onkeypress="validate(event);" id="@String.Concat("quantity_after_refund", b)"
+                                                                       onkeyup="Total(@b);checkQuantityAvailable(this.value,@b);"
+                                                                       class="3 unbold width-45 text-center" type="text" readonly>
+
+                                                            </div>
+
+                                                        </td>
+
+                                                        @*//---------*@
+
+
+                                                        <td class="border-right-td priceVAT">
+
+                                                            <div class="text-center">
+
+                                                                <input onkeypress="validate(event)" id="@String.Concat("price_after_refund", b)"
+                                                                       readonly class="4 new-invoice-width-boxes unbold width-68 text-center" type="text">
+
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="border-right-td hidecolumn text-center">
+
+                                                            <input onkeypress="validate(event)" id="@String.Concat("priceVat_after_refund", b)"
+                                                                   onkeyup="Total2(@b)" placeholder="0.0" class="5 new-invoice-width-boxes unbold width-78 text-center"
+                                                                   type="text" readonly>
+
+                                                        </td>
+
+                                                        <td class="border-right-td text-center priceVAT">
+
+                                                            <input readonly id="@String.Concat("total_after_refund", b)" placeholder="0.0"
+                                                                   class="6 new-invoice-width-boxes unbold width-68 text-center priceVAT"
+                                                                   type="text">
+
+                                                        </td>
+
+                                                        <td class="border-right-td hidecolumn text-center">
+
+                                                            <input readonly id="@String.Concat("totalVat_after_refund", b)"
+                                                                   placeholder="0.0" class="7 new-invoice-width-boxes unbold width-78 text-center"
+                                                                   type="text">
+
+                                                        </td>
+
+                                                        @*<td class="text-center border-right-td width-68"><div id="@String.Concat("invoice_total",counter)" class="6 total_invoice_background text-center">£0</div></td>
+                                                            <td class="border-right-td text-center width-78 hidecolumn"><div id="@String.Concat("invoice_total_vat",counter)" class="7 total_invoice_background text-center">£0</div></td>*@
+
+
+
+                                                        <td class="border-right-td">
+
+                                                            <div class="text-center">
+
+                                                                <input onkeypress="validate(event)" onkeyup="Total(@b);" id="@String.Concat("fdgg", @b)"
+                                                                       placeholder="0.0" class="8 unbold width-45 text-center"
+                                                                       type="text">
+
+                                                            </div>
+                                                        </td>
+
+
+                                                        <td class="text-center width-27p" style="vertical-align:middle;">
+                                                            <a href="#" class="showdiv" @*onclick="addNewRow(),rowcounterPlus()"*@>
+                                                                <img src="/img/images/plus_new_sale.png">
+                                                            </a>
+                                                            <a href="#" class="remove" onclick="RemoveAddedRow(@b)">
+                                                                <img src="/img/images/cross_new_sale.png">
+                                                            </a>
+                                                            <a href="#">
+                                                                <img src="/img/images/barcode_new_sale.png">
+                                                            </a>
+                                                            <a href="#">
+                                                                <img src="/img/images/findpost.png">
+                                                            </a>
+                                                        </td>
+
+                                                        @*-----*@
+
+
+
+
+                                                    </tr>
+                                                    b = b + 1;
+
+
+                                                }
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                        <div id="addedRows"></div>
+
+                                        <div id="productList"> </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                    <div class="">
+
+                                        <div class="col-md-4 unbold" style="width:29%">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="customer_notes" placeholder="Customer notes..."></textarea>
+                                        </div>
+                                        <div class="col-md-4 pl-0" style="width:29%">
+                                            <textarea class="textarea-style-none unbold textarea-width" name="private_notes" placeholder="Private notes..."></textarea>
+                                        </div>
+                                        <div class="col-md-5 pl-0">
+                                            <table id="table_cash" class="black-color col-md-12 border_black">
+                                                <tr id="net_tr" class="hidecolumn">
+                                                    <td class="bold">Net</td>
+                                                    <td id="net_invoice" class="text-right">@ViewBag.invoice.Net_Price
+                                                </tr>
+                                                <tr id="vat_tr" class="hidecolumn">
+                                                    <td class="bold">VAT(20%)</td>
+                                                    <td id="invoice_vat" class="text-right">@ViewBag.invoice.VAT_20</td>
+                                                </tr>
+
+
+
+                                                <tr>
+                                                    <td class="bold">Gross</td>
+                                                    <td id="invoice_gross" class="text-right">@ViewBag.invoice.Gross</td>
+                                                </tr>
+
+
+                                                <tr class="discount_tr" style="display:none">
+                                                    <td class="bold">Discount</td>
+                                                    <td id="invoice_discount_td" class="text-right">@ViewBag.invoice.Global_Discount</td>
+                                                </tr>
+                                                <tr class="discount_tr hide_for_quote" style="display:none">
+                                                    <td class="bold">Total After Discount</td>
+                                                    <td id="invoice_after_discount_td" class="text-right">@ViewBag.invoice.Total_After_Discount</td>
+                                                </tr>
+                                                <tr id="payment_status_tr" class="hide_for_quote">
+                                                    <td class="bold">Payment Status</td>
+                                                    <td class="text-right">
+                                                        <select id="payment_status_id" onchange="payment_status()" name="one" class="form-control border_black-1px min-height-32 width-180 select-class-color pull-right">
+                                                            <option value="@ViewBag.invoice.Payment_Status.Id">@ViewBag.invoice.Payment_Status.Status</option>
+                                                            @foreach (var status in ViewBag.Payment_Status)
+                                                            {
+                                                                if (ViewBag.invoice.Payment_Status.Id == status.Id)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                <option value="@status.Id">@status.Status</option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <input type="text" id="payment_status_value_after_disabled" name="payment_status_value_after_disabled" hidden />
+                                                @*<tr class="">
+                                                        <td class="bold"></td>
+                                                        <td class=" bold text-center"><a href="#" data-target="#Give_Refund" data-toggle="modal">Give Refund</a></td>
+                                                    </tr>*@
+                                                @*     WITH GIVE REFUND
+                                                    <tr>
+                                                        <td class="text-center bold"><a href="#" data-target="#Give_Refund" data-toggle="modal">Give Refund</a></td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                           WITH GIVE REFUND       > *@
+                                                <tr class="hide_for_quote hide_quotation">
+                                                    <td class="bold text-center"><a hidden href="#" data-target="#Deposit_Modal" class="" id="Deposit_payment_option" data-toggle="modal">Deposit Payment</a></td>
+                                                    <td class="bold text-center"><a href="#" class="" onclick="set_amount_left_in_partial_payment()" data-target="#Partial_Payment_Modal" id="partial_payment_option" data-toggle="modal">Add Partial Payment</a></td>
+                                                </tr>
+
+                                                <tr id="refund_tr" style="display:none" class="hide_for_quote">
+                                                    @*<td class="">Refund<br /><span>03-08-17</span></td>
+                                                        <td class=" bold pull-right">£100<br /><span>Cash</span></td>*@
+                                                    <td class="">Refund <br /><span id="amount_refund_date_td"></span></td>
+                                                    <td class="bold text-right" id="amount_refund_td"><br /><span class="mmm">sasas</span></td>
+                                                </tr>
+
+
+
+                                                @foreach (var v in @ViewBag.invoiceList)
+                                                {
+                                                    <tr class="partial_paid hide_for_quote">
+                                                        <td class="" style="border-bottom:none!important">Partial Payment</td>
+                                                        <td id="" class="text-right bold" style="border-bottom:none!important"><span>£</span>@v.Gross</td>
+                                                    </tr>
+                                                    sum = sum + @v.Gross;
+                                                    <tr class="hide_for_quote">
+                                                        <td class="" id="">@v.Created_at.ToShortDateString()</td>
+                                                        <td id="" class="text-right bold">@v.Payment_Type</td>
+                                                    </tr>
+
+                                                }
+                                                <input value="@sum" id="partial_payment_sum" hidden />
+
+                                                @{
+                                                    decimal balance = @ViewBag.invoice.Gross - sum;
+
+                                                }
+
+                                                <tr class="partial_paid hide_for_quote" style="display:none">
+                                                    <td class="bold">Partial Payment</td>
+                                                    <td id="partial_paid_td" class="text-right">£0</td>
+                                                </tr>
+
+                                                <tr class="deposit_paid hide_for_quote" style="display:none">
+                                                    <td class="bold">Deposit Payment</td>
+                                                    <td id="deposit_paid_td" class="text-right">£0</td>
+                                                </tr>
+
+                                                <tr class="partial_paid hide_for_quote" style="display:none">
+                                                    <td class="bold" id="partial_date"></td>
+                                                    <td id="partial_payment_method" class="text-right"></td>
+                                                </tr>
+
+                                                <tr id="custom_date_show_invoice" class="hide_for_quote" style="display:none">
+                                                    <td class="bold width-134">Custom Date</td>
+                                                    <td><input type="date" class="width-180" /></td>
+                                                </tr>
+
+                                                <tr id="Total_after_refund_tr" class="hide_for_quote" style="display:none">
+                                                    <td class="bold">Total After Refunds:</td>
+                                                    <td id="Total_after_refund_td" class="text-right">£0</td>
+                                                </tr>
+
+
+                                                <tr class="partial_paid deposit_paid hide_for_quote hide_quotation" style="">
+                                                    <td class="bold">Amount left to Pay</td>
+                                                    <td id="amount_left_td" class="text-right">@{@balance}</td>
+                                                </tr>
+                                                <input type="hidden" value="@balance" id="amount_left_input_field" />
+
+
+                                            </table>
+
+
+                                            <div class="col-md-12 balance_div none displayDIV">
+
+                                                <span class=" font-18 text-center red bold">Outstanding Balance</span>
+                                                <br />
+                                                <input type="text" readonly class="input_type_custom font-18" name="outstanding_balance" value="" id="outstanding_balance" />
+                                                <br />
+                                                <a href="#" class="btn btn-primary blue-btn-style btn-mini bold" data-target="#Outstanding_modal" data-toggle="modal">Pay Outstanding</a>
+                                                <div class="empty-height"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                        <div class="empty-height"></div><div class="empty-height"></div>
+                                        <div class="col-md-6"></div>
+                                        <div id="global_discount_div" class="col-md-3 pull-right">
+                                            <div class="col-md-8"><a href="" class="btn btn-primary blue-btn-style btn-mini bold" data-toggle="modal" data-target="#Global_Discount_Modal">Add Global Discount</a></div>
+                                        </div>
+                                        <!-----------------------HIDING REFUND not COMPLETED-->
+                                        <div id="Give_Refund_Div" class="col-md-2 pull-right mr--13">
+                                            <a href="#" data-target="#Give_Refund" data-toggle="modal" onclick="give_refund_value_set()" class="btn btn-success blue-btn-style btn-mini bold">Give Refund</a>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-5"></div>
+
+
+                                    <div class="col-md-1 pr-0 text-center">
+                                        <a>
+                                            <span class=""><img src="~/img/images/print_document.png" /></span><br />
+                                            <input type="button" value="Print" />
+                                        </a>
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-1 text-center">
+                                        <a data-target="#Email_Modal" data-toggle="modal">
+                                            <span class=""><img src="~/img/images/email_btn.png" /></span><br />
+                                            <input type="submit" value="Email" />
+                                        </a>
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                </div>
+
+
+                                <input id="counters" hidden value="" type="text" />
+                                <input type="text" id="net_invoice_hidden" name="net_invoice_hidden" value="@ViewBag.invoice.Net_Price" hidden />
+                                <input type="text" id="vat_invoice" name="vat_invoice_hidden" value="@ViewBag.invoice.VAT_20" hidden />
+                                <input type="text" id="gross_invoice" name="gross_invoice_hidden" value="@ViewBag.invoice.Gross_Total" hidden />
+                                <input type="text" class="" id="global_discount_hidden" name="global_discount_hidden" value="0" hidden />
+                                <input type="text" class="" id="total_after_discount_hidden" name="total_after_discount_hidden" hidden />
+                                <label hidden>Left Amount Hidden</label>
+                                <input type="text" class="" id="left_amount_hidden" name="left_amount_hidden" hidden />
+                                <label hidden>Amount Paid</label>
+                                <input type="text" class="" id="amount_paid_hidden" name="amount_paid_hidden" hidden />
+
+                                @*<input id="refund_rows_count" type="text" />*@<input id="refund_rows_count" type="text" /><input id="refund_rows_count" type="text" hidden />
+
+                                <input type="text" hidden name="old_document_type" id="doc_type_on_page_load_not_change" />
+                                <input type="text" hidden name="doc_type_page_load" id="doc_type_page_load" />
+                                <input type="text" hidden name="new_document_type" id="new_document_type_changed" />
+                                <input type="text" hidden name="refund_total_amount" id="refund_total_amount" />
+                                <input type="text" hidden id="check_give_refund_value" />
+
+                            </form>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@<div id="sticky-footer-push"></div><div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+
+
+
+
+
+
+</body>
+
+
+
+<script>
+    CKEDITOR.replace("email_textarea");
+</script>

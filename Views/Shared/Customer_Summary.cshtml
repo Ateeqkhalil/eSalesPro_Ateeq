@@ -1,0 +1,382 @@
+﻿<div id="customer_summary" style="display:none">
+
+    @*<div class="col-md-12">
+        <div class="col-md-6 pl-0 pull-left">
+            
+        </div>
+
+        @*<div class="col-md-4"></div>
+
+            <div class="col-md-6 pull-right">
+                <a href="#" data-toggle="modal" data-target="#" class="btn blue-btn-style btn-primary btn-mini bold">View Payment Status</a>
+            </div>
+
+        </div>*@
+    
+
+    <div class="col-md-12">
+
+        <div class="col-md-3 pull-left pl-0">
+            <h4 class="bold black-color">Customer Summary</h4>
+        </div>
+
+        <div class="col-md-5"></div>
+
+        <div class="col-md-2 pull-left pr-0">
+            
+        </div>
+
+        <div class="col-md-2 pull-right pr-0">
+            <a onclick="payment_status_by_default()" href="#" data-target="#View_Payment_Status_Modal" data-toggle="modal" class="btn btn_view_payment_status btn-mini bold width-170 pull-right">View Payment Status</a>
+            
+        </div>
+
+
+
+    </div>
+    
+    @Html.Hidden("RedirectTo", Url.Action("Edit_Sale", "Sale"))
+
+    <div class="">
+
+        <div class="col-md-12">
+
+
+            <table class="black-color col-md-3 pull-left">
+                <tr hidden>
+                    <th class="width-90 font-16">Id</th>
+                    <td id="id"></td>
+                </tr>
+
+                <tr hidden>
+                    <th class="width-90 font-16">Opening Balance</th>
+                    <td id="c_opening_balance"></td>
+                </tr>
+
+                <tr>
+                    <th class="width-90 font-16">Name</th>
+                    <td id="c_name"></td>
+                </tr>
+                <tr>
+                    <th class="width-90 font-16">Phone</th>
+                    <td id="c_phone"></td>
+                </tr>
+
+                <tr>
+                    <th class="width-90 font-16">Email</th>
+                    <td id="c_email"></td>
+                </tr>
+                <tr>
+                    <th class="width-90 font-16">Type</th>
+                    <td id="c_type"></td>
+                </tr>
+                <tr>
+                    <th class="width-90 font-16">Notes</th>
+                    <td id="c_notes"></td>
+                </tr>
+                <tr>
+                    <th class="width-90 font-16">Credit Limit</th>
+                    <td id="c_credit_limit"></td>
+                </tr>
+
+            </table>
+
+            <div class="col-md-3">
+                <label class="bold black-color font-16">Billing Address:</label><br />
+                <p class="black-color" id="c_address"></p>
+            </div>
+
+            <div class="col-md-3 border_black text-center">
+                <label class="bold red mt-5 font-16">Available Credit Balance</label><br />
+                <label class="bold black-color font-16" id="c_balance"></label><br />
+            </div>
+
+            <div class="col-md-3"></div>
+
+        </div>
+
+
+
+        <div class="col-md-12 mt-15">
+
+            <div class="col-md-2 pull-left">
+                <a onclick="GetCustomer(-1)" class="btn btn-primary btn-mini ml--20 blue-btn-style bold width-150">Edit Customer</a>
+            </div>
+
+            <div class="col-md-2 pull-left">
+                <a href="" onclick="delete_customer(-1)" class="btn btn-primary btn-mini ml--20 blue-btn-style bold width-150">Delete Customer</a>
+            </div>
+
+            @*<div class="col-md-2 pull-left">
+                <a href="#" class="btn btn-primary ml--20 btn-mini blue-btn-style bold">Set Custom Prices</a>
+            </div>*@
+
+            <div class="col-md-2 pull-left">
+                <a href="~/Sale/New_Invoice" class="btn ml--20 btn-primary blue-btn-style btn-mini bold width-150">New Sale</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            <p class="bold font-20 mt-30 black-color">Customer Invoices<small></small></p>
+        </div>
+        <div class="col-md-12" id="">
+            <table border="0" class="table table-responsive border_black" id="customer_invoices_table">
+                <thead>
+                    <tr class="table-heading-fonts table-main-headings">
+                        <th class="text-center">Order Id</th>
+                        <th class="text-center">Payment Type</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Net</th>
+                        <th class="text-center">VAT</th>
+                        <th class="text-center">Gross</th>
+                        <th class="text-center">Date</th>
+
+
+                    </tr>
+                </thead>
+                <tbody class="black-color bold background_blue_selectedwith_cursor" id="invoice_by_customer_partial_view"></tbody>
+            </table>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            <p class="bold font-20 mt-30 black-color">Item History<small></small></p>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <table border="0" class="table table-responsive border_black" id="item_history_table">
+                <thead>
+                    <tr class="table-heading-fonts table-main-headings">
+                        <th class="text-center">Date</th>
+                        <th class="text-center">SKU</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Item Price</th>
+                        <th class="text-center">VAT</th>
+                        <th class="text-center">VAT+Item Price</th>
+
+
+                    </tr>
+                </thead>
+                <tbody class="black-color bold background_blue_selectedwith_cursor" id="hhh"></tbody>
+
+            </table>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+
+
+@*----------------------------POP UP for EXISTING CUSTOMER--------------------------------*@
+
+<div class="modal fade" id="ExistingModal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="win text-center">
+                        <h3 class="color"><b>Find Customer</b></h3>
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                        <div class="col-md-12" id="">
+                            <table border="0" class="table table-responsive border_black" id="customer_summary_table">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Notes</th>
+                                        <th class="text-center">Credit Limit</th>
+                                        <th class="text-center">Balance</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="black-color bold">
+                                    @foreach (var v in ViewBag.Customer)
+                                    {
+                                        <tr onclick="customer_summary_list(@v.Id,@v.Customer_Type_Id)">
+                                            <td id="@String.Concat("customer_value_1", v.Id)" data-title="User ID">@v.Name</td>
+                                            <td id="@String.Concat("customer_value_2", v.Id)" data-title="First Name">@v.phone</td>
+                                            <td id="@String.Concat("customer_value_3", v.Id)" data-title="Last Name">@v.Billing_Street</td>
+                                            <td id="@String.Concat("customer_value_4", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                            <td id="@String.Concat("customer_value_5", v.Id)" data-title="Email" class="user-emails">@v.Notes</td>
+                                            <td id="@String.Concat("customer_value_6", v.Id)" data-title="Email" class="user-emails">@v.Credit_Limit</td>
+                                            <td id="@String.Concat("customer_value_7", v.Id)" data-title="Email" class="user-emails">@v.Balance</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>
+
+@*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@
+
+
+@*----------------------------POP UP for VIEW PAYMENT STATUS--------------------------------*@
+
+<div class="modal fade" id="View_Payment_Status_Modal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-style-custom" style="min-height:500px">
+
+            <div id="loader_div_payment" class="none">
+                <img src="~/img/loading.gif" class="" style="position:absolute;top: 10%;left: 25%;z-index:99999999999999">
+            </div>
+            <div class="hide_all_divs">
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div id="print_div">
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-6 pl-0 pr-0 pull-left">
+                            <h3 class="color"><b>Customer Payment Statement</b></h3>
+                        </div>
+                        <div class="pull-right mt-15 print_btn_hide_columnsssssss">
+                            <div class="pull-left">
+                                <label class="black-color mr-3 mt-5">From :</label>
+                            </div>
+                            <div class="pull-left">
+                                <input required type="date" id="fff_date" oninput="showDateOption()" class="date_width_height_Customer_Summary mr-3" name="from_date">
+                            </div>
+                            <div class="pull-left">
+                                <label class="black-color mr-3 mt-5">To :</label>
+                            </div>
+                            <div class="pull-left">
+                                <input required type="date" disabled id="toooooo_date" oninput="show_selected_date();payment_status_by_date()" class="date_width_height_Customer_Summary" name="to_date">
+                            </div>
+
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class=""></div>
+
+
+                    <div class="" id="view_payment_div" style="display:none;">
+                        <div class="col-md-12 mt-20 font-15">
+                            <label class="bold pull-left black-color">Customer Name : </label>
+                            <label class="pull-left black-color unbold ml-10" id="customer_name_on_Payment_status"></label>
+
+                            <div class="clearfix"></div>
+
+                            <label class="bold pull-left black-color">Date Range : </label>
+                            <label class="pull-left black-color unbold ml-10" id="from_date_click">@DateTime.Now.AddMonths(-1).ToShortDateString()</label>
+
+                            <label class="bold pull-left black-color ml-10">to</label>
+                            <label class="pull-left black-color unbold ml-10" id="to_date_click">@DateTime.Now.ToShortDateString()</label>
+
+                            <div class="col-md-3 pull-right pr-0">
+                                <a href="#" class="btn pull-right btn-primary blue-btn-style btn-mini text-center width-170 bold print_btn_hide_columnsssssss print_btn_view_payment">Print</a>
+                            </div>
+                            <div class="clearfix"></div>
+
+
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12 black-color" id="updated_div">
+                            @*<div class="col-md-12">
+                        <h3 class="bold">Payment History</h3>
+                        <div class="col-md-12">
+                            <p class="margin-0"><b>Invoice-27;</b> Total: £74</p>
+                            <ul style="list-style:none; padding:0;margin:0">
+                                <li>Paid in £70 on 10-05-17</li>
+                                <li>Paid in £4 on 10-05-17</li>
+                            </ul>
+                            <p>Fully Paid <em>£2 Overpay</em></p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h3 class="bold col-md-12">Invoice History</h3>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h3 class="bold col-md-12">Debts / Money Owed</h3>
+                        <div class="col-md-6">
+                        </div>
+                    </div>*@
+
+                        </div>
+
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-5"></div>
+
+                            <div class="col-md-2 pr-0">
+                                <a href="#" onclick="view_payment_status()" class="btn btn-primary width-134 blue-btn-style btn-mini bold pull-right print_btn_hide_columnsssssss">Ok</a>
+                            </div>
+
+                            <div class="col-md-5"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class=""></div>
+
+
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*----------------------------POP UP END VIEW PAYMENT STATUS--------------------------------*@
+
+
+@*----------------------------POP UP EDIT CUSTOMER--------------------------------*@
+
+@{
+    Html.RenderPartial("Customer_Modal/Edit_Customer_Modal_Shared");
+}
+
+@*----------------------------POP UP END EDIT CUSTOMER--------------------------------*@

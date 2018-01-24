@@ -1,0 +1,36 @@
+﻿@model List<eSalesPro.Models.Customer>
+
+@foreach (var v in Model)
+{
+    <tr id="@String.Concat("tr_"+@v.Id)">
+        @*<td data-title="User ID">@v.Id</td>*@
+        <td class="text-center">@v.Name</td>
+        <td class="text-center">@v.Company.Company_Name</td>
+        <td class="text-center">@v.phone</td>
+        <td class="text-center">@v.Email</td>
+        <td class="text-center">@v.Billing_Street</td>
+        <td class="text-center">@v.Billing_Postcode</td>
+
+        @*@if (@v.Is_Active == 1)
+            {*@
+        @*<td class="gg">Active</td>*@
+        @*}
+            else
+            {
+                <td class="red">Deactive</td>
+            }*@
+
+        <td data-title="Actions" class="text-center min-width-191 buttons-block print_btn_hide_cols">
+            <a class="btn btn-sm btn-info bold" href="" data-toggle="modal" data-target="#Edit_Customer_Modal" onclick="GetCustomer(@v.Id)">
+                Edit
+            </a>
+            @*<a class="btn btn-sm btn-success bold" href="#">
+                Enable
+            </a>*@
+            <a class="btn btn-sm btn-danger bold" onclick="delete_customer(@v.Id)">
+                Delete
+            </a>
+        </td>
+    </tr>
+
+}

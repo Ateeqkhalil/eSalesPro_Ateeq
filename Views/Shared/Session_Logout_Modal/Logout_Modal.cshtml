@@ -1,0 +1,54 @@
+﻿<div class="modal" id="Logout_Modal_Session" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="empty-height"></div><div class="empty-height"></div>
+
+                    <div class="win text-center">
+                        <span style="font-weight: normal;">Now You have been Loged out of the system please enter a password for<br /> user name:</span> <span style="font-weight:bold;color:#000">@Session["username"] </span><span style="font-weight: normal;"> to continue</span><br>&nbsp;<br>
+                        <input id="logout_pass" class="txt" type="password" style="width:100%;text-align:center">
+                        <p class="red show_wrong_password none">You have entered wrong password</p>
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div>
+                            <div class="pull-left">
+                                <a href="~/Home/Logout" class="btn blue-btn-style btn_logout_session_expire bold width-120">
+                                    Logout
+                                </a>
+                                @*<a class="btn btn-sm btn-success bold" href="~/Supplier/Active/@v.Id">
+                                        Enable
+                                    </a>*@
+
+                            </div>
+
+
+                            <div class="pull-right">
+                                <a class="btn btn-success blue-btn-style btn-mini bold width-120" onclick="ValidateUser()">
+                                    Ok
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>

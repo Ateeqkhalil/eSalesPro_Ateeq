@@ -1,0 +1,308 @@
+﻿@model eSalesPro.Models.Supplier
+
+
+
+    <div class="modal-content modal-style-custom">
+
+        <div class="title col-md-12">
+            <span>Message</span>
+            <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" onclick="cancel_purchase()" />
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+
+
+                <div class="win text-center">
+                    <h3 class="black-color"><b>Edit Supplier</b></h3>
+                    <img class="pull-right margin-supplier" src="~/img/images/supplier.png" />
+
+                    <form id="demo-form2" action="@Url.Action("Edit", "Supplier", new { id = @Model.Id })" method="post" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+
+                        @*<input value="@ViewBag.pageValue" name="pageValue" />*@
+
+                        <div class="col-md-12 text-center">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Company Name <span class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="company_name" id="company_name" value="@Model.Company.Company_Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Company Short Name <span class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="company_short_name" id="company_short_name" value="@Model.Company.Company_Short_Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="supplier-border"></div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Sales Contact Name <span class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="sales_contact_name" id="sales_contact_name" value="@Model.Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Sales Contact Email</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="sales_contact_mail" id="sales_contact_mail" value="@Model.Email" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div>
+                                        <div class="">
+                                            <label class="supplier-create-texts" for="middle-name">Sales Contact Phone</label>
+                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                <input class="width-123" type="text" name="sales_contact_phone" id="sales_contact_phone" value="@Model.Phone" onkeypress="validation_numeric(event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <label class="pull-left ext_margin">Ext</label>
+                                            <div>
+                                                <input type="number" class="width-43 mr-23" name="sales_phone_ext" id="sales_phone_ext" value="@Model.Phone_Ext" onkeypress="validation_numeric(event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Sales Contact Mobile</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="sales_contact_mobile" id="sales_contact_mobile" value="@Model.Mobile" onkeypress="validation_phones(event)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Sales Contact Fax</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="sales_contact_fax" id="sales_contact_fax" value="@Model.Fax" onkeypress="validation_numeric(event)">
+                                    </div>
+                                </div>
+
+                                <div class="supplier-border"></div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account Contact Name</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_contact_name" id="account_contact_name" value="@Model.Account_Contact_Name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account Contact Email</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_contact_mail" id="account_contact_mail" value="@Model.Account_Email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div>
+                                        <div class="">
+                                            <label class="supplier-create-texts" for="middle-name">Account Contact Phone</label>
+                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                                <input class="width-123" type="text" name="account_contact_phone" id="account_contact_phone" value="@Model.Account_Phone" onkeypress="validation_phones(event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <label class="pull-left ext_margin">Ext</label>
+                                            <div>
+                                                <input class="width-43 mr-23" type="text" name="account_ext_phone" id="account_ext_phone" value="@Model.Account_Ext" onkeypress="validation_numeric(event)">
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account Contact Mobile</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_contact_mobile" id="account_contact_mobile" value="@Model.Account_Mobile" onkeypress="validation_phones(event)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account Contact Fax</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_contact_fax" id="account_contact_fax" value="@Model.Account_Fax" onkeypress="validation_phones(event)">
+                                    </div>
+                                </div>
+
+                                <div class="supplier-border"></div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Bank Name</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="bank_name" id="bank_name" value="@Model.Bank_Name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account Name</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_name" id="account_name" value="@Model.Account_Name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Account No</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="account_no" id="account_no" value="@Model.Account_No" onkeypress="validation_phones(event)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts" for="middle-name">Sort Code</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" name="sort_code" id="sort_code" value="@Model.Sort_Code" onkeypress="validation_phones(event)">
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Address</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="street_postcode_edit" id="edit_street_postcode" value="@Model.Street">
+                                        <input type="text" class="ml--50" name="town_postcode_edit" id="edit_town_postcode" value="@Model.Town">
+                                        <input type="text" class="ml--50" name="county_postcode_edit" id="edit_county_postcode" value="@Model.County">
+                                        <input type="text" class="ml--50" name="country_postcode_edit" id="edit_country_postcode" value="@Model.Country">
+                                        @*<input type="text" class="ml--50" name="address5">*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Postcode</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="postcode" id="postcode_edit" value="@Model.Post_Code" onkeypress="Postcode_Enter_Click(event)">
+                                        <a href="#" onclick="postcode_testing_edit()"><img src="~/img/images/ssearch.png" id="input_img" /></a>
+                                    </div>
+                                </div>
+
+                                <div id="input_container">
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Website</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="website" id="website" value="@Model.Website">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Login</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="login" id="login" value="@Model.Login">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Password</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="password" id="password" value="@Model.Password" >
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="">Notes</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <textarea class="width-193 ml--50" name="notes" id="notes">@Model.Notes</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="supplier-border"></div>
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Credit Limit</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="credit_limit" id="credit_limit" value="@Model.Credit_Limit" onkeypress="validation_numeric(event)">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="supplier-create-texts ml-22" for="middle-name">Credit Period</label>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <input type="text" class="ml--50" name="credit_period" id="credit_period" value="@Model.Credit_Period">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        @*<div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-3" style="margin-bottom:15px">
+                                <input type="submit" value="Add Product" class="btn btn-success" />
+                            </div>*@
+                        <div class="col-md-12">
+                            <div class="col-md-3"></div>
+
+                            <div class="col-md-3">
+                                <input type="hidden" id="supplier_id" value="" name="supplier_id" />
+                                <input type="submit" value="Update" class="btn btn-success btn-mini center-block width-145" />
+                            </div>
+
+                            <div class="col-md-3">
+                                @*<a href="" class="btn btn-primary btn-mini center-block" style="width:135px">Cancel</a>*@
+                                <a href="#" class="btn btn-primary btn-mini blue-btn-style-modal center-block a-cancel" onclick="cancel_purchase()">Cancel</a>
+                            </div>
+                            <div class="col-md-3"></div>
+
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+
+
+        </div>
+
+
+
+    </div>
+

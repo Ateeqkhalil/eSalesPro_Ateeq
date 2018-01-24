@@ -1,0 +1,14 @@
+﻿@model List<eSalesPro.Models.Sale_Invoice>
+
+@foreach (var v in Model)
+{
+    <tr ondblclick="double_click_edit_sale(@v.Invoice.Id)">
+        <td class="text-center" data-title="User ID">@v.Sale.Created_at.ToShortDateString()</td>
+        <td class="text-center" data-title="User ID">@v.Sale.Product.Custom_Label_</td>
+        <td class="text-center" data-title="User ID">@v.Sale.Product.Item_Title</td>
+        <td class="text-center" data-title="User ID">@v.Sale.Quantity</td>
+        <td class="text-center" id="" data-title="User ID">@v.Sale.Price</td>
+        <td class="text-center" data-title="User ID">@{var diff = v.Sale.PriceVAT - v.Sale.Price;}@diff</td>
+        <td class="text-center" data-title="User ID">@v.Sale.PriceVAT</td>
+    </tr>
+}

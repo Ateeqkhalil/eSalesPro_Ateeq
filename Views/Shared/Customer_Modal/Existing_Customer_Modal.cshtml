@@ -1,0 +1,106 @@
+﻿@*----------------------------POP UP for EXISTING CUSTOMER--------------------------------*@
+
+<div class="modal fade" id="ExistingModal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-style-custom">
+
+            <div class="title col-md-12">
+                <span>Message</span>
+                <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="win text-center">
+                        <h3 class="color"><b>Find Customer</b></h3>
+
+                        <div class="empty-height"></div><div class="empty-height"></div>
+
+
+
+                        <div class="col-md-12">
+                            <table border="0" class="table table-responsive border_black" id="kj">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Postcode</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Balance</th>
+                                        <th class="text-center">Credit</th>
+                                        <th class="text-center">Total Credit Limit</th>
+                                        <th class="text-center">Available Credit Limit</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody class="black-color bold" id="">
+                                    @foreach (var v in ViewBag.Customer)
+                                    {
+
+                                        <tr id="trr" class="disableRightClick" onclick="go(@v.Id,@v.Customer_Type_Id);customer_credit()" oncontextmenu="GetCustomer(@v.Id);">
+                                            <td id="@String.Concat("juni1", v.Id)" data-title="User ID">@v.Name</td>
+                                            <td id="@String.Concat("juni2", v.Id)" data-title="First Name">@v.phone</td>
+                                            <td id="@String.Concat("juni3", v.Id)" data-title="Last Name">@v.Billing_Street</td>
+                                            <td id="@String.Concat("juni4", v.Id)" data-title="Last Name">@v.Billing_Postcode</td>
+                                            <td id="@String.Concat("juni5", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                            <td id="@String.Concat("juni6", v.Id)" data-title="Email" class="user-emails">@v.Balance</td>
+                                            <td id="@String.Concat("juni7", v.Id)" data-title="Email" class="user-emails">@v.Credit</td>
+                                            <td id="" data-title="Email" class="user-emails">@v.Credit_Limit_Old</td>
+                                            <td id="" data-title="Email" class="user-emails">@v.Credit_Limit</td>
+                                            @*<input type="text" id="jj" name="jj" value="@v.Balance"/>*@
+                                            <input type="text" id="@String.Concat("juni8", v.Id)" value="@v.Credit_Limit" hidden />
+
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        @*<table id="00" class="table table-responsive border_black">*@
+                        @*<table border="0" class="table table-responsive border_black" id="kj">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Postcode</th>
+                                        <th class="text-center">Email</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="black-color bold" id="">
+                                    @foreach (var v in ViewBag.Customer)
+                                {
+                                        <tr onclick="go(@v.Id)">
+                                            <td id="@String.Concat("juni1", v.Id)" data-title="User ID">@v.Name</td>
+                                            <td id="@String.Concat("juni2", v.Id)" data-title="First Name">@v.phone</td>
+                                            <td id="@String.Concat("juni3", v.Id)" data-title="Last Name">@v.Billing_Address</td>
+                                            <td id="@String.Concat("juni4", v.Id)" data-title="Last Name">@v.Billing_Postcode</td>
+                                            <td id="@String.Concat("juni5", v.Id)" data-title="Email" class="user-emails">@v.Email</td>
+                                            <td id="@String.Concat("juni6", v.Id)" class="hidden">@v.Customer_Type_Id</td>
+                                        </tr>
+                                }
+                                </tbody>
+                            </table>*@
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer"></div>
+            <div class=""></div>
+
+        </div>
+    </div>
+</div>
+
+@*----------------------------POP UP END EXISTING CUSTOMER--------------------------------*@

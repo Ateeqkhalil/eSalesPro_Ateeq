@@ -1,0 +1,413 @@
+﻿@model List<eSalesPro.Models.Warehouse>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+
+                            <div class="col-md-12">
+
+                                <h3 class="bold font-20">
+                                    Warehouse Locations
+                                </h3>
+
+
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+
+
+                        <div class="clearfix"></div>
+
+
+                        <div class="empty-height"></div>
+                        <div class="empty-height"></div>
+
+                        
+
+                        <div class="">
+
+                            <div class="col-md-12">
+                                <table border="0" class="table table-responsive border_black" id="table_on_dates">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Shelf No</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Status</th>
+                                            @*<th class="text-center">Actions</th>*@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="updated_warehouse_list" class="black-color bold text-center">
+
+                                        @*@foreach (var v in Model)
+                                            {*@
+                                        @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+                                        @foreach (var v in Model)
+                                        {
+                                        <tr>
+                                            <td data-title="User ID">@v.Name</td>
+                                            <td data-title="User ID">@v.shelf_number</td>
+                                            <td data-title="User ID">@v.Address</td>
+
+                                            @*@if (@v.Is_active == 1)
+                                            {
+                                                <td class="gg">Active</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="red">Deactive</td>
+                                            }*@
+
+
+                                            <td data-title="Actions" class="text-center buttons-block">
+                                                <a class="btn btn-sm btn-info bold" href="#" data-toggle="modal" data-target="#edit_warehouse" onclick="GetWarehouse(@v.Id)">
+                                                    Edit
+                                                </a>
+                                                @*<a class="btn btn-sm btn-success bold" href="">
+                                                    Enable
+                                                </a>*@
+                                                <a class="btn btn-sm btn-danger bold"  onclick="delete_warehouse(@v.Id)">
+                                                    Delete
+                                                </a>
+                                            </td>
+
+
+                                        </tr>
+
+                                        }
+
+
+
+
+                                        @*}*@
+                                    </tbody>
+
+                                </table>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="empty-height"></div>
+
+                            <div class="col-md-12">
+
+                                <div class="">
+                                    <a href="#" data-target="#create_warehouse" data-toggle="modal" class="btn btn-primary blue-btn-style btn-mini bold width-150">Add New Location</a>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+
+    
+    @*----------------------------POP UP for ADD LOCATION--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="create_warehouse" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-6">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Add Warehouse Location</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="~/Product/AddWarehouse" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12 pt-30">
+
+                                    <div class="col-md-12 form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Name</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="" type="text" name="name" id="category">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Shelf No.</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="" type="text" name="shelf" id="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Address</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="" type="text" name="address" id="category">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="empty-height"></div><div class="empty-height"></div>
+
+                                <div class="col-md-12">
+                                    
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Save" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="" onclick="cancel_btn()" class="btn btn-primary blue-btn-style btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                    </div>
+                                    <div class="col-md-4"></div>
+
+
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END ADD LOCATION--------------------------------*@
+
+
+    @*----------------------------POP UP for EDIT LOCATION--------------------------------*@
+
+    <div class="modal fade bs-example-modal-md z-999999999999999999999999" id="edit_warehouse" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-lg-2">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Edit Warehouse Location</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div id="EditWarehouse" class="win text-center">
+                            @*<h3 class="black-color"><b>Find Supplier</b></h3>*@
+
+                            <form action="@Url.Action("Edit_Warehouse","Product")" class="form-horizontal form-label-left" method="post">
+
+                                <div class="col-md-12 margin-category">
+
+                                    <div class="form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Name</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="width-200" type="text" name="name" id="category">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Shelf No.</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="width-200" type="text" name="shelf" id="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="supplier-create-texts font-16" for="middle-name">Address</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <input class="width-200" type="text" name="address" id="category">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Save" class="btn btn-success btn-mini center-block width-123" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="" onclick="cancel_btn()" class="btn btn-primary blue-btn-style btn-mini width-123 center-block a-cancel height-40 mt-0 ml-22">Cancel</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    @*----------------------------POP UP END EDIT LOCATION--------------------------------*@
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+    
+    <script>
+        function delete_warehouse(ID) {
+            $.ajax({
+                url: "/Product/Delete_Warehouse/",
+                data: { id: ID },
+                cache: false,
+                type: "Get",
+                
+                success: function(data) {
+                    alert("ok");
+                    document.getElementById("updated_warehouse_list").innerHTML = data;
+
+                },
+                error: function () {
+                    alert("FAILURE");
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+
+        function GetWarehouse(ID) {
+
+            $("#PleaseWait").addClass('showDiv');
+
+            $.ajax({
+
+                url: "/Product/Edit_Warehouse/",
+                data: { id: ID },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+                    document.getElementById("EditWarehouse").innerHTML = data;
+                    $("#PleaseWait").removeClass('showDiv');
+                    $("#PleaseWait").addClass('hideDiv');
+                },
+                error: function (response) {
+                    alert("Error" + response);
+                }
+
+            })
+        }
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example1').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_on_dates').dataTable();
+        });
+    </script>
+
+    <script>
+        function PrintBtn() {
+            $("#crud_btn_hide").addClass("none");
+            $("#side_navi_hide").addClass("none");
+
+            window.print();
+        }
+    </script>
+
+</body>

@@ -1,0 +1,180 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+        
+        /*@media print {
+            .divFooter {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+
+            }
+           }*/
+
+
+.banner-size {
+    height: 781px;
+}
+
+.footer-index {
+    margin-top: -6px;
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-height: 480px) {
+
+.modal-style-custom {
+    background: linear-gradient(to bottom, #fafafd, #b2b2b3);
+    border: 3px solid #00aeee;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: no-display;
+}
+}
+
+@media screen and (min-height: 481px) and (max-height: 767px) {
+
+    .modal-style-custom {
+    background: linear-gradient(to bottom, #fafafd, #b2b2b3);
+    border: 3px solid #00aeee;
+    max-height: 440px;
+    overflow-y: auto;
+    overflow-x: no-display;
+}
+}
+
+
+@media screen and (min-height: 768px) and (max-height: 1050px) {
+
+    .modal-style-custom {
+    background: linear-gradient(to bottom, #fafafd, #b2b2b3);
+    border: 3px solid #00aeee;
+    max-height: 860px;
+    overflow-y: auto;
+    overflow-x: no-display;
+}
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .toprightdivmedia {
+        margin-top: -60px;
+    }
+}
+
+/* iPAD Landscape Media Query */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1280px) {
+
+    .end_margin_left {
+        margin-left: 50px;
+    }
+
+    .ml--{
+        margin-left:-52px;
+    }
+
+    /*.banner-size {
+      
+    }*/
+}
+
+@media screen and (min-width: 1281px) and (max-width:1366px) {
+    .banner-size {
+        /*height: 549px;*/ /*height: 549px;*/
+    }
+
+    .margin_right_6 {
+        margin-right: 24px;
+    }
+}
+
+@media screen and (min-width: 1367px) and (max-width: 1679px) {
+
+    .end_margin_left {
+        margin-left: 27px;
+    }
+}
+
+@media screen and (min-width: 1680px) and (max-width: 1919px) {
+    .margin_right_6 {
+        margin-right: 100px;
+    }
+
+    #custom_date_select_invoice {
+        float: right;
+    }
+
+    .nestedsidemenu ul li:hover > a {
+        /*background: #0916a9;*/
+        background: linear-gradient(to bottom, #1e87f3 1%, #051e68 27%, #000245 27%, #0269ca 100%);
+        background: linear-gradient(to right, #1e87f3 10%, #051e68 21%,#000245 20%,#0269ca 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .date-width-height-data-report {
+        width: 214px;
+        height: 34px;
+    }
+
+    .input_width-height_data_report {
+        width: 305px;
+        height: 34px;
+    }
+
+    .end_margin_left {
+        margin-left: 10px;
+    }
+
+     /*.ml--{
+        margin-left:-14px;
+    }*/
+}
+
+
+@media screen and (min-width: 1920px) and (max-width: 2000px) {
+    .margin_right_6 {
+        margin-right: 157px;
+    }
+
+    .nestedsidemenu ul li:hover > a {
+        /*background: #0916a9;*/
+        background: linear-gradient(to bottom, #1e87f3 1%, #051e68 27%, #000245 27%, #0269ca 100%);
+        background: linear-gradient(to right, #1e87f3 10%, #051e68 18%,#000245 20%,#0269ca 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .input_width-height_data_report {
+        width: 355px;
+        height: 34px;
+    }
+
+    .date-width-height-data-report {
+        width: 264px;
+        height: 34px;
+    }
+
+    .end_margin_left {
+        margin-left: 27px;
+    }
+
+    .width_78_height{
+        width:130px;
+    }
+
+    .date-width-height{
+        width:150px;
+    }
+
+    .ml--{
+        margin-left:29px;
+    }
+}

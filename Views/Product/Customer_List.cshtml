@@ -1,0 +1,491 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                @*<div class="col-md-4">
+                                    <h3 class="bold update-stock-margin"><small></small></h3>
+                                </div>*@
+
+                                <div class="pull-left">
+                                    <a href="~/Home/Epos" class="btn btn-primary blue-btn-style mt-10 btn-mini bold">Back to EPOS Main Panel</a>
+                                </div>
+
+
+                                <div class="mt-10">
+                                    <div class="col-md-2 pull-right">
+                                        <a href="~/Home/Epos" onclick="PrintBtn()" class="btn btn-primary blue-btn-style ml--45 btn-mini text-center width-195 bold">Print</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="mt-30">
+                                <div class="col-md-3 pull-left">
+                                    <h4 class="black-color bold">Choose Customer type : </h4>
+                                </div>
+                                <div class="col-md-2 ml--40 pull-left">
+                                    <select oninput="show_customer_type()" name="customer_type" required class="form-control">
+                                        <option value="">Please select any </option>
+                                        <option value="">Normal</option>
+                                        <option value="">Trade</option>
+                                        <option value="">Premium</option>
+                                        <option value="">Other</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-3 pull-right mb-20">
+                                    @*<a href="#" data-toggle="modal" data-target="#customer_modal" class="btn btn-primary btn-mini bold ml-75">Customer Summary</a>*@
+                                    <a href="#" data-toggle="modal" data-target="#customer_modal" class="btn btn-primary blue-btn-style ml-30 btn-mini text-center width-195 bold">Customer Summary</a>
+                                </div>
+
+                                <div class="col-md-3"></div>
+                            </div>
+                            
+                            
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    
+
+
+
+
+
+                        <div class="col-md-12 mt-20 none" id="customer_table_div">
+
+                            <table class="table table-responsive border_black" id="customer_list_table">
+                                <thead>
+                                    <tr class="table-heading-fonts table-main-headings">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>Postcode</th>
+
+                                        <th>Status</th>
+
+                                        @*<th>Pay Rate</th>
+                    <th>Role</th>
+                    <th>Status</th>*@
+
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="black-color bold">
+
+                                    @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+                                    <tr>
+                                        <td data-title="User ID">45</td>
+                                        <td data-title="User ID">Steve Smith</td>
+                                        <td data-title="First Name">+32111494</td>
+                                        <td data-title="Last Name">steve@icloud.com</td>
+                                        <td data-title="Email" class="user-emails">Street 20, USA</td>
+                                        <td data-title="Date Registered">0l12odr</td>
+
+                                        <td class="gg">Active</td>
+
+                                        <td data-title="Actions" class="text-center min-width-191 buttons-block">
+                                            <a class="btn btn-sm btn-info bold" href="" data-toggle="modal" data-target="#EditModal">
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-sm btn-success bold" href="#">
+                                                Enable
+                                            </a>
+                                            <a class="btn btn-sm btn-danger bold" href="#">
+                                                Disable
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td data-title="User ID">500</td>
+                                        <td data-title="User ID">Michael Clark</td>
+                                        <td data-title="First Name">+1015872300</td>
+                                        <td data-title="Last Name">clark@icloud.com</td>
+                                        <td data-title="Email" class="user-emails">Street 48, UK</td>
+                                        <td data-title="Date Registered">00sadadR</td>
+
+                                        <td class="gg">Active</td>
+
+                                        <td data-title="Actions" class="text-center min-width-191 buttons-block">
+                                            <a class="btn btn-sm btn-info bold" href="" data-toggle="modal" data-target="#EditModal">
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-sm btn-success bold" href="#">
+                                                Enable
+                                            </a>
+                                            <a class="btn btn-sm btn-danger bold" href="#">
+                                                Disable
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div id="customer_summary" class="none">
+
+                            <div class="col-md-12">
+                                <h4 class="pull-left bold black-color">Customer Summary</h4>
+                            </div>
+
+                            <div class="">
+
+                                <div class="col-md-12">
+
+
+                                    <table class="black-color col-md-3 pull-left">
+                                        <tr>
+                                            <th class="width-90 font-16">Name</th>
+                                            <td>Bill Gates</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="width-90 font-16">Phone</th>
+                                            <td>+125577854</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="width-90 font-16">Email</th>
+                                            <td>cctv@yahoo.com</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="width-90 font-16">Type</th>
+                                            <td>Normal Customer</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="width-90 font-16">Notes</th>
+                                            <td>No Notes</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="width-90 font-16">Credit Limit</th>
+                                            <td>£99</td>
+                                        </tr>
+
+                                    </table>
+
+                                    <div class="col-md-3">
+                                        <label class="bold black-color font-16">Billing Address:</label><br />
+                                        <p class="black-color">185 Rochdale Lancashire England OL12ODR</p>
+                                    </div>
+
+                                    <div class="col-md-3 border_black text-center">
+                                        <label class="bold red mt-5 font-16">Available Credit Balance</label><br />
+                                        <label class="bold black-color font-16">£122</label><br />
+                                        <a href="#" data-toggle="modal" data-target="#" class="btn mb-10 blue-btn-style btn-primary btn-mini bold">View Payment Status</a>
+                                    </div>
+
+                                    <div class="col-md-3"></div>
+
+                                </div>
+
+
+
+                                <div class="col-md-12 mt-15">
+
+                                    <div class="col-md-2 pull-left">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini ml--20 blue-btn-style bold width-150">Edit Customer</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-left">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini ml--20 blue-btn-style bold width-150">Delete Customer</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-left">
+                                        <a href="#" class="btn btn-primary ml--20 btn-mini blue-btn-style bold">Set Custom Prices</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-left">
+                                        <a href="~/Home/Epos" class="btn ml--20 btn-primary blue-btn-style btn-mini bold width-150">New Sale</a>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-md-12">
+                                    <p class="bold font-20 mt-30 black-color">Customer Invoices<small></small></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <table border="0" class="table table-responsive border_black" id="customer_invoices_table">
+                                        <thead>
+                                            <tr class="table-heading-fonts table-main-headings">
+                                                <th>Order Id</th>
+                                                <th>Payment Type</th>
+                                                <th>Status</th>
+                                                <th>Net</th>
+                                                <th>VAT</th>
+                                                <th>Gross</th>
+
+                                                <th>Date</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="black-color bold">
+
+                                            @*@foreach (var v in Model)
+                            {*@
+                                            @*<tr data-toggle="modal" data-target="#EditModal">*@
+
+
+
+                                            <tr>
+                                                <td data-title="User ID">Order-110</td>
+                                                <td data-title="User ID">Paypal</td>
+                                                <td data-title="User ID">Done</td>
+                                                <td data-title="User ID">£123</td>
+                                                <td data-title="User ID">£123</td>
+                                                <td data-title="User ID">£246</td>
+                                                <td data-title="User ID">1-1-2017</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td data-title="User ID">Order-80</td>
+                                                <td data-title="User ID">Cash</td>
+                                                <td data-title="User ID">Partially Paid</td>
+                                                <td data-title="User ID">£1</td>
+                                                <td data-title="User ID">£12</td>
+                                                <td data-title="User ID">£13</td>
+                                                <td data-title="User ID">05-07-2017</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td data-title="User ID">Order-007</td>
+                                                <td data-title="User ID">Bank Transfer</td>
+                                                <td data-title="User ID">Done</td>
+                                                <td data-title="User ID">£2000</td>
+                                                <td data-title="User ID">£8000</td>
+                                                <td data-title="User ID">£10000</td>
+                                                <td data-title="User ID">07-07-2010</td>
+                                            </tr>
+
+
+
+
+
+
+                                            @*}*@
+                                        </tbody>
+
+                                    </table>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-md-12">
+                                    <p class="bold font-20 mt-30 black-color">Item History<small></small></p>
+                                </div>
+
+
+
+                                <div class="col-md-12">
+                                    <table border="0" class="table table-responsive border_black" id="item_history_table">
+                                        <thead>
+                                            <tr class="table-heading-fonts table-main-headings">
+                                                <th>Date</th>
+                                                <th>SKU</th>
+                                                <th>Quantity</th>
+                                                <th>Item Price</th>
+                                                <th>VAT</th>
+                                                <th>VAT+Item Price</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="black-color bold">
+
+                                            <tr>
+                                                <td data-title="User ID">07-07-2007</td>
+                                                <td data-title="User ID">SKU-1111</td>
+                                                <td data-title="User ID">1000</td>
+                                                <td data-title="User ID">£10</td>
+                                                <td data-title="User ID">£2</td>
+                                                <td data-title="User ID">£12</td>
+
+                                            </tr>
+
+
+                                        </tbody>
+
+                                    </table>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    @*----------------------------POP UP for CUSTOMER SUMMARY--------------------------------*@
+
+    <div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-hidden="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content modal-style-custom">
+
+                <div class="title col-md-12">
+                    <span>Message</span>
+                    <img src="~/img/images/c3.png" class="close mr--13 pull-right" data-dismiss="modal" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="win text-center">
+                            <h3 class="black-color"><b>Find Customer</b></h3>
+
+                            <form id="demo-form2" action="#" method="post" data-parsley-validate class="form-horizontal form-label-left mt-30" enctype="multipart/form-data">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <div class="pull-left">
+                                                <input type="text" name="customer" class="width-320">
+                                                <a href="~/Report/SaleReport" class="btn-primary btn-mini center-block btn-existing-supplier-cancel" style="">Cancel</a>
+                                                <input data-dismiss="modal" onclick="show_customer_summary()" type="button" class="btn-success btn-mini center-block btn-existing-supplier-search" value="Search" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="clear"></div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer"></div>
+
+            </div>
+        </div>
+    </div>
+
+    @*----------------------------POP UP END CUSTOMER SUMMARY--------------------------------*@
+
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#customer_list_table').dataTable();
+        });
+    </script>
+
+    <script>
+        function show_customer_summary() {
+            $("#customer_summary").removeClass("none");
+            $("#customer_summary").addClass("showDiv");
+            $("#customer_table_div").addClass("none");
+        }
+    </script>
+
+    <script>
+        function show_customer_type() {
+            $("#customer_table_div").removeClass("none");
+            $("#customer_table_div").addClass("showDiv");
+            $("#customer_summary").addClass("none");
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#customer_invoices_table').dataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#item_history_table').dataTable();
+        });
+    </script>
+
+    <script>
+        function PrintBtn() {
+            window.print();
+        }
+    </script>
+
+</body>

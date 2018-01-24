@@ -1,0 +1,153 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                <div class="col-md-4">
+                                    <h3 class="bold update-stock-margin">Stock Manager Stocktaking<small></small></h3>
+                                </div>
+                                <div class="mt-10 ml-99">
+                                    <div class="col-md-2 pull-right">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini blue-btn-style text-center width-136 bold">Delete</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini blue-btn-style text-center width-136 bold">Export to Excel</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini blue-btn-style width-136  text-center bold">Print</a>
+                                    </div>
+
+                                    <div class="col-md-2 pull-right">
+                                        <a href="~/Home/Epos" class="btn btn-primary btn-mini blue-btn-style text-center width-136 bold">Save</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-3 pull-left mb-20">
+                                <a href="~/Home/Epos" class="btn btn-primary btn-mini bold blue-btn-style mt-15 ml--20">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-5"></div>
+
+                            <div class="col-md-4 ml--7 mt-20">
+                                <label class="supplier-create-texts ml-22" for="middle-name">Search Filter</label>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <input type="text" class="ml--95 width-208" name="postcode" id="postcode">
+                                    <a href="#"><img class="search-btn-product" src="~/img/images/ssearch.png" /></a>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+
+
+
+                        <div class="clearfix"></div>
+
+
+                        @*<section id="no-more-tables">*@
+
+                        <section id="no-more-tables" class="margin-table-product">
+                            <div class="table-border">
+
+                                <table class="table table-responsive col-md-12">
+                                    <thead>
+                                        <tr class="table-heading-fonts table-main-headings">
+                                            <th>Image</th>
+                                            <th>SKU</th>
+                                            <th>Description</th>
+                                            <th>Current Quantity</th>
+                                            <th class="width-61">Recount Quantity</th>
+                                            <th class="text-center">QTY Difference</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bold tbody-font-style">
+
+                                        @*<tr data-toggle="modal" data-target=".bs-example-modal-lg">*@
+                                        <tr>
+                                            <td data-title="User ID">Image</td>
+                                            <td data-title="User ID">SKU</td>
+                                            <td data-title="First Name">Description</td>
+                                            <td data-title="Last Name">Current Quantity</td>
+                                            <td data-title="Email" class="user-emails text-center"><input type="text" onkeypress='validate(event)' class="width-73" name="stock_qty" id="login"></td>
+                                            <td data-title="Date Registered" class="text-center">QTY Difference</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <div class="clearfix"></div>
+
+
+                            </div>
+
+
+
+                        </section>
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            <div id="sticky-footer-push"></div>
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+</body>

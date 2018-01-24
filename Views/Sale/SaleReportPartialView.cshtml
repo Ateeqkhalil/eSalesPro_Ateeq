@@ -1,0 +1,478 @@
+﻿@model List<eSalesPro.Models.Invoice>
+
+@*<script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>*@
+
+@*<td data-title="User ID">@v.Customer.Customer_Type.Type</td>*@
+
+@{
+    decimal gross_flow = 0;
+    int count = 0;
+    decimal total = 0;
+    decimal cash = 0, card = 0, cheque = 0, bank_transfer = 0, paypal = 0, credit = 0, other = 0;
+}
+<div id="date_click_div">
+
+    <div class="col-md-12">
+        <table border="0" class="table table-responsive border_black" id="table_on_dates">
+            <thead>
+                <tr class="table-heading-fonts table-main-headings">
+                    <th class="text-center">Order Id</th>
+                    <th class="text-center">Customer</th>
+                    @*<th class="text-center">Customer Type</th>*@
+                    <th class="text-center">Payment Type</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Net</th>
+                    <th class="text-center">VAT</th>
+                    <th class="text-center">Gross</th>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="updatedDiv" class="black-color bold">
+
+
+                @foreach (var v in Model)
+                {
+                    if (v != null)
+                    {
+
+                        { count = @v.Sale_Transaction_History.Count; }
+
+                        if (count == 0 && @v.Pay_Method_ID == 1)
+                        {
+                            cash = cash + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 2)
+                        {
+                            card = card + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 3)
+                        {
+                            cheque = cheque + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 4)
+                        {
+                            bank_transfer = bank_transfer + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 5)
+                        {
+                            paypal = paypal + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 6)
+                        {
+                            credit = credit + v.Amount_Paid;
+                        }
+                        else if (count == 0 && @v.Pay_Method_ID == 7)
+                        {
+                            other = other + v.Amount_Paid;
+                        }
+
+                        <tr id=@String.Concat("Partial_tr",@v.Id) class="text-center background_blue_selected_at_hover">
+                            @if (@v.Doc_Type_ID == 1)
+                            {
+                                <td class="vertical_align_middle">@v.Invoice_Number</td>
+                            }
+                            else if (@v.Doc_Type_ID == 2)
+                            {
+                                <td class="vertical_align_middle">@v.Quote_Number</td>
+                            }
+                            else if (@v.Doc_Type_ID == 3)
+                            {
+                                <td class="vertical_align_middle">@v.Item_Sale_Number</td>
+                            }
+                            <td class="vertical_align_middle">@v.Customer.Name</td>
+
+                            @*@if (Model.Count() == null || Model.Count() == 0)
+                                {
+                                    <td>@v.Payment_Methods.Type</td>
+                                    <td width="15%">@v.Payment_Status.Status</td>
+                                    <td>@v.Net_Price</td>
+                                    <td>@v.VAT_20</td>
+                                    <td>@v.Gross</td>
+                                    <td width="10%">@v.Created_at.ToString("dd-MMM-yy")</td>
+                                }*@
+
+                            @*else
+                                {*@
+
+                            @*@if (v.Pay_Method_ID == 1)
+                                {
+                                    {cash = cash + @v.Amount_Paid;}
+                                }*@
+
+                            @*@if (v.Sale_Transaction_History.Count==0)
+                                {
+
+                                    cash = cash + v.Amount_Paid;
+                                }*@
+
+                            <td>
+                                @v.Payment_Methods.Type
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    <br /><span class="sub_tr_values">@sale.Payment_Type</span>
+
+                                    if (sale.Payment_Type == "Cash")
+                                    {
+                                        { cash = cash + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Card")
+                                    {
+                                        { card = card + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Cheque")
+                                    {
+                                        { cheque = cheque + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Bank Transfer")
+                                    {
+                                        { bank_transfer = bank_transfer + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Paypal")
+                                    {
+                                        { paypal = paypal + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Credit")
+                                    {
+                                        { credit = credit + sale.Gross; }
+                                    }
+                                    else if (sale.Payment_Type == "Other")
+                                    {
+                                        { other = other + sale.Gross; }
+                                    }
+                                }
+                            </td>
+
+
+
+                            <td width="15%">
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    { total = total + sale.Gross; }
+                                }
+
+                                @if (total == @v.Gross)
+                                {
+                                    <span>Payment Paid</span>
+                                }
+                                else
+                                {
+                                    @v.Payment_Status.Status
+
+                                }
+
+                                @{ total = 0; }
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    //{ total = total + sale.Gross; }
+
+
+                                    <br /><span class="sub_tr_values">@sale.Status</span>
+                                }
+                                @*@{total=0;}*@
+
+                            </td>
+
+
+
+
+                            <td>
+                                @v.Net_Price
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    <br /><span class="sub_tr_values">@sale.Net_Amount</span>
+                                }
+                            </td>
+
+
+
+
+                            <td>
+                                @v.VAT_20
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    <br /><span class="sub_tr_values">@sale.Vat</span>
+                                }
+                            </td>
+
+
+                            <td>
+                                @v.Gross
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    //{total = total + sale.Gross;}
+                                    <br /><span class="sub_tr_values">@sale.Gross</span>
+
+                                }
+
+
+
+                            </td>
+
+                            <td width="10%">
+                                @v.Created_at.ToString("dd-MMM-yy")
+                                @*@v.date.ToShortDateString()*@
+
+                                @foreach (var sale in v.Sale_Transaction_History)
+                                {
+                                    <br /><span class="sub_tr_values">@sale.Date.ToString("dd-MMM-yy")</span>
+                                    @*<br /><span class="sub_tr_values">@sale.Date.ToShortDateString()</span>*@
+                                }
+                            </td>
+
+                            <td class="text-center width-120" style="vertical-align:middle;">
+
+                                <a class="btn btn-sm btn-info bold" href="~/Sale/Edit_Sale/@v.Id">Edit</a>
+                                <a class="btn btn-sm btn-danger bold" href="#" onclick="Delete_Sale_by_Ajax(@v.Id,2)">Delete</a>
+                            </td>
+
+                        </tr>
+                        //@total
+                        //@cash
+                    }
+
+                }
+
+
+            </tbody>
+        </table>
+
+        <div class="clearfix"></div>
+
+    </div>
+
+
+
+
+
+    <div class="clearfix"></div>
+
+
+    <!---->
+    @*CLASS HIDDEN WILL BE USED*@
+
+    <div class="">
+
+        <div class="col-md-12 mt-15">
+            @*<section id="no-more-tables">*@
+
+            <div class="col-md-1"></div>
+
+            <div id="cash_period_before_refund" class="col-md-5 pull-left">
+
+                @if (cash != 0)
+                {
+
+                    <table id="table_cash_flow" class="black-color border_black">
+                        <tr>
+                            <th class="">Cash flow (before refunds)</th>
+                            <td class=""></td>
+                        </tr>
+
+
+                        <tr>
+                            <th class="">Cash</th>
+                            <td><span>£</span>@cash</td>
+                        </tr>
+                        <tr>
+                            <th class="">Card</th>
+                            <td><span>£</span>@card</td>
+                        </tr>
+                        <tr>
+                            <th class="">Cheque</th>
+                            <td><span>£</span>@cheque</td>
+                        </tr>
+                        <tr>
+                            <th class="">Bank Transfer</th>
+                            <td><span>£</span>@bank_transfer</td>
+                        </tr>
+                        <tr>
+                            <th class="">PayPal</th>
+                            <td><span>£</span>@paypal</td>
+                        </tr>
+                        <tr>
+                            <th class="">Credit</th>
+                            <td><span>£</span>@credit</td>
+                        </tr>
+                        <tr>
+                            <th class="">Other</th>
+                            <td><span>£</span>@other</td>
+                        </tr>
+
+                        @{
+                    gross_flow = cash + card + cheque + bank_transfer + paypal + credit + other;
+                        }
+                        <tr>
+                            <th class="">Gross</th>
+                            <td><span>£</span>@gross_flow</td>
+                        </tr>
+                    </table>
+
+                }
+            </div>
+
+
+
+            <div id="cash_period_after_refund" class="col-md-5 pull-left">
+                @if (cash != 0)
+                {
+                    <table id="table_cash_flow" class="black-color border_black">
+                        <tr>
+                            <th class="">Cash flow (after refunds)</th>
+                            <td class=""></td>
+                        </tr>
+
+
+                        <tr>
+                            <th class="">Cash</th>
+                            <td>£114.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">Card</th>
+                            <td>£100.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">Cheque</th>
+                            <td>£100.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">Bank Transfer</th>
+                            <td>£2000.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">PayPal</th>
+                            <td>£54.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">Credit</th>
+                            <td>£100.00</td>
+                        </tr>
+                        <tr>
+                            <th class="">Other</th>
+                            <td>£54.00</td>
+                        </tr>
+
+
+                        <tr>
+                            <th class="">Gross</th>
+                            <td>£99.00</td>
+                        </tr>
+                    </table>
+                }
+            </div>
+
+
+            <div class="col-md-1"></div>
+
+
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-md-12 mt-15">
+
+
+            <div class="col-md-1"></div>
+
+            <div id="total_before_refunds" class="col-md-5 pull-left">
+
+                <table id="table_cash_flow" class="black-color border_black">
+                    <tr>
+                        <th class="">Total takings this Period</th>
+                        <td class=""></td>
+                    </tr>
+
+
+                    <tr>
+                        <th class="">Invoices</th>
+                        <td>£34.00</td>
+                    </tr>
+                    <tr>
+                        <th class="">Item Sale</th>
+                        <td>£98.00</td>
+                    </tr>
+
+                    <tr>
+                        <th class="">Net</th>
+                        <td>£321.00</td>
+                    </tr>
+                    <tr>
+                        <th class="">VAT</th>
+                        <td>£120.00</td>
+                    </tr>
+                    <tr>
+                        <th class="">Gross</th>
+                        <td>£65.00</td>
+                    </tr>
+
+                    <tr>
+                        <th class="">Due</th>
+                        <td>£10.00</td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+            <div id="total_after_refunds" class="col-md-5 pull-left">
+                <table id="table_cash_flow" class="black-color border_black">
+                    <tr>
+                        <th class="">Refunds this period</th>
+                        <td class=""></td>
+                    </tr>
+
+
+                    <tr>
+                        <th class="">Credit</th>
+                        <td>£934.00</td>
+                    </tr>
+
+                    <tr>
+                        <th class="">Cash</th>
+                        <td>£934.00</td>
+                    </tr>
+
+                    <tr>
+                        <th class="">Gross</th>
+                        <td>£934.00</td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+            <div class="col-md-1"></div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+
+
+
+</div>
+
+<script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+@*<script>
+        $(document).ready(function () {
+            $('#table_on_dates').dataTable();
+        });
+
+        function histories(id) {
+            alert(id);
+        }
+
+    </script>*@
+@*<span>£</span><span></span><span></span><span></span><span></span>*@

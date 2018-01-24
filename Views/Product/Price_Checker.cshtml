@@ -1,0 +1,533 @@
+﻿<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        
+                        <div class="col-md-12">
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                            <div class="pull-left">
+
+                                <h3 class="bold mt-0">
+                                    Price Check
+                                </h3>
+
+
+
+                            </div>
+
+                            <div class="form-group pull-right mb-0 margin_right_6">
+                                <label class="width-120 pull-left mt-5" for="middle-name">Document Type</label>
+                                <div class="pull-left">
+                                    <select id="price_invoice_dropdown" oninput="run_invoice_price(); clear_customer_li();" name="supplier_name" class="select-class-color form-control border_black-1px width-145">
+                                        <option class="option-color" value="1">Invoice</option>
+                                        <option class="option-color" value="2">Quote</option>
+                                        <option class="option-color" value="3">Item Sale</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            
+
+
+                            <div class="form-group pull-right mb-0 margin_right_6">
+                                <label class="width-120 pull-left mt-5" for="middle-name">Customer Type</label>
+                                <div class="pull-left">
+                                    <select id="language" name="supplier_name" class="select-class-color form-control border_black-1px width-145">
+                                        <option class="option-color" value="1">Normal</option>
+                                        <option class="option-color" value="2">Premium</option>
+                                        <option class="option-color" value="3">Trade</option>
+                                        <option class="option-color" value="4">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <hr class="hr_customer" />
+
+
+                        <div id="price_invoice_id">
+                         
+                           
+
+
+
+
+                            <div class="col-md-12">
+
+
+                                <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable">
+                                    <thead>
+                                        <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                            <th class="text-center">Code</th>
+                                            <th class="text-center width-53p">Description</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th width="10%" class="text-center">Price</th>
+                                            <th class="text-center hidecolumn">Price+VAT</th>
+                                            <th width="2%" class="text-center">Total</th>
+                                            <th class="text-center hidecolumn">Total+VAT</th>
+                                            <th class="text-center">Discount</th>
+                                            <th width="25%" class="text-center">Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color">
+
+                                        <tr id="rowId" class="font-15 id remove_div">
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" id="codeforProduct" name="yoyoyoyoyoyoyoy" onkeyup="productList()" type="text"></div></td>
+
+
+
+                                            <td class="border-right-td">
+                                                <textarea class="description-text-area unbold width-100p" id="invoice_description" required="" placeholder="Description"></textarea>
+                                            </td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_quantity" onkeypress="validate(event)" placeholder="0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_price" onkeypress="validate(event)" placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td>
+                                            <td class="border-right-td hidecolumn text-center"><input id="invoice_price_vat" onkeypress="validate(event)" placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td>
+                                            <td class="text-center border-right-td width-68"><div id="invoice_total" onkeypress="validate(event)" class="total_invoice_background">£12345678</div></td>
+                                            <td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat" onkeypress="validate(event)" class="total_invoice_background">£123456789</div></td>
+                                            <td class="border-right-td"><div class="text-center"><input id="invoice_discount" onkeypress="validate(event)" placeholder="0.0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="text-center width-27p" style="vertical-align:middle;">
+                                                <a href="#" class="add_new_row showdiv">
+                                                    <img src="/img/images/plus_new_sale.png">
+                                                </a>
+                                                <a href="#" class="remove">
+                                                    <img src="/img/images/cross_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/barcode_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/findpost.png">
+                                                </a>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+
+                                <div id="addedRows"></div>
+                                <div id="productList">
+                                    <h1></h1>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+                            <div class="">
+                                <div class="col-md-4 pull-right pl-0">
+                                    <table id="table_cash" class="black-color col-md-12 border_black">
+                                        <tr>
+                                            <td class="bold">Sub Total</td>
+                                            <td class="text-right">£123</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold">VAT (20%)</td>
+                                            <td class="text-right">£1</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="bold">Total</td>
+                                            <td class="text-right">£83</td>
+                                        </tr>
+                                        
+
+                                    </table>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                        
+                            
+
+                            <div class="col-md-12">
+
+                                <div class="empty-height"></div><div class="empty-height"></div>
+                                <div class="col-md-4"></div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--31">Copy to New Order</a>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--7">Exit</a>
+                                </div>
+                                <div class="col-md-4"></div>
+
+                            </div>
+                          
+
+                        </div>
+
+            
+                        <div id="price_quote_id" style="display:none">
+
+
+
+                            
+                            
+
+
+                            <div class="col-md-12">
+
+
+                                <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable_quote">
+                                    <thead>
+                                        <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                            <th class="text-center">Code</th>
+                                            <th class="text-center width-53p">Description</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th width="10%" class="text-center">Price</th>
+                                            <th class="text-center hidecolumnQuote">Price+VAT</th>
+                                            <th width="2%" class="text-center">Total</th>
+                                            <th class="text-center hidecolumnQuote">Total+VAT</th>
+                                            <th class="text-center">Discount</th>
+                                            <th width="25%" class="text-center">Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color">
+
+                                    <tbody class="black-color">
+
+                                        <tr id="rowId" class="font-15 remove_div_quote">
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" name="" type="text"></div></td>
+                                            <td class="border-right-td">
+                                                <textarea class="description-text-area unbold width-100p" required="" placeholder="Description"></textarea>
+                                            </td>
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0" class="unbold width-45" name="" type="text"></div></td>
+
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td>
+                                            <td class="border-right-td hidecolumnQuote text-center"><input placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td>
+
+                                            <td class="text-center border-right-td width-68"><div id="quote_total" class="6 total_invoice_background">£0</div></td>
+                                            <td class="border-right-td text-center width-78 hidecolumnQuote"><div id="quote_total_vat" class="7 total_invoice_background">£0</div></td>
+
+
+
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="text-center width-25p" style="vertical-align:middle;">
+                                                <a href="#" class="add_new_row_quote showdiv">
+                                                    <img src="/img/images/plus_new_sale.png">
+                                                </a>
+                                                <a href="#" class="remove_quote">
+                                                    <img src="/img/images/cross_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/barcode_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/findpost.png">
+                                                </a>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+
+                                </table>
+
+
+                                <div id="addedRowsQuote"></div>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+                            <div class="">
+                                <div class="col-md-4 pull-right pl-0">
+                                    <table id="table_cash" class="black-color col-md-12 border_black">
+                                        <tr>
+                                            <td class="bold">Sub Total</td>
+                                            <td class="text-right">£123</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold">VAT (20%)</td>
+                                            <td class="text-right">£1</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="bold">Total</td>
+                                            <td class="text-right">£83</td>
+                                        </tr>
+
+
+                                    </table>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+
+
+
+                            <div class="col-md-12">
+
+                                <div class="empty-height"></div><div class="empty-height"></div>
+                                <div class="col-md-4"></div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--31">Copy to New Order</a>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--7">Exit</a>
+                                </div>
+                                <div class="col-md-4"></div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="price_item_sale_id" style="display:none">
+
+                            <div class="col-md-12">
+
+
+                                <table border="0" class="table table-responsive border_black" style="width:100%" id="maintable_item_sale">
+                                    <thead>
+                                        <tr class="table-heading-fonts-new-invoice table-main-headings">
+                                            <th class="text-center">Code</th>
+                                            <th class="text-center width-53p">Description</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th width="10%" class="text-center">Price</th>
+                                            <th width="2%" class="text-center">Total</th>
+                                            <th class="text-center">Discount</th>
+                                            <th width="25%" class="text-center">Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="black-color">
+
+                                        <tr id="rowId" class="font-15 remove_div_item_sale">
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" name="" type="text"></div></td>
+                                            <td class="border-right-td">
+                                                <textarea class="description-text-area unbold width-100p" required="" placeholder="Description"></textarea>
+                                            </td>
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td>
+
+                                            <td class="text-center border-right-td width-68"><div class="total_invoice_background">£0</div></td>
+
+                                            <td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="unbold width-45" name="" type="text"></div></td>
+                                            <td class="text-center width-25p" style="vertical-align:middle;">
+
+                                                <a href="#" class="add_new_row_item_sale showdiv">
+                                                    <img src="/img/images/plus_new_sale.png">
+                                                </a>
+                                                <a href="#" class="remove_item_sale">
+                                                    <img src="/img/images/cross_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/barcode_new_sale.png">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="/img/images/findpost.png">
+                                                </a>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+
+                                <div id="addedRowsItemSale"></div>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+                            <div class="">
+                                <div class="col-md-4 pull-right pl-0">
+                                    <table id="table_cash" class="black-color col-md-12 border_black">
+                                        <tr>
+                                            <td class="bold">Total</td>
+                                            <td class="text-right">£123</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+
+
+
+                            <div class="col-md-12">
+
+                                <div class="empty-height"></div><div class="empty-height"></div>
+                                <div class="col-md-4"></div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--31">Copy to New Order</a>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <a href="" class="btn btn-primary blue-btn-style btn-mini bold width-160 ml--7">Exit</a>
+                                </div>
+                                <div class="col-md-4"></div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+
+    @*----------------------INVOICE ADD ROW-----------------------*@
+    <script>
+        $('.add_new_row').click(function () {
+            //$('#maintable tr:last').after('<tr id="rowId" class="font-15 remove_div"><td class="border-right-td"><div class="text-center"><input class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required=""></textarea></td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumn text-center"><input class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68">£12345678</td><td class="border-right-td text-center width-78 hidecolumn">£123456789</td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif" onclick="removeRow()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+            $('#maintable tr:last').after('<tr id="rowId" class="font-15    remove_div"><td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" id="codeforProduct" name="yoyoyoyoyoyoyoy" onkeyup="productList()" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" id="invoice_description" required="" placeholder="Description"></textarea></td><td class="border-right-td"><div class="text-center"><input id="invoice_quantity" placeholder="0" class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input id="invoice_price" placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumn text-center"><input id="invoice_price_vat" placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68"><div id="invoice_total" class="total_invoice_background">£0</div></td><td class="border-right-td text-center width-78 hidecolumn"><div id="invoice_total_vat" class="total_invoice_background">£123456789</div></td><td class="border-right-td"><div class="text-center"><input id="invoice_discount" placeholder="0.0" class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif" onclick="removeRow()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+        });
+
+        //function removeRow()
+
+        $(document).on('click', '.kashif', function removeRow() {
+
+            $(this).closest(".remove_div").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeRow(){
+            //    $(this).closest(".remove_div").remove();
+            //}
+
+        });
+    </script>
+    @*----------------------INVOICE ADD ROW-----------------------*@
+
+
+
+    @*----------------------QUOTE ADD ROW-----------------------*@
+    <script>
+        $('.add_new_row_quote').click(function () {
+            //$('#maintable_quote tr:last').after('<tr id="rowId" class="font-15 remove_div_quote"><td class="border-right-td"><div class="text-center"><input class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required=""></textarea></td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumnQuote text-center"><input class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68">£12345678</td><td class="border-right-td text-center width-78 hidecolumnQuote">£123456789</td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif_quote" onclick="removeRowQuote()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+            $('#maintable_quote tr:last').after('<tr id="rowId" class="font-15 remove_div_quote"><td class="border-right-td"><div class="text-center"><input placeholder="Code"  class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required="" placeholder="Description"></textarea></td><td class="border-right-td"><div class="text-center"><input placeholder="0" class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="border-right-td hidecolumnQuote text-center"><input placeholder="0.0" class="new-invoice-width-boxes unbold width-78" name="" type="text"></td><td class="text-center border-right-td width-68"><div id="quote_total" class="total_invoice_background">£0</div></td><td class="border-right-td text-center width-78 hidecolumnQuote"><div id="quote_total_vat" class="total_invoice_background">£0</div></td><td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif_quote" onclick="removeRowQuote()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+        });
+
+        //function removeRowQuote()
+
+        $(document).on('click', '.kashif_quote', function removeRowQuote() {
+
+            $(this).closest(".remove_div_quote").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeRowQuote(){
+            //    $(this).closest(".remove_div_quote").remove();
+            //}
+
+        });
+    </script>
+
+    @*----------------------QUOTE ADD ROW-----------------------*@
+
+
+    @*----------------------ITEM SALE ADD ROW-----------------------*@
+
+    <script>
+        $('.add_new_row_item_sale').click(function () {
+            //$('#maintable_item_sale tr:last').after('<tr id="rowId" class="font-15 remove_div_item_sale"><td class="border-right-td"><div class="text-center"><input class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required=""></textarea></td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="text-center border-right-td width-68">£12345678</td><td class="border-right-td"><div class="text-center"><input class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif_item_sale" onclick="removeRowItemSale()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+            $('#maintable_item_sale tr:last').after('<tr id="rowId" class="font-15 remove_div_item_sale"><td class="border-right-td"><div class="text-center"><input placeholder="Code" class="unbold width-110" name="" type="text"></div></td><td class="border-right-td"><textarea class="description-text-area unbold width-100p" required="" placeholder="Description"></textarea></td><td class="border-right-td"><div class="text-center"><input placeholder="0" class="unbold width-45" name="" type="text"></div></td><td class="border-right-td"><div class="text-center"><input  placeholder="0.0" class="new-invoice-width-boxes unbold width-68" name="" type="text"></div></td><td class="text-center border-right-td width-68"><div class="total_invoice_background">£0</div></td><td class="border-right-td"><div class="text-center"><input placeholder="0.0" class="unbold width-45" name="" type="text"></div></td><td class="text-center width-25p" style="vertical-align:middle;"><a href="#" class="add_new_row showdiv"><img src="/img/images/plus_new_sale.png"></a><a href="#" class="kashif_item_sale" onclick="removeRowItemSale()"><img src="/img/images/cross_new_sale.png" style="margin-left:3px;"></a><a href="#"><img src="/img/images/barcode_new_sale.png" style="margin-left:4px;"></a><a href="#"><img src="/img/images/findpost.png" style="margin-left:4px"></a></td></tr>');
+        });
+
+        //function removeRowItemSale()
+
+        $(document).on('click', '.kashif_item_sale', function removeRowItemSale() {
+
+            $(this).closest(".remove_div_item_sale").remove();
+
+            //$(this).parent('div').remove();
+
+
+            //function removeRowQuote(){
+            //    $(this).closest(".remove_div_item_sale").remove();
+            //}
+
+        });
+    </script>
+
+    @*----------------------ITEM SALE ADD ROW-----------------------*@
+
+
+
+
+
+
+
+
+  
+
+    <script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>
+
+     <script>
+        $(document).ready(function () {
+            ALERT("SAJKDHSAJKHD");
+            $('#maintable').dataTable();
+        });
+    </script>
+
+  
+
+</body>

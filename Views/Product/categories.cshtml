@@ -1,0 +1,11 @@
+﻿@model  List<eSalesPro.Models.Product_Categories>
+
+
+        <select id="updated_Category" name="categooory_name" required class="form-control width-360">
+
+            <option value="">Please select any </option>
+            @foreach (var name in Model)
+            {
+                <option value="name.Id">@name.Type </option>
+            }
+        </select>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<eSalesPro.Models.Customer>
+@{
+    decimal? total = 0;
+}
+
+<table border="0" class="table table-responsive border_black hide_credit_sales_report show" id="table_on_dates">
+    <thead>
+        <tr class="table-heading-fonts table-main-headings">
+            <th width="15%" class="text-center">Type</th>
+            <th width="17%" class="text-center">Customer</th>
+            <th width="17%" class="text-center">Phone No</th>
+            <th width="17%" class="text-center">Email</th>
+            <th width="17%" class="text-center">Credit Limit</th>
+            <th width="17%" class="text-center">Outstanding Balance</th>
+
+        </tr>
+
+
+
+    </thead>
+    <tbody class="black-color bold text-center" id="updatedDiv">
+
+
+        @foreach (var obj in Model)
+        {
+
+            if (obj.Balance != 0)
+            {
+
+
+                <tr ondblclick="customer_summary_list(@obj.Id,@obj.Customer_Type_Id)">
+                    <td data-title="User ID">@obj.Customer_Type.Type</td>
+                    <td data-title="User ID">@obj.Name</td>
+                    <td data-title="User ID">@obj.phone</td>
+                    <td data-title="User ID">@obj.Email</td>
+                    <td class="text-center" data-title="User ID">£ @obj.Credit_Limit_Old</td>
+                    <td class="text-center" data-title="User ID">£ @obj.Balance</td>
+
+                </tr>
+
+            }
+            total = total + obj.Balance;
+
+
+
+        }
+
+
+    </tbody>
+
+    <tfoot>
+
+        @if (total != 0)
+        {
+            <tr class="red" style="background-color:#e6e6e6 !important">
+                <td data-title="User ID"></td>
+                <td data-title="User ID"></td>
+                <td data-title="User ID"></td>
+                <td data-title="User ID"></td>
+                <td class="text-center font-20" data-title="User ID">Total</td>
+                <td class="text-center font-20" data-title="User ID">£ @total</td>
+
+            </tr>
+        }
+    </tfoot>
+
+
+</table>

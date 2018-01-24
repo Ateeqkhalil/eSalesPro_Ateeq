@@ -1,0 +1,74 @@
+﻿@model List<eSalesPro.Models.Product>
+
+@{
+    int count = @ViewBag.ID;
+}
+
+
+
+
+<div>
+
+    <table border="0" class="table table-responsive border_black" id="partial_table_add">
+
+        <thead>
+            <tr class="table-heading-fonts table-main-headings">
+                <th class="text-center">Image</th>
+                <th class="text-center">Custom Label</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Normal</th>
+                <th class="text-center">Premium</th>
+                <th class="text-center">Trade</th>
+                <th class="text-center">Others</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var v in Model)
+        {
+            <tbody class="black-color">
+
+
+                <tr id="rowId" class="font-15" onclick="tbody_add_record(@v.Id,@ViewBag.Serial)">
+
+                    @if (v.Image != null)
+                    {
+                        {
+                            var base64 = Convert.ToBase64String(v.Image);
+                            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+
+                            <td class="border-right-td text-center">
+                                @*<img src="@imgsrc" class="img-circle max_width_45_height_40"/>*@
+                                <img src="@imgsrc" class="img-circle max_width_50" style="border:2px solid dimgray"/>
+                            </td>
+                        }
+                    }
+
+
+                    else
+                    {
+                        <td class="border-right-td text-center">
+                            <img class="img-circle max_width_50" src="~/img/images/new_img.png" />
+                        </td>
+                    }
+
+                    <td id="@String.Concat("partial_row1", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Custom_Label_</td>
+                    <td id="@String.Concat("partial_row2", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Item_Title</td>
+                    <td id="@String.Concat("partial_row3", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Price_Normal</td>
+                    <td id="@String.Concat("partial_row4", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Price_Premium</td>
+                    <td id="@String.Concat("partial_row5", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Price_Trade</td>
+                    <td id="@String.Concat("partial_row6", v.Id)" class="border-right-td text-center vertical_align_middle">@v.Price_Others</td>
+
+                    <td id="partial_normal_vat" hidden class="border-right-td text-center">@v.Normal_VAT</td>
+                    <td id="partial_quantity" hidden>@v.Quantity.Quantity1</td>
+
+                </tr>
+
+            </tbody>
+        }
+    </table>
+
+
+
+</div>

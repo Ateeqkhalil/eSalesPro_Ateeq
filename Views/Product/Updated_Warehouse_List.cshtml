@@ -1,0 +1,36 @@
+﻿@model List<eSalesPro.Models.Warehouse>
+
+
+@foreach (var v in Model)
+{
+    <tr>
+        <td data-title="User ID">@v.Name</td>
+        <td data-title="User ID">@v.shelf_number</td>
+        <td data-title="User ID">@v.Address</td>
+
+        @if (@v.Is_active == 1)
+        {
+            <td class="gg">Active</td>
+        }
+        else
+        {
+            <td class="red">Deactive</td>
+        }
+
+
+        <td data-title="Actions" class="text-center buttons-block">
+            <a class="btn btn-sm btn-info bold" data-toggle="modal" data-target="#edit_warehouse" onclick="GetWarehouse(@v.Id)">
+                Edit
+            </a>
+            @*<a class="btn btn-sm btn-success bold" href="">
+                    Enable
+                </a>*@
+            <a class="btn btn-sm btn-danger bold" onclick="delete_warehouse(@v.Id)">
+                Delete
+            </a>
+        </td>
+
+
+    </tr>
+
+}

@@ -1,0 +1,80 @@
+﻿@model List<eSalesPro.Models.Purchase_Order>
+
+
+
+
+<table border="0" class="table table-responsive border_black" id="table_on_dates">
+    <thead>
+        <tr class="table-heading-fonts table-main-headings">
+            <th class="text-center">PO ID</th>
+            <th class="text-center">Supplier Name</th>
+            <th class="text-center">Ordered + Vat</th>
+            <th class="text-center">Received + Vat</th>
+            <th class="text-center" style="width: 95px;">Date</th>
+            <th class="text-center">Pay Method</th>
+            <th class="text-center">Pay Status</th>
+            <th class="text-center">PO Status</th>
+            <th class="text-center">Actions</th>
+
+
+        </tr>
+    </thead>
+    <tbody class="black-color bold" id="">
+
+
+
+
+
+        @foreach (var v in Model)
+        {
+
+            if (v == null)
+            {
+                continue;
+            }
+
+             //onclick="location.href = '@(Url.Action("Edit_Purchase_Order", "Purchase", new { id = v.Id }))'"
+             @*<tr onclick="foo(@v.Id)">*@
+            
+            <tr>
+            @*<tr onclick="foo(@v.Id)">*@
+                <td class="text-center" style="width:67px" data-title="User ID">@v.Purchase_Number</td>
+                <td class="text-center" data-title="User ID">@v.Supplier.Name</td>
+                <td class="text-center" data-title="User ID">@v.Total</td>
+                <td class="text-center" data-title="User ID">@v.Received_Total</td>
+                <td class="text-center" data-title="User ID">@v.Created_at.ToString("dd/MM/yyyy")</td>
+                <td class="text-center" data-title="User ID">@v.Payment_Methods.Type</td>
+                <td class="text-center" data-title="User ID">@v.Payment_Status.Status</td>
+                <td class="text-center" data-title="User ID">@v.Purchase_Order_Status.Status_Type</td>
+
+                <td class="text-center width-160" style="vertical-align:middle;">
+                    <a class="btn btn-sm btn-primary bold" href="~/Purchase/View_Purchase_Order/@v.Id">View</a>
+                    <a class="btn btn-sm btn-success bold" href="~/Purchase/Edit_Purchase_Order/@v.Id">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-sm btn-danger bold" href="~/Purchase/Delete_Purchase_Order/@v.Id">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+
+
+
+        }
+
+
+
+
+    </tbody>
+
+</table>
+
+
+@*<script>
+    function foo(id) {
+        alert("ONE");
+        window.location.href = '~/Purchase/Edit_Purchase_Order/' + id;
+    }
+</script>*@

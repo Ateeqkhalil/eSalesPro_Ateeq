@@ -1,0 +1,65 @@
+﻿@model eSalesPro.Models.Sale
+
+
+
+<div id="soldHistory" class="win text-center" onloadstart="vat()">
+    <h3 class="color"><b>Previous Price Offered</b></h3>
+
+    <div class="empty-height"></div><div class="empty-height"></div>
+
+
+    <form id="" action="" method="post" data-parsley-validate class="" enctype="multipart/form-data">
+
+
+
+
+        <div class="empty-height"></div>
+
+        <div class="col-md-12">
+            <table class="table table-responsive border_black" id="customer_list_table">
+                <thead>
+                    <tr class="table-heading-fonts table-main-headings">
+                        <th class="text-center"></th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">VAT</th>
+                        <th class="text-center">Price+VAT</th>
+                        <th class="text-center">Date</th>
+                    </tr>
+                </thead>
+
+                <tbody class="black-color bold text-center" id="updated_customer_list">
+
+
+                    <tr>
+                        <td data-title="User ID">@ViewBag.InvoiceNumber</td>
+                        <td data-title="User ID">@Model.Price</td>
+                        <td>@Model.Price</td>
+                        <td data-title="Last Name">@Model.PriceVAT</td>
+                        <td data-title="Email" class="user-emails">@Model.Created_at.ToString("dd/M/yyyy")</td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="col-md-3"></div>
+
+            @*<div class="col-md-3">
+                <input type="submit" value="Yes" class="btn btn-success btn-mini center-block width-123" />
+            </div>
+
+            <div class="col-md-3">
+                <a class="btn btn-primary btn-mini width-123 center-block a-cancel height-40 mt-0" data-dismiss="modal">No</a>
+            </div>*@
+            <div class="col-md-3"></div>
+
+
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,352 @@
+﻿@model List<eSalesPro.Models.Invoice>
+<body id="body-index">
+    <div id="sticky-footer-wrap">
+
+        @{
+            //decimal total = 0;
+        }
+        @*-----------------Top Navigation Start---------------*@
+
+        @{
+            Html.RenderPartial("Top_Navigation_View");
+        }
+
+        @*-----------------Top Navigation End---------------*@
+
+        <div class="container-fluid main-container">
+
+            @*-----------------Side Navigation Start---------------*@
+            <div class="row">
+                @{
+                    Html.RenderPartial("Side_Navigation_View");
+                }
+                @*-----------------Side Navigation End---------------*@
+
+
+
+                @*-----------------Main Container Start---------------*@
+                <div class="user-page-height">
+                    <div class="bggg-img">
+                        <div>
+
+                            <div class="col-md-12">
+
+                                <div id="loader_div" class="">
+                                    <img src="~/img/loading.gif" class="ajax_loader">
+                                </div>
+
+
+                                <input hidden type="text" value="-2" id="customer_list_edit_modal_value" />
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-md-3 pl-0 pr-0">
+                                    <h3 class="bold font-23">Report Manager<small></small></h3>
+                                </div>
+                                <div class="pull-right mt-10">
+
+                                    <div class="pull-left">
+                                        <input  type="text" onkeyup='findByUser();' class="width_78_height text-center mr-7" placeholder="User..." name="stock_qty" id="User_ID">
+                                    </div>
+
+                                    <div class="pull-left">
+                                        <input type="text" @*onkeypress='validate(event)'*@ onkeypress="findBySerial(event)" class="width_78_height text-center mr-7" placeholder="Serial no..." name="stock_qty" id="serial_number_id">
+                                    </div>
+
+                                    <div class="pull-left">
+                                        <input type="text" onkeyup='findByInvoice(this.value)' class="width_78_height text-center mr-7" placeholder="Sales no..." name="stock_qty" id="invoice_ID">
+                                    </div>
+                                    <div class="pull-left">
+                                        <select class="width_78_height text-center mr-7" id="docType" onchange="findByDocType(this.value)">
+                                            
+                                            <option>Please Select Any</option>
+                                            
+                                            <option value="-1">All Types</option>
+                                            @foreach (var type in ViewBag.docTypes)
+                                            {
+                                                <option value="@type.Id">@type.Type</option>
+                                            }
+
+                                        </select>
+                                      
+                                    </div>
+
+                                    <div class="pull-left">
+                                        <select class="width_78_height text-center mr-7" id="payType" onchange="findByPayType(this.value)">
+                                            
+                                            <option>Please Select Any</option>
+                                            <option value="-1">All Payment Types</option>
+                                            @foreach (var type in ViewBag.payTypes)
+                                            {
+                                                <option value="@type.Id">@type.Status</option>
+                                            }
+
+                                        </select>
+
+                                    </div>
+                                    
+                                    <div class="pull-left">
+                                        <label class="black-color mr-3 mt-5">From :</label>
+                                    </div>
+                                    <div class="pull-left">
+                                        <input required type="date" id="from_date" oninput="showToDate()" class="date-width-height mr-3" name="from_date">
+                                    </div>
+                                    <div class="pull-left">
+                                        <label class="black-color mr-3 mt-5">To :</label>
+                                    </div>
+                                    <div class="pull-left">
+                                        <input required type="date" disabled id="to_date" oninput="showDateDiv();findByDate()" class="date-width-height" name="to_date">
+                                    </div>
+
+                                    @*<div class="pull-left">
+                                        <a href="#" data-toggle="modal" data-target="#ExistingModal" onclick="show_customer_summary()" class="btn btn-primary height-34 blue-btn-style btn-mini bold pull-right">Search</a>
+                                    </div>*@
+
+
+
+
+
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="empty-height"></div><div class="empty-height"></div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-3 pull-left pl-0">
+                                <a href="~/User/Epos" class="btn btn-primary blue-btn-style btn-mini bold">Back to EPOS Main Panel</a>
+                            </div>
+
+                            <div class="col-md-5"></div>
+
+                            <div class="col-md-2 pull-right pr-0">
+                                <a href="#" data-toggle="modal" data-target="#ExistingModal" onclick="show_customer_summary()" class="btn btn-primary width-170 blue-btn-style btn-mini bold pull-right">Customer Summary</a>
+                            </div>
+
+                            <div class="col-md-2 pull-right">
+                                <a href="~/Sale/List_Draft" class="btn btn-primary blue-btn-style btn-mini bold width-150 pull-right">Draft List</a>
+                            </div>
+
+                            <input hidden type="text" id="customer_id" name="customer_id" />
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div><div class="empty-height"></div>
+
+                        <div class="clearfix"></div>
+
+                        @*<a href="~/Sale/List_Draft">DRAFT LIST</a>*@
+
+                        <div id="customer_summary_loading_hide">
+
+                            @{
+                                Html.RenderPartial("Customer_Summary");
+                            }
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        
+
+
+                        
+
+                        <input type="text" id="id_of_invoice" hidden/>
+
+
+
+
+
+
+
+
+
+                        <div id="date_click_div" style="display:none"></div>
+
+
+                    </div>
+                </div>
+                @*-----------------Main Container Ends---------------*@
+            </div>
+
+
+            @*<div id="sticky-footer-push"></div>*@
+        </div>
+    </div>
+
+    <footer class="black">
+
+        @{
+            Html.RenderPartial("Footer_View");
+        }
+    </footer>
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+
+    @{
+        Html.RenderPartial("Session_Logout_Modal/Logout_Modal");
+    }
+
+    @*----------------------------POP UP END SessionManagement--------------------------------*@
+   
+
+    <script src="~/scripts/customer_summary/customer_summary.js"></script>
+    <script src="~/scripts/report/sale_report.js"></script>
+    <script src="~/Scripts/Customer/Edit_Customers.js"></script>
+    <script src="~/Scripts/Postcode_Customer/Edit_Customer_Postcode.js"></script>
+    @*<script src="~/Scripts/new-js/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/new-js/jquery.datatables.min.js"></script>*@
+
+
+    <script>
+        //function abc() {
+        //    var invoice_gross = $("#invoice_gross_value").val();
+        //    var partially_gross = $("#invoice_gross_partial_value").val();
+        //    alert("invoice_gross"+invoice_gross);
+        //    alert("partially_gross" + partially_gross);
+        //    if (invoice_gross <= partially_gross) {
+        //        alert("EQUAL");
+        //        $("#payment_paid_status").val("Payment Fully Paid");
+        //    }
+        //}
+
+        function print_Btn_click(id) {
+            //alert(id);
+            $("#id_of_invoice").val(id);
+            //$("#Serial_Number_Modal").addClass("in").show("slow");
+        }
+
+
+   
+
+
+        function myDate() {
+            var date = new Date(document.getElementById("to_date")).toDateString("yyyy-MM-dd");
+        }
+
+
+        function Today_Yesterday_Report() {
+            //alert("adsadsadasdadaddasfas");
+
+            var idd = 3;
+
+            $("#loader_div").show();
+            $("#customer_summary").hide();
+            $("#date_click_div").hide();
+
+            //alert("dsfdsdfvdfgdfgdfsgdfhbgefagdsgrgfsgsdggbwdgdsagfgfgdfg");
+            //var to = document.getElementById('to_date').value;
+            //var from = document.getElementById('from_date').value;
+            $.ajax({
+
+                url: '/Report/SaleReportOnLoad/',
+                data: { id : idd },
+                type: 'Get',
+                cache: false,
+                success: function (data) {
+                    //alert("SUCCESS" + data);
+                    $("#date_click_div").show();
+                    document.getElementById('updatedDiv').innerHTML = data;
+                    $("#loader_div").hide();
+                    $('#table_on_dates').dataTable();
+                },
+                error: function (response) {
+                    alert("ERROR");
+                }
+
+            })
+
+        }
+
+        function GetSales(ID) {
+            //alert("DASD");
+            $("#PleaseWait").addClass('showDiv');
+
+            $.ajax({
+
+                url: "/Customer/Edit_Invoice/",
+                data: { id: ID },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+                    //alert("Kjjkh");
+                    document.getElementById("edit_invoice").innerHTML = data;
+                    $("#PleaseWait").removeClass('showDiv');
+                    $("#PleaseWait").addClass('hideDiv');
+                },
+                error: function (response) {
+                    alert("Error" + response);
+                }
+
+            })
+        }
+
+       
+
+        function PrintBtn() {
+            $("#crud_btn_hide").addClass("none");
+            $("#side_navi_hide").addClass("none");
+
+            window.print();
+        }
+
+      
+
+    </script>
+
+
+    
+    <script>
+        function submit_print() {
+            //alert("asasdadadadasdasdsadasdadasd");
+            //var document = document.getElementById("print_doc_check").checked;
+            //var picking = document.getElementById("print_picking_check").checked;
+            //var delivery = document.getElementById("print_delivery_check").checked;
+
+            var docs = 0;
+            var picking =0;
+            var delivery =0;
+
+            if (document.getElementById("print_doc_check").checked) {
+                docs = 1;
+            }
+            if (document.getElementById("print_picking_check").checked) {
+                picking = 1;
+            }
+            if (document.getElementById("print_delivery_check").checked) {
+                delivery = 1;
+            }
+            
+              
+            $.ajax({
+                url: url,
+                data: { ch: char, counte: Count, SR: serialnumber, flag: flag_value },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+
+                    document.getElementById('productList').innerHTML = data;
+                },
+                error: function (response) {
+                    alert("ERROR");
+                }
+            })
+            
+            
+            
+            alert("document " + docs + "  picking  " + picking + "   delivery   " + delivery);
+
+        }
+    </script>
+
+</body>

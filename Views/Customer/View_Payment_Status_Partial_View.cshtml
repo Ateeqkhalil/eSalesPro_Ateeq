@@ -1,0 +1,122 @@
+﻿@model List<eSalesPro.Models.Invoice>
+<div class="col-md-12 black-color" id="updated_div">
+    <div class="col-md-12">
+        <h3 class="bold">Payment History</h3>
+        @{
+            decimal total = 0, balance = 0, total_of_nested_loop = 0, unsettled_payment = 0, total_without_nested = 0, counter = 0, refunded = 0;
+        }
+        @foreach (var invoice in Model)
+        {
+            <div class="ml-15">
+                @if (invoice.Doc_Type_ID == 1)
+                {
+                    <p class="margin-0"><b>@invoice.Invoice_Number;</b> Total: £@invoice.Gross</p>
+                }
+
+                else if (invoice.Doc_Type_ID == 3)
+                {
+                    <p class="margin-0"><b>@invoice.Item_Sale_Number;</b> Total: £@invoice.Gross</p>
+                }
+                @foreach (var history in invoice.Sale_Transaction_History)
+                {
+                    {
+                        counter++;
+                    }
+                    <ul style="list-style:none; padding:0;margin:0">
+                        <li>Paid in £@history.Gross on @history.Created_at.ToShortDateString()</li>
+                        @{
+                    total = total + history.Gross;
+                        }
+                        @*<li>Paid in £4 on 10-05-17</li>*@
+                    </ul>
+                }
+
+
+
+                @{
+            balance = invoice.Gross - total;
+                }
+
+                @if (invoice.Pay_Status_ID != 1 && balance != 0)
+                {
+                    <p class="bold">Not Paid <span class="unbold red">£@balance</span></p>
+                    { unsettled_payment = unsettled_payment + balance; }
+                }
+                else
+                {
+                    <p>Fully Paid</p>
+                    if (counter == 0)
+                    {
+                        total_without_nested = total_without_nested + invoice.Gross;
+                    }
+                }
+                @*<p>Fully Paid <em>£2 Overpay</em></p>*@
+            </div>
+                {
+                    total_of_nested_loop = total + total_of_nested_loop;
+
+                    total = 0;
+                    balance = 0;
+                    counter = 0;
+                }
+        }
+
+
+    </div>
+    @{
+        decimal invoices_total = 0;
+        decimal total_paid = total_without_nested + total_of_nested_loop;
+        decimal total_credit_balance = @ViewBag.customer_opening_balance + refunded;
+        decimal available_credit_balance = total_credit_balance - unsettled_payment;
+        decimal owned = unsettled_payment - total_credit_balance;
+
+    }
+    <div class="col-md-12">
+        <h3 class="bold">Invoice History</h3>
+        <div class="col-md-6">
+            @foreach (var invoice in Model)
+            {
+                if (invoice.Doc_Type_ID == 1)
+                {
+                    <p class="margin-0">Date: @invoice.Created_at.ToShortDateString() Order-ID: @invoice.Invoice_Number  Total: £@invoice.Gross</p>
+                }
+                else if (invoice.Doc_Type_ID == 3)
+                {
+                    <p class="margin-0">Date: @invoice.Created_at.ToShortDateString() Order-ID: @invoice.Item_Sale_Number  Total: £@invoice.Gross</p>
+                }
+                {
+                    invoices_total = invoices_total + invoice.Gross;
+                }
+            }
+
+            @*<b>Invoice-31</b>; Total: £31<br>Paid in  £31 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-32</b>; Total: £74<br>Paid in  £74 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-33</b>; Total: £54<br>Paid in £1 on 12-05-17<br>Paid in £20 on 25-05-17<br>Paid in £33 on 25-05-17<br>Fully Paid <br>&nbsp;<br><b>Invoice-3555</b>; Total: £105<br>Paid in £5 on 25-05-17<br>Paid in £2 on 25-05-17<br>Paid in £100 on 25-05-17<br>Fully Paid <font color="green">£2 Overpay</font><br>&nbsp;<br>*@
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <h3 class="bold">Debts / Money Owed</h3>
+
+        <div class="col-md-6">
+            @*<b>Invoice-31</b>; Total: £31<br>Paid in  £31 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-32</b>; Total: £74<br>Paid in  £74 on 10-05-17<br>Fully Paid<br>&nbsp;<br><b>Invoice-33</b>; Total: £54<br>Paid in £1 on 12-05-17<br>Paid in £20 on 25-05-17<br>Paid in £33 on 25-05-17<br>Fully Paid <br>&nbsp;<br><b>Invoice-3555</b>; Total: £105<br>Paid in £5 on 25-05-17<br>Paid in £2 on 25-05-17<br>Paid in £100 on 25-05-17<br>Fully Paid <font color="green">£2 Overpay</font><br>&nbsp;<br>*@
+            <p class="margin-0">Previous Credit Balance : £@ViewBag.customer_opening_balance</p>
+            <p class="margin-0">Total invoiced: £@invoices_total</p>
+            <p class="margin-0">Total paid: £@total_paid</p>
+            <p class="margin-0">Unsettled payment: £@unsettled_payment</p>
+            <p class="margin-0">Total Credit Balance: £@total_credit_balance</p>
+
+            @if (unsettled_payment < total_credit_balance)
+            {
+                <p class="margin-0">Available Credit Balance: £@available_credit_balance</p>
+            }
+            else
+            {
+                <p class="margin-0">Owed: £@owned</p>
+            }
+
+
+
+        </div>
+    </div>
+</div>

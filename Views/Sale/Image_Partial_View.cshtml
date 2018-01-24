@@ -1,0 +1,18 @@
+﻿@model eSalesPro.Models.Product
+
+<div id="updated_div" class="win text-center">
+    @*<input value="@Model.Custom_Label_" />*@
+    @if (Model.Image != null)
+    {
+
+        var base64 = Convert.ToBase64String(Model.Image);
+        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+        <img src="@imgsrc" id="" style="width:550px;height:450px">
+    }
+    else
+    {
+        <img class="" src="~/img/images/new_img.png" style="width:550px;height:450px" />
+    }
+
+</div>

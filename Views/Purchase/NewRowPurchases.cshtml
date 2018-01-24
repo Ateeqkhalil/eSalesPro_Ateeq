@@ -1,0 +1,51 @@
+﻿@{
+    int counter = ViewBag.count;
+}
+
+
+
+<tr id="@String.Concat("rowId"+counter)" class="font-15 id remove_div">
+    <td class="border-right-td"><div class="text-center"><input placeholder="Code" style="max-width:90px" class="yoyo unbold text-center" id="@String.Concat("codeforProduct",counter)" name="@String.Concat("yoyoyoyoyoyoyoy", counter)" onkeyup="productList(event,this.value,@ViewBag.serialNumber);Total(counter)" type="text"></div></td>
+
+    <td class="border-right-td"><div class="text-center"><input id="@String.Concat("supplier_code", counter)" name="@String.Concat("supplier_code", counter)" placeholder="Supplier" class="new-invoice-width-boxes unbold width-68 text-center" type="text"></div></td>
+
+    <td class="border-right-td">
+        <textarea class="2 description-text-area unbold width-100p text-center" id="@String.Concat("invoice_description",counter)" name="@String.Concat("invoice_description",counter)"  placeholder="Description"></textarea>
+    </td>
+    <td class="border-right-td"><div class="text-center"><input onkeypress="validate(event);" id="@String.Concat("invoice_quantity",counter)" name="@String.Concat("invoice_quantity",counter)" onkeyup="Total(@counter);checkQuantityAvailable(this.value,@counter);" placeholder="0" class="3 unbold width-45 text-center" type="text"></div></td>
+    <td class="border-right-td received_div" style="display:none"><div class="text-center"><input onkeypress="validate(event)" id="@String.Concat("invoice_receieved_quantity", counter)" onkeyup="TotalReceived1(@counter);" placeholder="0" class="3 unbold width-65 text-center" name="@String.Concat("invoice_receieved_quantity", counter)" type="text"></div></td>
+    <td class="border-right-td"><div class="text-center"><input onkeypress="validate(event)" id="@String.Concat("invoice_price", counter)" name="@String.Concat("invoice_price", counter)" onkeyup="Total(@counter);TotalReceived1(@counter)" placeholder="0.0" class="4 new-invoice-width-boxes unbold width-68 text-center" type="text"></div></td>
+    <td class="border-right-td hidecolumn text-center"><input onkeypress="validate(event)" id="@String.Concat("invoice_price_vat",counter)" name="@String.Concat("invoice_price_vat",counter)" onkeyup="Total2(@counter);TotalReceived2(@counter)" placeholder="0.0" class="5 new-invoice-width-boxes unbold width-78 text-center" type="text"></td>
+    <td class="border-right-td text-center"><input readonly id="@String.Concat("invoice_total",counter)" name="@String.Concat("invoice_total",counter)" placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center" type="text"></td>
+    <td class="border-right-td hidecolumn text-center"><input readonly id="@String.Concat("invoice_total_vat",counter)" name="@String.Concat("invoice_total_vat",counter)" placeholder="0.0" class="7 new-invoice-width-boxes unbold width-78 text-center" type="text"></td>
+
+    @*<td class="text-center border-right-td width-68"><div id="@String.Concat("invoice_total",counter)" class="6 total_invoice_background text-center">£0</div></td>
+        <td class="border-right-td text-center width-78 hidecolumn"><div id="@String.Concat("invoice_total_vat",counter)" class="7 total_invoice_background text-center">£0</div></td>*@
+
+    <td class="border-right-td  text-center" hidden><input readonly id="@String.Concat("received_total", counter)" placeholder="0.0" class="6 new-invoice-width-boxes unbold width-68 text-center" name="@String.Concat("received_total", counter)" type="text"></td>
+
+    @*<td class="border-right-td"><div class="text-center"><input onkeypress="validate(event)" onkeyup="Total(@counter);" id="@String.Concat("invoice_discount",@counter)" placeholder="0.0" class="8 unbold width-45 text-center" name="@String.Concat("invoice_discount",counter)" type="text"></div></td>*@
+    <td class="hidden"><input type="text" class="hidden" name="@String.Concat("invoice_product_id",counter)" id="@String.Concat("invoice_product_id",counter)" /></td>
+    <td class="text-center width-27p" style="vertical-align:middle;">
+        <a href="#" class="showdiv">
+            <img src="/img/images/plus_new_sale.png">
+        </a>
+        <a href="#" class="remove" onclick="RemoveAddedRow(@counter)">
+            <img src="/img/images/cross_new_sale.png">
+        </a>
+        <a href="#" id="@String.Concat("serial_number",counter)" onclick="serial_number_click(@counter)">
+            <img src="/img/images/barcode_new_sale.png">
+        </a>
+        @*<a href="#">
+            <img src="/img/images/barcode_new_sale.png">
+        </a>
+        <a href="#">
+            <img src="/img/images/findpost.png">
+        </a>*@
+    </td>
+
+    <input type="hidden" id="@String.Concat("total_hidden", counter)" name="@String.Concat("total_hidden", counter)" />
+    <input type="hidden" id="@String.Concat("total_vat_hidden", counter)" name="@String.Concat("total_vat_hidden", counter)" />
+    <input  type="text" class="remove_div" id="@String.Concat("serial_number_value_input_checkbox", counter)" name="@String.Concat("serial_number_value_input_checkbox", counter)" value="0" hidden/>
+
+</tr>
