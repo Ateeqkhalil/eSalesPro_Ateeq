@@ -1,6 +1,6 @@
 ﻿
-var timoutWarning = 1000;
-//var timoutWarning = 1200000;
+//var timoutWarning = 1000;
+var timoutWarning = 1200000;
 //var timoutWarning = 10000;
 var warningTimer;
 
